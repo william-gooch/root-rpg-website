@@ -1,0 +1,6 @@
+$color-background: #303030;
+$color-background-dark: scale-color($color-background, $lightness: -50%);
+$color-background-light: scale-color($color-background, $lightness: 10%);
+$color-text: #ffffff;
+$color-primary: #ff3d00;
+$color-secondary: #f44336;

@@ -1,0 +1,230 @@
+@import "../styles/variables";
+
+.character-page-container {
+    .page-container {
+        padding: 1vw;
+        flex-grow: 1;
+        .page-column {
+            height: 100%;
+            padding: 1vw;
+            background-color: $color-background;
+
+            .header-row {
+                margin-bottom: 1.5rem;
+            }
+
+            .main-row {
+                .details-box {
+                    margin-bottom: 1vw;
+                }
+
+                .background-box,
+                .harm-box {
+                    background-color: $color-background-light;
+                    padding: 1vw;
+                    border-radius: 0 1vw 0 1vw;
+                }
+
+                .avatar-box {
+                    height: 30vh;
+                }
+
+                .drives-box,
+                .nature-box,
+                .connections-box,
+                .stats-box,
+                .harm-box,
+                .feats-box,
+                .skills-box,
+                .moves-box {
+                    .title {
+                        font-size: 2rem;
+                        text-align: center;
+                        background-color: $color-background-light;
+                        padding: 0.5vw;
+                        border-radius: 1vw 0 1vw 0;
+                    }
+                    margin-bottom: 1vw;
+                }
+
+                .stats-box {
+                    .stat-row {
+                        margin-bottom: 0.5rem;
+                        .stat-name {
+                            font-size: 2rem;
+                            text-align: center;
+                            background-color: $color-background-light;
+                            padding: 0.5vw;
+                            border-radius: 1vw 0 1vw 0;
+                        }
+                        .stat-value {
+                            font-size: 2rem;
+                            width: 4rem;
+                            height: 4rem;
+                            text-align: center;
+                            border-radius: 2rem;
+                            background-color: $color-background-light;
+                            margin-right: 1rem;
+                            line-height: 4rem;
+                        }
+                    }
+                }
+
+                .harm-box {
+                    .harm-row {
+                        .MuiCheckbox-root {
+                            padding: 0.1rem;
+                        }
+                        .harm-name {
+                            font-size: 1.5rem;
+                            margin-left: 1rem;
+                            text-transform: uppercase;
+                            letter-spacing: 0.2rem;
+                        }
+                    }
+                }
+            }
+
+            .reputation-row {
+                .title {
+                    position: relative;
+                    overflow: hidden;
+                    text-align: center;
+                    margin-bottom: 1vw;
+
+                    span {
+                        display: inline-block;
+                        font-size: 2rem;
+                        z-index: 1;
+                        background-color: $color-background-light;
+                        padding: 0.25vw 2vw;
+                        border-radius: 1vw 0 1vw 0;
+                    }
+
+                    &::before,
+                    &::after {
+                        position: absolute;
+                        top: 51%;
+                        overflow: hidden;
+                        width: 50%;
+                        height: 0px;
+                        content: "\a0";
+                        border-bottom: 2px dashed $color-background-light;
+                    }
+
+                    &::before {
+                        margin-left: -50%;
+                        text-align: right;
+                    }
+                }
+
+                .reputation-table table tbody {
+                    .faction-row {
+                        td {
+                            .MuiCheckbox-root {
+                                padding: 0.05rem;
+                            }
+                            &.spacer {
+                                padding: 0.3rem;
+                            }
+                        }
+                    }
+
+                    .status-row {
+                        th {
+                            position: relative;
+                            overflow: hidden;
+                            text-align: center;
+
+                            &.notoriety {
+                                color: $color-primary;
+                                &::before,
+                                &::after {
+                                    border-bottom: 2px solid $color-primary;
+                                }
+                            }
+                            &.prestige {
+                                color: $color-secondary;
+                                &::before,
+                                &::after {
+                                    border-bottom: 2px solid $color-secondary;
+                                }
+                            }
+
+                            span {
+                                display: inline-block;
+                                z-index: 1;
+                                background-color: inherit;
+                                padding: 0 0.25vw;
+                            }
+
+                            &::before,
+                            &::after {
+                                position: absolute;
+                                top: 51%;
+                                overflow: hidden;
+                                width: 50%;
+                                height: 0px;
+                                content: "\a0";
+                            }
+
+                            &::before {
+                                margin-left: -50%;
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .equipment-box {
+                .title {
+                    font-size: 2rem;
+                    text-align: center;
+                    background-color: $color-background-light;
+                    padding: 0.5vw;
+                    border-radius: 1vw 1vw 0 0;
+                }
+                .equipment-container {
+                    background-color: $color-background-light;
+                    padding: 1vw;
+                    border-radius: 0 1vw 1vw 1vw;
+
+                    .equipment-item {
+                        padding: 0.25vw;
+                        .item-container {
+                            background-color: $color-background;
+                            padding: 0.5vw;
+                            border-radius: 0.5vw;
+                            height: 100%;
+                            .item-name {
+                                font-weight: bolder;
+                                font-size: 1.5rem;
+                            }
+                            .MuiCheckbox-root {
+                                padding: 0.05rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .playbook-name {
+        font-size: 3rem;
+        text-align: center;
+        white-space: nowrap;
+        padding: 0.25vw 1vw;
+    }
+
+    .playbook-blurb {
+        font-size: 1.25rem;
+        padding-left: 1vw;
+        text-align: center;
+    }
+
+    .text-field {
+        padding: 0.25vmax;
+    }
+}
