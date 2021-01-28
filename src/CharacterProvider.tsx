@@ -1,7 +1,6 @@
 import React from "react";
 import * as Automerge from "automerge";
-import { arbiterData } from "./model/playbooks/arbiter";
-import { Character, fromPlaybook } from "./model/character";
+import { Character, fromPlaybook, playbooks } from "root-rpg-model";
 
 // @ts-ignore
 import AutomergeClient from "automerge-client";
@@ -12,30 +11,34 @@ type CharacterContextType = [
 ]
 const CharacterContext = React.createContext<CharacterContextType>(null as any);
 
-export const CharacterProvider: React.FC = props => {
+const initializeDocument = (doc: Automerge.Doc<Character>) => {
+    const template = Automerge.from(fromPlaybook(playbooks.arbiter));
+    return Automerge.merge(doc, template);
+}
+
+export const CharacterProvider: React.FC<{ id: string }> = props => {
     const [automergeClient, setAutomergeClient] = React.useState<any>();
     const [character, setCharacter] = React.useState<Automerge.Doc<Character>>(undefined as any);
 
     React.useEffect(() => {
         const socket = new WebSocket("ws://localhost:3001");
-        const savedData = JSON.stringify({ a: Automerge.save(Automerge.from(fromPlaybook(arbiterData))) });
         const automergeClient = new AutomergeClient({
             socket,
-            savedData,
-            save: (data: string) => console.log(data),
-            onChange: (id: string, doc: any) => {
-                if(id === "a") {
+            savedData: localStorage.getItem("automerge"),
+            save: (data: string) => localStorage.setItem("automerge", data),
+            onChange: (id: string, doc: Automerge.Doc<Character>) => {
+                if(id === props.id) {
                     setCharacter(doc);
                 }
             }
         });
-        automergeClient.subscribe("a");
+        automergeClient.subscribe(props.id);
         setAutomergeClient(automergeClient);
-    }, []);
+    }, [props.id]);
 
     const changeFn = React.useCallback((fn: Automerge.ChangeFn<Character>) => {
-        automergeClient.change("a", fn);
-    }, [automergeClient]);
+        automergeClient.change(props.id, fn);
+    }, [props.id, automergeClient]);
 
     return (
         <CharacterContext.Provider value={[character, changeFn]}>

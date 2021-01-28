@@ -1,6 +1,6 @@
 import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid } from "@material-ui/core";
 import React from "react"
-import { roguishFeats } from "../../model/model";
+import { roguishFeats } from "root-rpg-model";
 
 const RoguishFeatsBox: React.FC = props => {
   return (

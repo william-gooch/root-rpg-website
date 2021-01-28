@@ -1,7 +1,7 @@
 import { Grid, Checkbox } from "@material-ui/core";
 import React from "react"
 import { useCharacter } from "../../CharacterProvider";
-import { Harm } from "../../model/character";
+import { Harm } from "root-rpg-model";
 
 const HarmBox: React.FC = props => {
   const [character, changeCharacter] = useCharacter();

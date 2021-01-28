@@ -1,7 +1,7 @@
 import { Grid, FormGroup, FormLabel, FormHelperText, TextField } from "@material-ui/core";
 import React from "react"
 import { useCharacter } from "../../CharacterProvider";
-import { Connection } from "../../model/playbooks/playbook";
+import { Connection } from "root-rpg-model";
 
 const BlurbSplit: React.FC<{ textField: React.ReactElement<any, any>, blurb: string }> = React.memo(({ blurb, textField }) => {
   const [before, after] = blurb.split("###");
@@ -30,7 +30,7 @@ const Connections: React.FC = props => {
           {character.playbook.connections.map(connection =>
             <div key={connection.name} className="option">
               <FormLabel className="name">{connection.name}</FormLabel>
-              <FormHelperText className="blurb">
+              <div className="blurb">
                 <BlurbSplit
                   blurb={connection.blurb}
                   textField={
@@ -40,7 +40,7 @@ const Connections: React.FC = props => {
                     />
                   }
                 />
-              </FormHelperText>
+              </div>
               <FormHelperText className="description"><i>{connection.description}</i></FormHelperText>
             </div>
           )}

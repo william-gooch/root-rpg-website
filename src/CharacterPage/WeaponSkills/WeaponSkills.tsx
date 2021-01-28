@@ -1,6 +1,6 @@
 import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel } from "@material-ui/core";
 import React from "react"
-import { weaponSkills, WeaponSkill } from "../../model/model";
+import { weaponSkills, WeaponSkill } from "root-rpg-model";
 
 interface WeaponSkillsProps {
   boldedSkills: { [k in WeaponSkill]?: boolean };

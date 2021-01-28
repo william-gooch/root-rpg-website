@@ -2,7 +2,7 @@ import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText 
 import marked from "marked";
 import React from "react"
 import { useCharacter } from "../../CharacterProvider";
-import { Move } from "../../model/playbooks/playbook";
+import { Move } from "root-rpg-model";
 
 const Moves: React.FC = props => {
   const [character, changeCharacter] = useCharacter();

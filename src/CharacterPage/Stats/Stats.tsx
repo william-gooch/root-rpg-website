@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React from "react"
-import { Stats } from "../../model/playbooks/playbook";
+import { Stats } from "root-rpg-model";
 
 interface StatsProps {
   stats: Stats;

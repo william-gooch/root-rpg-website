@@ -1,8 +1,7 @@
 import { Grid, IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Replay } from "@material-ui/icons";
 import React from "react";
-import { names } from "../../model/names";
-import { species as speciess } from "../../model/species";
+import { names, species as speciess } from "root-rpg-model";
 import { useCharacter } from "../../CharacterProvider";
 
 interface DetailsProps {

@@ -1,7 +1,7 @@
 import { Checkbox, Grid } from "@material-ui/core";
 import marked from "marked";
 import React from "react"
-import { defaultEquipment, tags } from "../../model/equipment";
+import { defaultEquipment, equipmentTags } from "root-rpg-model";
 
 interface EquipmentProps {
   
@@ -19,8 +19,8 @@ const Equipment: React.FC<EquipmentProps> = props => {
                 <Grid item container spacing={2} direction="row" alignItems="center">
                   <Grid item className="item-name"><b>{item.name}</b></Grid>
                   <Grid item>
-                    {Array.from(new Array(item.wear)).map(_ =>
-                      <Checkbox />
+                    {Array.from(new Array(item.wear)).map((_, i) =>
+                      <Checkbox key={i} />
                     )}
                   </Grid>
                   <Grid item><b>Value:</b> {item.value}</Grid>
@@ -33,8 +33,8 @@ const Equipment: React.FC<EquipmentProps> = props => {
                   </Grid>
                 }
                 {item.tags.map(tag =>
-                  <Grid item>
-                    <b>{tag}</b>: <span dangerouslySetInnerHTML={{ __html: marked.parseInline(tags.find(t => t.name === tag)!.description) }} />
+                  <Grid key={tag} item>
+                    <b>{tag}</b>: <span dangerouslySetInnerHTML={{ __html: marked.parseInline(equipmentTags.find(t => t.name === tag)!.description) }} />
                   </Grid>
                 )}
               </div>
