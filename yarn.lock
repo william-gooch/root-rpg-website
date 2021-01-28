@@ -2621,6 +2621,14 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+automerge-client@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/automerge-client/-/automerge-client-0.0.6.tgz#c11ef5a589c6000f2c68e63f97421bce40d93d8f"
+  integrity sha512-swaTGAK12qqjDhjEnSBIOoEQyGyt/TQ+4AId1POUoN3GwvVjxxbmeTynv69zr3JpkpvhgB4k9DmZmTcFzRmfPw==
+  dependencies:
+    automerge "^0.8.0"
+    esm "^3.0.82"
+
 automerge@^0.14.2:
   version "0.14.2"
   resolved "https://registry.yarnpkg.com/automerge/-/automerge-0.14.2.tgz#47503df1772fe3d917b80226e074589d9fb5f549"
@@ -2630,6 +2638,16 @@ automerge@^0.14.2:
     transit-immutable-js "^0.7.0"
     transit-js "^0.8.861"
     uuid "^3.4.0"
+
+automerge@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/automerge/-/automerge-0.8.0.tgz#dd5b8073d2b56801a4354bb0955d67bbceece9f6"
+  integrity sha512-TB+b+N/VATzQH3hQrzAmTvfyyo04SNUer9ml4M1PRSQ4Bq0OYgclqi3hdYlNG4d/rSWKq897nbkg7gbni7CV2w==
+  dependencies:
+    immutable "^3.8.2"
+    transit-immutable-js "^0.7.0"
+    transit-js "^0.8.861"
+    uuid "3.1.0"
 
 autoprefixer@^9.6.1:
   version "9.8.6"
@@ -4878,6 +4896,11 @@ eslint@^7.11.0:
     table "^5.2.3"
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
+
+esm@^3.0.82:
+  version "3.2.25"
+  resolved "https://registry.yarnpkg.com/esm/-/esm-3.2.25.tgz#342c18c29d56157688ba5ce31f8431fbb795cc10"
+  integrity sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==
 
 espree@^7.3.0:
   version "7.3.0"
@@ -11672,6 +11695,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
+  integrity sha512-DIWtzUkw04M4k3bf1IcpS2tngXEL26YUD2M0tMDUpnUrz2hgzUBlD55a4FjdLGPvfHxS6uluGWvaVEqgBcVa+g==
 
 uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"

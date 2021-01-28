@@ -1,5 +1,4 @@
 import React from 'react';
-import * as Automerge from "automerge";
 import { Grid } from '@material-ui/core';
 
 import './CharacterPage.scss';
@@ -24,6 +23,11 @@ interface CharacterPageProps {
 
 const CharacterPage: React.FC<CharacterPageProps> = (props) => {
   const [character, changeCharacter] = useCharacter();
+
+  if(!character) {
+    return <div>Loading...</div>;
+  }
+
   const playbook = character.playbook;
 
   return (
