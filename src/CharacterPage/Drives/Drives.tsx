@@ -27,4 +27,4 @@ const Drives: React.FC<DrivesProps> = props => {
   );
 };
 
-export default Drives;
+export default React.memo(Drives);

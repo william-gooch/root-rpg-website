@@ -46,4 +46,4 @@ const Equipment: React.FC<EquipmentProps> = props => {
   );
 };
 
-export default Equipment;
+export default React.memo(Equipment);

@@ -28,4 +28,4 @@ const Moves: React.FC<MovesProps> = props => {
   );
 };
 
-export default Moves;
+export default React.memo(Moves);

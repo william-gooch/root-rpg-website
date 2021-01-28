@@ -1,35 +1,37 @@
 import { Grid, IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Replay } from "@material-ui/icons";
-import React from "react"
+import React from "react";
 import { names } from "../../model/names";
 import { species as speciess } from "../../model/species";
-import { usePlaybook } from "../../PlaybookProvider";
+import { useCharacter, useCharacterProperty } from "../../CharacterProvider";
 
 interface DetailsProps {
-  
 }
 
-const Details: React.FC<DetailsProps> = props => {
-  const playbook = usePlaybook();
+const Details: React.FC<DetailsProps> = () => {
+  const [character, changeCharacter] = useCharacter();
+  const playbook = character.playbook;
 
-  const [name, setName] = React.useState("");
-  const [species, setSpecies] = React.useState("");
-  const [demeanor, setDemeanor] = React.useState("");
+  const [name, setName] = useCharacterProperty("name");
+  const [species, setSpecies] = useCharacterProperty("species");
+  const [details, setDetails] = useCharacterProperty("details");
+  const [demeanor, setDemeanor] = useCharacterProperty("demeanor");
 
-  const generateName = () => {
+
+  const generateName = React.useCallback(() => {
     const idx = Math.floor(Math.random() * names.length);
     setName(names[idx]);
-  }
+  }, [setName]);
 
-  const generateSpecies = () => {
+  const generateSpecies = React.useCallback(() => {
     const idx = Math.floor(Math.random() * speciess.length);
     setSpecies(speciess[idx]);
-  }
+  }, [setSpecies]);
 
-  const generateDemeanor = () => {
+  const generateDemeanor = React.useCallback(() => {
     const idx = Math.floor(Math.random() * playbook.demeanors.length);
     setDemeanor(playbook.demeanors[idx]);
-  }
+  }, [setDemeanor, playbook.demeanors]);
 
   return (
     <Grid item container direction="column" className="details-box">
@@ -64,7 +66,10 @@ const Details: React.FC<DetailsProps> = props => {
         />
       </Grid>
       <Grid item className="text-field">
-        <TextField fullWidth multiline rows={3} rowsMax={5} variant="outlined" label="Details" />
+        <TextField fullWidth multiline rows={3} rowsMax={5} variant="outlined" label="Details"
+          value={details}
+          onChange={evt => setDetails(evt.target.value)}
+        />
       </Grid>
       <Grid item className="text-field">
         <TextField fullWidth variant="outlined" label="Demeanor"
@@ -85,4 +90,4 @@ const Details: React.FC<DetailsProps> = props => {
   );
 };
 
-export default Details;
+export default React.memo(Details);

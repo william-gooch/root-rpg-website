@@ -33,5 +33,13 @@
 			"",
 			"export default ${1:Name};"
 		]
+	},
+	"temp": {
+		"scope": "typescript,typescriptreact",
+		"prefix": "temp",
+		"body": [
+			"get ${1:name}() { return this.ymap.get(\"${1:name}\"); }",
+			"set ${1:name}(value) { this.ymap.set(\"${1:name}\", value); }",
+		]
 	}
 }

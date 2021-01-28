@@ -3,8 +3,7 @@ import { deepOrange, red } from '@material-ui/core/colors';
 import React from 'react';
 import './App.scss';
 import CharacterPage from './CharacterPage/CharacterPage';
-import { arbiterData } from './model/playbooks/arbiter';
-import { PlaybookProvider } from './PlaybookProvider';
+import { CharacterProvider } from './CharacterProvider';
 
 const theme = createMuiTheme({
   palette: {
@@ -17,9 +16,9 @@ const theme = createMuiTheme({
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <PlaybookProvider value={arbiterData}>
+      <CharacterProvider>
         <CharacterPage />
-      </PlaybookProvider>
+      </CharacterProvider>
     </ThemeProvider>
   );
 }

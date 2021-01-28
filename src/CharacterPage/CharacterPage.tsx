@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Automerge from "automerge";
 import { Grid } from '@material-ui/core';
 
 import './CharacterPage.scss';
@@ -15,11 +16,15 @@ import RoguishFeats from './RoguishFeats/RoguishFeats';
 import WeaponSkills from './WeaponSkills/WeaponSkills';
 import Moves from './Moves/Moves';
 
-import { usePlaybook } from '../PlaybookProvider';
 import Equipment from './Equipment/Equipment';
+import { useCharacter } from '../CharacterProvider';
 
-const CharacterPage: React.FC = () => {
-  const playbook = usePlaybook();
+interface CharacterPageProps {
+}
+
+const CharacterPage: React.FC<CharacterPageProps> = (props) => {
+  const [character, changeCharacter] = useCharacter();
+  const playbook = character.playbook;
 
   return (
     <Grid container direction="row" alignItems="stretch" className="character-page-container">
@@ -32,7 +37,7 @@ const CharacterPage: React.FC = () => {
               <Background />
             </Grid>
             <Grid item lg={4} container alignItems="stretch" direction="column" className="second-column">
-              <Grid item container direction="column" className="avatar-box"></Grid>
+              <Grid item container direction="column" className="avatar-box">Hello, {character.name} the {character.species}! Your details are {character.details}, and you're looking quite {character.demeanor} today...</Grid>
               <Drives drives={playbook.drives} />
             </Grid>
             <Grid item lg={4} container alignItems="stretch" direction="column" className="third-column">
@@ -67,4 +72,4 @@ const CharacterPage: React.FC = () => {
   );
 }
 
-export default CharacterPage;
+export default React.memo(CharacterPage);

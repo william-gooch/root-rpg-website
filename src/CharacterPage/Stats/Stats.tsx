@@ -19,4 +19,4 @@ const StatsBox: React.FC<StatsProps> = props => {
   );
 };
 
-export default StatsBox;
+export default React.memo(StatsBox);

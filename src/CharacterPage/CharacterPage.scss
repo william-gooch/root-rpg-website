@@ -47,6 +47,33 @@
                     margin-bottom: 1vw;
                 }
 
+                .connections-box {
+                    .connections-options {
+                        .option {
+                            margin: 0.5vw 0;
+                            .name {
+                                font-size: 1.25rem;
+                            }
+                            .blurb {
+                                font-size: 1rem;
+                                line-height: 1.25rem;
+                                .connection-name-entry .MuiInputBase-root {
+                                    height: 1.25rem;
+                                    font-size: 1rem;
+                                    width: 5vw;
+                                    .MuiInputBase-input {
+                                        color: rgba(255, 255, 255, 0.7);
+                                        text-align: center;
+                                    }
+                                }
+                            }
+                            .description {
+                                font-size: 0.75rem;
+                            }
+                        }
+                    }
+                }
+
                 .stats-box {
                     .stat-row {
                         margin-bottom: 0.5rem;

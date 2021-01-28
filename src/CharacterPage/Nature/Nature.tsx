@@ -28,4 +28,4 @@ const NatureBox: React.FC<NatureProps> = props => {
   );
 };
 
-export default NatureBox;
+export default React.memo(NatureBox);

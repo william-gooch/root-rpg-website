@@ -22,4 +22,4 @@ const RoguishFeatsBox: React.FC = props => {
   );
 };
 
-export default RoguishFeatsBox;
+export default React.memo(RoguishFeatsBox);

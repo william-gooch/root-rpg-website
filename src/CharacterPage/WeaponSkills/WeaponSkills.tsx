@@ -28,4 +28,4 @@ const WeaponSkillsBox: React.FC<WeaponSkillsProps> = props => {
   );
 };
 
-export default WeaponSkillsBox;
+export default React.memo(WeaponSkillsBox);

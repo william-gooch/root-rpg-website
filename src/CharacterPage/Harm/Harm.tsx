@@ -20,4 +20,4 @@ const Harm: React.FC<HarmProps> = props => {
   );
 };
 
-export default Harm;
+export default React.memo(Harm);

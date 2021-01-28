@@ -40,4 +40,4 @@ const Reputation: React.FC = props => {
   );
 };
 
-export default Reputation;
+export default React.memo(Reputation);
