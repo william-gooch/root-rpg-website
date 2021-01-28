@@ -25,7 +25,9 @@ export interface Character {
     backgroundFactionServed: string;
     backgroundFactionEnmity: string;
 
-    drives: string[];
+    drives: {
+        [name: string]: boolean;
+    };
     nature: string;
     connections: {
         [name: string]: string;
@@ -65,7 +67,7 @@ export const fromPlaybook = (playbook: Playbook): Character => {
         backgroundFactionServed: "",
         backgroundFactionEnmity: "",
 
-        drives: [],
+        drives: {},
         nature: "",
         connections: Object.fromEntries(playbook.connections.map(connection => [connection.name, ""])),
 

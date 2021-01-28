@@ -1,5 +1,7 @@
-import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText } from "@material-ui/core";
+import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText, RadioGroup, Radio } from "@material-ui/core";
+import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import React from "react"
+import { useCharacter } from "../../CharacterProvider";
 
 import { Nature } from "../../model/playbooks/playbook";
 
@@ -8,21 +10,36 @@ interface NatureProps {
 }
 
 const NatureBox: React.FC<NatureProps> = props => {
+  const [character, changeCharacter] = useCharacter();
+
+  const updateNature = React.useCallback((nature: string) => {
+    changeCharacter(d => d.nature = nature);
+  }, [changeCharacter]);
+
   return (
     <Grid item container direction="column" className="nature-box">
       <Grid item className="title">Your Nature</Grid>
       <Grid item className="nature-options">
-        <FormGroup>
+        <RadioGroup
+          value={character.nature}
+          onChange={evt => updateNature(evt.target.value)}
+        >
           {props.natures.map(nature =>
             <FormControlLabel key={nature.name}
-              control={<Checkbox />}
+              value={nature.name}
+              control={
+                <Radio
+                  icon={<CheckBoxOutlineBlank />}
+                  checkedIcon={<CheckBox />}
+                />
+              }
               label={<>
                 <FormLabel>{nature.name}</FormLabel>
                 <FormHelperText>{nature.description}</FormHelperText>
               </>}
             />
           )}
-        </FormGroup>
+        </RadioGroup>
       </Grid>
     </Grid>
   );

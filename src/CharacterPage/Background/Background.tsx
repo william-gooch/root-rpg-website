@@ -1,13 +1,20 @@
 import { Grid, TextField } from "@material-ui/core";
 import React from "react"
-import { useCharacterProperty } from "../../CharacterProvider";
+import { useCharacter } from "../../CharacterProvider";
 
 const Background: React.FC = () => {
-  const [backgroundWhere, setBackgroundWhere] = useCharacterProperty("backgroundWhere");
-  const [backgroundWhy, setBackgroundWhy] = useCharacterProperty("backgroundWhy");
-  const [backgroundWho, setBackgroundWho] = useCharacterProperty("backgroundWho");
-  const [backgroundFactionServed, setBackgroundFactionServed] = useCharacterProperty("backgroundFactionServed");
-  const [backgroundFactionEnmity, setBackgroundFactionEnmity] = useCharacterProperty("backgroundFactionEnmity");
+  const [character, changeCharacter] = useCharacter();
+
+  const backgroundWhere = character.backgroundWhere;
+  const setBackgroundWhere = React.useCallback((backgroundWhere: string) => changeCharacter(d => d.backgroundWhere = backgroundWhere), [changeCharacter]);
+  const backgroundWhy = character.backgroundWhy;
+  const setBackgroundWhy = React.useCallback((backgroundWhy: string) => changeCharacter(d => d.backgroundWhy = backgroundWhy), [changeCharacter]);
+  const backgroundWho = character.backgroundWho;
+  const setBackgroundWho = React.useCallback((backgroundWho: string) => changeCharacter(d => d.backgroundWho = backgroundWho), [changeCharacter]);
+  const backgroundFactionServed = character.backgroundFactionServed;
+  const setBackgroundFactionServed = React.useCallback((backgroundFactionServed: string) => changeCharacter(d => d.backgroundFactionServed = backgroundFactionServed), [changeCharacter]);
+  const backgroundFactionEnmity = character.backgroundFactionEnmity;
+  const setBackgroundFactionEnmity = React.useCallback((backgroundFactionEnmity: string) => changeCharacter(d => d.backgroundFactionEnmity = backgroundFactionEnmity), [changeCharacter]);
 
   return (
     <Grid item container direction="column" className="background-box">

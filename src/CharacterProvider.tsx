@@ -23,19 +23,3 @@ export const CharacterProvider: React.FC = props => {
     );
 }
 export const useCharacter = () => React.useContext(CharacterContext);
-export const useCharacterProperty = (propertyName: keyof Character): [Character[keyof Character], React.Dispatch<React.SetStateAction<Character[keyof Character]>>] => {
-    const [doc, changeDoc] = useCharacter();
-
-    const val = doc[propertyName];
-    const setVal = (v: Character[keyof Character] | ((prevState: Character[keyof Character]) => Character[keyof Character])) => {
-        changeDoc(d => {
-            if(typeof v === "function") {
-                d[propertyName] = v(d[propertyName]) as any;
-            } else {
-                d[propertyName] = v as any;
-            }
-        });
-    }
-
-    return [val, setVal];
-}

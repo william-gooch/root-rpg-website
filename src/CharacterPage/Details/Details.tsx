@@ -3,7 +3,7 @@ import { Replay } from "@material-ui/icons";
 import React from "react";
 import { names } from "../../model/names";
 import { species as speciess } from "../../model/species";
-import { useCharacter, useCharacterProperty } from "../../CharacterProvider";
+import { useCharacter } from "../../CharacterProvider";
 
 interface DetailsProps {
 }
@@ -12,10 +12,14 @@ const Details: React.FC<DetailsProps> = () => {
   const [character, changeCharacter] = useCharacter();
   const playbook = character.playbook;
 
-  const [name, setName] = useCharacterProperty("name");
-  const [species, setSpecies] = useCharacterProperty("species");
-  const [details, setDetails] = useCharacterProperty("details");
-  const [demeanor, setDemeanor] = useCharacterProperty("demeanor");
+  const name = character.name;
+  const setName = React.useCallback((name: string) => changeCharacter(d => d.name = name), [changeCharacter]);
+  const species = character.species;
+  const setSpecies = React.useCallback((species: string) => changeCharacter(d => d.species = species), [changeCharacter]);
+  const details = character.details;
+  const setDetails = React.useCallback((details: string) => changeCharacter(d => d.details = details), [changeCharacter]);
+  const demeanor = character.demeanor;
+  const setDemeanor = React.useCallback((demeanor: string) => changeCharacter(d => d.demeanor = demeanor), [changeCharacter]);
 
 
   const generateName = React.useCallback(() => {
