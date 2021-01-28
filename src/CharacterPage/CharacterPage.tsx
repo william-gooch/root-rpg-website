@@ -38,11 +38,11 @@ const CharacterPage: React.FC<CharacterPageProps> = (props) => {
             </Grid>
             <Grid item lg={4} container alignItems="stretch" direction="column" className="second-column">
               <Grid item container direction="column" className="avatar-box">Hello, {character.name} the {character.species}! Your details are {character.details}, and you're looking quite {character.demeanor} today...</Grid>
-              <Drives drives={playbook.drives} />
+              <Drives />
             </Grid>
             <Grid item lg={4} container alignItems="stretch" direction="column" className="third-column">
-              <Nature natures={playbook.natures} />
-              <Connections connections={playbook.connections} />
+              <Nature />
+              <Connections />
             </Grid>
           </Grid>
           <Reputation />
@@ -58,7 +58,7 @@ const CharacterPage: React.FC<CharacterPageProps> = (props) => {
               <WeaponSkills boldedSkills={playbook.weaponSkills.bolded} />
             </Grid>
             <Grid item lg={8} container alignItems="stretch" direction="column" className="second-column">
-              <Moves moves={playbook.moves.options} />
+              <Moves />
             </Grid>
           </Grid>
         </Grid>

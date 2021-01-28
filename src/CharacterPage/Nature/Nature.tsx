@@ -3,13 +3,7 @@ import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import React from "react"
 import { useCharacter } from "../../CharacterProvider";
 
-import { Nature } from "../../model/playbooks/playbook";
-
-interface NatureProps {
-  natures: Nature[];
-}
-
-const NatureBox: React.FC<NatureProps> = props => {
+const NatureBox: React.FC = props => {
   const [character, changeCharacter] = useCharacter();
 
   const updateNature = React.useCallback((nature: string) => {
@@ -24,7 +18,7 @@ const NatureBox: React.FC<NatureProps> = props => {
           value={character.nature}
           onChange={evt => updateNature(evt.target.value)}
         >
-          {props.natures.map(nature =>
+          {character.playbook.natures.map(nature =>
             <FormControlLabel key={nature.name}
               value={nature.name}
               control={

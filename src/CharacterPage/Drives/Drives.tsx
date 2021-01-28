@@ -3,11 +3,7 @@ import React from "react"
 import { useCharacter } from "../../CharacterProvider";
 import { Drive } from "../../model/playbooks/playbook";
 
-interface DrivesProps {
-  drives: Drive[];
-}
-
-const Drives: React.FC<DrivesProps> = props => {
+const Drives: React.FC = () => {
   const [character, changeCharacter] = useCharacter();
 
   const updateDrive = React.useCallback((drive: Drive, value: boolean) => {
@@ -29,7 +25,7 @@ const Drives: React.FC<DrivesProps> = props => {
       <Grid item className="title">Your Drives</Grid>
       <Grid item className="drives-options">
         <FormGroup>
-          {props.drives.map(drive =>
+          {character.playbook.drives.map(drive =>
             <FormControlLabel key={drive.name}
               control={
                 <Checkbox
