@@ -6,6 +6,7 @@ import CharacterPage from './CharacterPage/CharacterPage';
 import { CharacterProvider } from './CharacterProvider';
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import HomePage from './HomePage/HomePage';
 
 const theme = createMuiTheme({
   palette: {
@@ -28,7 +29,7 @@ const App: React.FC = () => {
               </CharacterProvider>
             )}
           />
-          <Route path="/">Hello!</Route>
+          <Route path="/" component={HomePage} />
         </Switch>
       </Router>
     </ThemeProvider>

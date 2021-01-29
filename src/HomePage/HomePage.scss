@@ -1,0 +1,13 @@
+@import "../styles/variables";
+
+.home-page-container {
+    height: 100%;
+
+    .page-container {
+        .home-box {
+            padding: 2rem;
+            border-radius: 0.5rem;
+            background-color: $color-background;
+        }
+    }
+}
