@@ -1,25 +1,35 @@
-import { Grid, IconButton, InputAdornment, TextField } from "@material-ui/core";
-import { Replay } from "@material-ui/icons";
-import React from "react";
-import { names, species as speciess } from "root-rpg-model";
-import { useCharacter } from "../../CharacterProvider";
+import { Grid, IconButton, InputAdornment, TextField } from '@material-ui/core';
+import { Replay } from '@material-ui/icons';
+import React from 'react';
+import { names, species as speciess } from 'root-rpg-model';
+import { useCharacter } from '../../CharacterProvider';
 
-interface DetailsProps {
-}
+interface DetailsProps {}
 
 const Details: React.FC<DetailsProps> = () => {
   const [character, changeCharacter] = useCharacter();
   const playbook = character.playbook;
 
   const name = character.name;
-  const setName = React.useCallback((name: string) => changeCharacter(d => d.name = name), [changeCharacter]);
+  const setName = React.useCallback(
+    (name: string) => changeCharacter(d => (d.name = name)),
+    [changeCharacter]
+  );
   const species = character.species;
-  const setSpecies = React.useCallback((species: string) => changeCharacter(d => d.species = species), [changeCharacter]);
+  const setSpecies = React.useCallback(
+    (species: string) => changeCharacter(d => (d.species = species)),
+    [changeCharacter]
+  );
   const details = character.details;
-  const setDetails = React.useCallback((details: string) => changeCharacter(d => d.details = details), [changeCharacter]);
+  const setDetails = React.useCallback(
+    (details: string) => changeCharacter(d => (d.details = details)),
+    [changeCharacter]
+  );
   const demeanor = character.demeanor;
-  const setDemeanor = React.useCallback((demeanor: string) => changeCharacter(d => d.demeanor = demeanor), [changeCharacter]);
-
+  const setDemeanor = React.useCallback(
+    (demeanor: string) => changeCharacter(d => (d.demeanor = demeanor)),
+    [changeCharacter]
+  );
 
   const generateName = React.useCallback(() => {
     const idx = Math.floor(Math.random() * names.length);
@@ -39,7 +49,10 @@ const Details: React.FC<DetailsProps> = () => {
   return (
     <Grid item container direction="column" className="details-box">
       <Grid item className="text-field">
-        <TextField fullWidth variant="outlined" label="Name"
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Name"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -47,14 +60,17 @@ const Details: React.FC<DetailsProps> = () => {
                   <Replay />
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
           value={name}
           onChange={evt => setName(evt.target.value)}
         />
       </Grid>
       <Grid item className="text-field">
-        <TextField fullWidth variant="outlined" label="Species"
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Species"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -62,20 +78,29 @@ const Details: React.FC<DetailsProps> = () => {
                   <Replay />
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
           value={species}
           onChange={evt => setSpecies(evt.target.value)}
         />
       </Grid>
       <Grid item className="text-field">
-        <TextField fullWidth multiline rows={3} rowsMax={5} variant="outlined" label="Details"
+        <TextField
+          fullWidth
+          multiline
+          rows={3}
+          rowsMax={5}
+          variant="outlined"
+          label="Details"
           value={details}
           onChange={evt => setDetails(evt.target.value)}
         />
       </Grid>
       <Grid item className="text-field">
-        <TextField fullWidth variant="outlined" label="Demeanor"
+        <TextField
+          fullWidth
+          variant="outlined"
+          label="Demeanor"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -83,7 +108,7 @@ const Details: React.FC<DetailsProps> = () => {
                   <Replay />
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
           value={demeanor}
           onChange={evt => setDemeanor(evt.target.value)}

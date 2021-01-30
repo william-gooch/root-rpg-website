@@ -1,9 +1,9 @@
-import { Grid } from "@material-ui/core";
-import React from "react";
+import { Grid } from '@material-ui/core';
+import React from 'react';
 
 interface HeaderProps {
-    name: string;
-    blurb: string;
+  name: string;
+  blurb: string;
 }
 
 const Header: React.FC<HeaderProps> = props => {
@@ -17,6 +17,6 @@ const Header: React.FC<HeaderProps> = props => {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default React.memo(Header);
