@@ -16,13 +16,13 @@ import WeaponSkills from "./WeaponSkills/WeaponSkills";
 import Moves from "./Moves/Moves";
 
 import Equipment from "./Equipment/Equipment";
-import { useCharacter } from "../CharacterProvider";
+import { useCurrentCharacter } from "../CharacterProvider";
 import TopBar from "../TopBar/TopBar";
 
 interface CharacterPageProps {}
 
 const CharacterPage: React.FC<CharacterPageProps> = props => {
-  const [character, changeCharacter] = useCharacter();
+  const [character, changeCharacter] = useCurrentCharacter();
 
   if (!character) {
     return <div>Loading...</div>;

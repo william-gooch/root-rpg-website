@@ -6,7 +6,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React from "react";
-import { useCharacter } from "../../CharacterProvider";
+import { useCurrentCharacter } from "../../CharacterProvider";
 import { Connection } from "root-rpg-model";
 
 const BlurbSplit: React.FC<{
@@ -25,7 +25,7 @@ const BlurbSplit: React.FC<{
 });
 
 const Connections: React.FC = props => {
-  const [character, changeCharacter] = useCharacter();
+  const [character, changeCharacter] = useCurrentCharacter();
 
   const updateConnection = React.useCallback(
     (connection: Connection, value: string) => {

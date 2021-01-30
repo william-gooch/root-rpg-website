@@ -2,12 +2,12 @@ import { Grid, IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { Replay } from "@material-ui/icons";
 import React from "react";
 import { names, species as speciess } from "root-rpg-model";
-import { useCharacter } from "../../CharacterProvider";
+import { useCurrentCharacter } from "../../CharacterProvider";
 
 interface DetailsProps {}
 
 const Details: React.FC<DetailsProps> = () => {
-  const [character, changeCharacter] = useCharacter();
+  const [character, changeCharacter] = useCurrentCharacter();
   const playbook = character.playbook;
 
   const name = character.name;

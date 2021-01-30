@@ -8,11 +8,11 @@ import {
 } from "@material-ui/core";
 import marked from "marked";
 import React from "react";
-import { useCharacter } from "../../CharacterProvider";
+import { useCurrentCharacter } from "../../CharacterProvider";
 import { Move } from "root-rpg-model";
 
 const Moves: React.FC = props => {
-  const [character, changeCharacter] = useCharacter();
+  const [character, changeCharacter] = useCurrentCharacter();
 
   const updateMove = React.useCallback(
     (move: Move, value: string) => {

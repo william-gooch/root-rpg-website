@@ -15,6 +15,7 @@ export const SocketProvider: React.FC = props => {
       } else if (data.action === "load") {
         let charactersToSave = "";
         const charactersString = localStorage.getItem("myCharacters");
+        console.log(charactersString);
         if (charactersString) {
           const characters = JSON.parse(charactersString) as string[];
           characters.push(data.id);

@@ -7,11 +7,11 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import React from "react";
-import { useCharacter } from "../../CharacterProvider";
+import { useCurrentCharacter } from "../../CharacterProvider";
 import { Drive } from "root-rpg-model";
 
 const Drives: React.FC = () => {
-  const [character, changeCharacter] = useCharacter();
+  const [character, changeCharacter] = useCurrentCharacter();
 
   const updateDrive = React.useCallback(
     (drive: Drive, value: boolean) => {

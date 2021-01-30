@@ -22,17 +22,12 @@ const App: React.FC = () => {
     <Router>
       <SocketProvider>
         <ThemeProvider theme={theme}>
-          <Switch>
-            <Route
-              path="/character/:id"
-              render={props => (
-                <CharacterProvider id={props.match.params.id}>
-                  <CharacterPage />
-                </CharacterProvider>
-              )}
-            />
-            <Route path="/" component={HomePage} />
-          </Switch>
+          <CharacterProvider>
+            <Switch>
+              <Route path="/character/:id" component={CharacterPage} />
+              <Route path="/" component={HomePage} />
+            </Switch>
+          </CharacterProvider>
         </ThemeProvider>
       </SocketProvider>
     </Router>

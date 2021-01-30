@@ -1,9 +1,9 @@
 import { Grid, TextField } from "@material-ui/core";
 import React from "react";
-import { useCharacter } from "../../CharacterProvider";
+import { useCurrentCharacter } from "../../CharacterProvider";
 
 const Background: React.FC = () => {
-  const [character, changeCharacter] = useCharacter();
+  const [character, changeCharacter] = useCurrentCharacter();
 
   const backgroundWhere = character.backgroundWhere;
   const setBackgroundWhere = React.useCallback(
