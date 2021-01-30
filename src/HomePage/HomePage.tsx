@@ -1,9 +1,10 @@
 import React from "react";
 import { History } from "history";
-import { Grid, IconButton, TextField } from "@material-ui/core";
+import { Button, Grid, IconButton, TextField } from "@material-ui/core";
 import { ChevronRight } from "@material-ui/icons";
 
 import "./HomePage.scss";
+import { useSocket } from "../SocketProvider";
 
 interface HomePageProps {
   history: History;
@@ -11,12 +12,17 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = props => {
   const [id, setId] = React.useState("");
+  const socket = useSocket();
 
   const navigateToCharacterPage = React.useCallback((id: string) => {
     if(id) {
       props.history.push(`/character/${id}`);
     }
-  }, [props.history])
+  }, [props.history]);
+
+  const createNewCharacter = React.useCallback(() => {
+    socket.send(JSON.stringify({ action: "new-document" }));
+  }, [socket]);
 
   return (
     <Grid container direction="row" alignItems="center" className="home-page-container">
@@ -35,6 +41,7 @@ const HomePage: React.FC<HomePageProps> = props => {
               )
             }}
           />
+          <Button onClick={createNewCharacter}>Create New Character</Button>
         </Grid>
       </Grid>
     </Grid>
