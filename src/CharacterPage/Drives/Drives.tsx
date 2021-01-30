@@ -5,10 +5,10 @@ import {
   Checkbox,
   FormLabel,
   FormHelperText,
-} from '@material-ui/core';
-import React from 'react';
-import { useCharacter } from '../../CharacterProvider';
-import { Drive } from 'root-rpg-model';
+} from "@material-ui/core";
+import React from "react";
+import { useCharacter } from "../../CharacterProvider";
+import { Drive } from "root-rpg-model";
 
 const Drives: React.FC = () => {
   const [character, changeCharacter] = useCharacter();

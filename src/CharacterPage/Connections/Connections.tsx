@@ -4,16 +4,16 @@ import {
   FormLabel,
   FormHelperText,
   TextField,
-} from '@material-ui/core';
-import React from 'react';
-import { useCharacter } from '../../CharacterProvider';
-import { Connection } from 'root-rpg-model';
+} from "@material-ui/core";
+import React from "react";
+import { useCharacter } from "../../CharacterProvider";
+import { Connection } from "root-rpg-model";
 
 const BlurbSplit: React.FC<{
   textField: React.ReactElement<any, any>;
   blurb: string;
 }> = React.memo(({ blurb, textField }) => {
-  const [before, after] = blurb.split('###');
+  const [before, after] = blurb.split("###");
 
   return (
     <>

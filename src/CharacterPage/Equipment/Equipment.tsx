@@ -1,7 +1,7 @@
-import { Checkbox, Grid } from '@material-ui/core';
-import marked from 'marked';
-import React from 'react';
-import { defaultEquipment, equipmentTags } from 'root-rpg-model';
+import { Checkbox, Grid } from "@material-ui/core";
+import marked from "marked";
+import React from "react";
+import { defaultEquipment, equipmentTags } from "root-rpg-model";
 
 interface EquipmentProps {}
 
@@ -61,16 +61,16 @@ const Equipment: React.FC<EquipmentProps> = props => {
                     alignItems="center"
                   >
                     <Grid item>
-                      <b>Range:</b> {item.range.join(', ')}
+                      <b>Range:</b> {item.range.join(", ")}
                     </Grid>
                     <Grid item>
-                      <b>Weapon Skill Tags:</b> {item.skillTags.join(', ')}
+                      <b>Weapon Skill Tags:</b> {item.skillTags.join(", ")}
                     </Grid>
                   </Grid>
                 )}
                 {item.tags.map(tag => (
                   <Grid key={tag} item>
-                    <b>{tag}</b>:{' '}
+                    <b>{tag}</b>:{" "}
                     <span
                       dangerouslySetInnerHTML={{
                         __html: marked.parseInline(

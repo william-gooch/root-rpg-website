@@ -4,9 +4,9 @@ import {
   FormControlLabel,
   Checkbox,
   FormLabel,
-} from '@material-ui/core';
-import React from 'react';
-import { weaponSkills, WeaponSkill } from 'root-rpg-model';
+} from "@material-ui/core";
+import React from "react";
+import { weaponSkills, WeaponSkill } from "root-rpg-model";
 
 interface WeaponSkillsProps {
   boldedSkills: { [k in WeaponSkill]?: boolean };
@@ -26,7 +26,7 @@ const WeaponSkillsBox: React.FC<WeaponSkillsProps> = props => {
                 control={<Checkbox size="small" />}
                 label={
                   <FormLabel>
-                    <span className={props.boldedSkills[skill] ? 'bold' : ''}>
+                    <span className={props.boldedSkills[skill] ? "bold" : ""}>
                       {skill}
                     </span>
                   </FormLabel>

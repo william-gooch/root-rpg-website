@@ -1,11 +1,11 @@
-import React from 'react';
-import * as Automerge from 'automerge';
-import { Character } from 'root-rpg-model';
+import React from "react";
+import * as Automerge from "automerge";
+import { Character } from "root-rpg-model";
 
 // @ts-ignore
-import AutomergeClient from './automerge/client';
-import { useHistory } from 'react-router-dom';
-import { useSocket } from './SocketProvider';
+import AutomergeClient from "./automerge/client";
+import { useHistory } from "react-router-dom";
+import { useSocket } from "./SocketProvider";
 
 type CharacterContextType = [
   Automerge.Doc<Character>, // document

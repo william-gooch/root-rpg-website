@@ -1,6 +1,6 @@
-import { Grid, TextField } from '@material-ui/core';
-import React from 'react';
-import { useCharacter } from '../../CharacterProvider';
+import { Grid, TextField } from "@material-ui/core";
+import React from "react";
+import { useCharacter } from "../../CharacterProvider";
 
 const Background: React.FC = () => {
   const [character, changeCharacter] = useCharacter();

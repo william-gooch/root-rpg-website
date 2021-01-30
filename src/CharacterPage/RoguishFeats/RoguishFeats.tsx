@@ -4,9 +4,9 @@ import {
   FormGroup,
   FormLabel,
   Grid,
-} from '@material-ui/core';
-import React from 'react';
-import { roguishFeats } from 'root-rpg-model';
+} from "@material-ui/core";
+import React from "react";
+import { roguishFeats } from "root-rpg-model";
 
 const RoguishFeatsBox: React.FC = props => {
   return (

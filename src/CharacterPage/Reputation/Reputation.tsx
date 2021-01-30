@@ -1,6 +1,6 @@
-import { Grid, Checkbox } from '@material-ui/core';
-import React from 'react';
-import { factions } from 'root-rpg-model';
+import { Grid, Checkbox } from "@material-ui/core";
+import React from "react";
+import { factions } from "root-rpg-model";
 
 const Reputation: React.FC = props => {
   return (

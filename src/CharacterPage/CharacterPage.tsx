@@ -1,23 +1,23 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
+import React from "react";
+import { Grid } from "@material-ui/core";
 
-import './CharacterPage.scss';
-import Header from './Header/Header';
-import Details from './Details/Details';
-import Background from './Background/Background';
-import Drives from './Drives/Drives';
-import Nature from './Nature/Nature';
-import Connections from './Connections/Connections';
-import Reputation from './Reputation/Reputation';
-import Stats from './Stats/Stats';
-import Harm from './Harm/Harm';
-import RoguishFeats from './RoguishFeats/RoguishFeats';
-import WeaponSkills from './WeaponSkills/WeaponSkills';
-import Moves from './Moves/Moves';
+import "./CharacterPage.scss";
+import Header from "./Header/Header";
+import Details from "./Details/Details";
+import Background from "./Background/Background";
+import Drives from "./Drives/Drives";
+import Nature from "./Nature/Nature";
+import Connections from "./Connections/Connections";
+import Reputation from "./Reputation/Reputation";
+import Stats from "./Stats/Stats";
+import Harm from "./Harm/Harm";
+import RoguishFeats from "./RoguishFeats/RoguishFeats";
+import WeaponSkills from "./WeaponSkills/WeaponSkills";
+import Moves from "./Moves/Moves";
 
-import Equipment from './Equipment/Equipment';
-import { useCharacter } from '../CharacterProvider';
-import TopBar from '../TopBar/TopBar';
+import Equipment from "./Equipment/Equipment";
+import { useCharacter } from "../CharacterProvider";
+import TopBar from "../TopBar/TopBar";
 
 interface CharacterPageProps {}
 
@@ -71,7 +71,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
               >
                 <Grid item container direction="column" className="avatar-box">
                   Hello, {character.name} the {character.species}! Your details
-                  are {character.details}, and you're looking quite{' '}
+                  are {character.details}, and you're looking quite{" "}
                   {character.demeanor} today...
                 </Grid>
                 <Drives />

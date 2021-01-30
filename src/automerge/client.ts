@@ -1,16 +1,16 @@
-import Automerge, { DocSet, Frontend } from 'automerge';
+import Automerge, { DocSet, Frontend } from "automerge";
 
 // Returns true if all components of clock1 are less than or equal to those of clock2.
 // Returns false if there is at least one component in which clock1 is greater than clock2
 // (that is, either clock1 is overall greater than clock2, or the clocks are incomparable).
 function lessOrEqual(doc1: Automerge.Doc<any>, doc2: Automerge.Doc<any>) {
   const clock1 = (Frontend.getBackendState(doc1) as any).getIn([
-    'opSet',
-    'clock',
+    "opSet",
+    "clock",
   ]);
   const clock2 = (Frontend.getBackendState(doc2) as any).getIn([
-    'opSet',
-    'clock',
+    "opSet",
+    "clock",
   ]);
   return clock1
     .keySeq()
@@ -65,19 +65,19 @@ export default class AutomergeClient<T> {
     onChange?: any;
   }) {
     if (!socket)
-      throw new Error('You have to specify websocket as socket param');
+      throw new Error("You have to specify websocket as socket param");
     this.socket = socket;
     this.save = save;
     this.docs = doLoad(savedData);
     this.onChange = onChange;
     this.subscribeList = [];
 
-    socket.addEventListener('message', this.onMessage.bind(this));
-    socket.addEventListener('open', this.onOpen.bind(this));
-    socket.addEventListener('close', this.onClose.bind(this));
-    socket.addEventListener('error', evt => console.log('error', evt));
-    socket.addEventListener('connecting', evt =>
-      console.log('connecting', evt)
+    socket.addEventListener("message", this.onMessage.bind(this));
+    socket.addEventListener("open", this.onOpen.bind(this));
+    socket.addEventListener("close", this.onClose.bind(this));
+    socket.addEventListener("error", evt => console.log("error", evt));
+    socket.addEventListener("connecting", evt =>
+      console.log("connecting", evt)
     );
 
     if (this.socket.readyState === 1) {
@@ -88,23 +88,23 @@ export default class AutomergeClient<T> {
 
   private onMessage(msg: MessageEvent<any>) {
     const frame = JSON.parse(msg.data);
-    console.log('message', frame);
+    console.log("message", frame);
 
-    if (frame.action === 'automerge') {
+    if (frame.action === "automerge") {
       this.autocon?.receiveMsg(frame.data);
-    } else if (frame.action === 'error') {
-      console.error('Recieved server-side error ' + frame.message);
-    } else if (frame.action === 'subscribed') {
-      console.error('Subscribed to ' + JSON.stringify(frame.id));
+    } else if (frame.action === "error") {
+      console.error("Recieved server-side error " + frame.message);
+    } else if (frame.action === "subscribed") {
+      console.error("Subscribed to " + JSON.stringify(frame.id));
     } else {
       console.error('Unknown action "' + frame.action + '"');
     }
   }
 
   private onOpen() {
-    console.log('open');
+    console.log("open");
     const send = (data: any) => {
-      this.socket.send(JSON.stringify({ action: 'automerge', data }));
+      this.socket.send(JSON.stringify({ action: "automerge", data }));
     };
 
     const docSet = (this.docSet = new DocSet<T>());
@@ -128,12 +128,12 @@ export default class AutomergeClient<T> {
 
     const autocon = (this.autocon = new Automerge.Connection(docSet, send));
     autocon.open();
-    console.log('asdf', this.docs);
+    console.log("asdf", this.docs);
     this.subscribe(Object.keys(this.docs).concat(this.subscribeList));
   }
 
   private onClose() {
-    console.log('close');
+    console.log("close");
     if (this.autocon) {
       this.autocon.close();
     }
@@ -155,26 +155,26 @@ export default class AutomergeClient<T> {
 
   subscribe(ids: string[]): void {
     if (ids.length <= 0) return;
-    console.log('Trying to subscribe to ' + JSON.stringify(ids));
+    console.log("Trying to subscribe to " + JSON.stringify(ids));
     this.subscribeList = this.subscribeList.concat(ids).filter(unique);
     if (this.socket.readyState === 1) {
       // OPEN
       this.socket.send(
-        JSON.stringify({ action: 'subscribe', ids: ids.filter(unique) })
+        JSON.stringify({ action: "subscribe", ids: ids.filter(unique) })
       );
     }
   }
 
   unsubscribe(ids: string[]): void {
     if (ids.length <= 0) return;
-    console.log('Unsubscribing from ' + JSON.stringify(ids));
+    console.log("Unsubscribing from " + JSON.stringify(ids));
     this.subscribeList = this.subscribeList
       .filter(id => ids.indexOf(id) >= 0)
       .filter(unique);
     if (this.socket.readyState === 1) {
       // OPEN
       this.socket.send(
-        JSON.stringify({ action: 'unsubscribe', ids: ids.filter(unique) })
+        JSON.stringify({ action: "unsubscribe", ids: ids.filter(unique) })
       );
     }
   }

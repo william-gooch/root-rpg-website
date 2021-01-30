@@ -1,18 +1,18 @@
-import React from 'react';
-import { History } from 'history';
-import { Button, Grid, IconButton, TextField } from '@material-ui/core';
-import { ChevronRight } from '@material-ui/icons';
+import React from "react";
+import { History } from "history";
+import { Button, Grid, IconButton, TextField } from "@material-ui/core";
+import { ChevronRight } from "@material-ui/icons";
 
-import './HomePage.scss';
-import { useSocket } from '../SocketProvider';
-import TopBar from '../TopBar/TopBar';
+import "./HomePage.scss";
+import { useSocket } from "../SocketProvider";
+import TopBar from "../TopBar/TopBar";
 
 interface HomePageProps {
   history: History;
 }
 
 const HomePage: React.FC<HomePageProps> = props => {
-  const [id, setId] = React.useState('');
+  const [id, setId] = React.useState("");
   const socket = useSocket();
 
   const navigateToCharacterPage = React.useCallback(
@@ -25,7 +25,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   );
 
   const createNewCharacter = React.useCallback(() => {
-    socket.send(JSON.stringify({ action: 'new-document' }));
+    socket.send(JSON.stringify({ action: "new-document" }));
   }, [socket]);
 
   return (

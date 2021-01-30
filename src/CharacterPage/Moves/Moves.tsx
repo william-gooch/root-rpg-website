@@ -5,11 +5,11 @@ import {
   Checkbox,
   FormLabel,
   FormHelperText,
-} from '@material-ui/core';
-import marked from 'marked';
-import React from 'react';
-import { useCharacter } from '../../CharacterProvider';
-import { Move } from 'root-rpg-model';
+} from "@material-ui/core";
+import marked from "marked";
+import React from "react";
+import { useCharacter } from "../../CharacterProvider";
+import { Move } from "root-rpg-model";
 
 const Moves: React.FC = props => {
   const [character, changeCharacter] = useCharacter();
