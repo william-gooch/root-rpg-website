@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton, Snackbar } from "@material-ui/core";
 
 import "./CharacterPage.scss";
 import Header from "./Header/Header";
@@ -18,11 +18,18 @@ import Moves from "./Moves/Moves";
 import Equipment from "./Equipment/Equipment";
 import { useCurrentCharacter } from "../CharacterProvider";
 import TopBar from "../TopBar/TopBar";
+import { Share } from "@material-ui/icons";
 
 interface CharacterPageProps {}
 
 const CharacterPage: React.FC<CharacterPageProps> = props => {
   const [character, changeCharacter] = useCurrentCharacter();
+
+  const copyLinkToClipboard = React.useCallback(async () => {
+    await navigator.clipboard.writeText(location.href);
+    setCopied(true);
+  }, []);
+  const [copied, setCopied] = React.useState(false);
 
   if (!character) {
     return <div>Loading...</div>;
@@ -32,7 +39,18 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
 
   return (
     <>
-      <TopBar />
+      <TopBar>
+        <IconButton onClick={copyLinkToClipboard}>
+          <Share />
+          <Snackbar
+            open={copied}
+            onClose={() => setCopied(false)}
+            autoHideDuration={4000}
+            message="Copied link to clipboard!"
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          />
+        </IconButton>
+      </TopBar>
       <Grid
         container
         direction="row"

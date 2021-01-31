@@ -2,7 +2,6 @@ import React from "react";
 import {
   AppBar,
   IconButton,
-  Menu,
   MenuItem,
   MenuList,
   Popover,
@@ -28,25 +27,17 @@ const TopBar: React.FC<TopBarProps> = props => {
   return (
     <AppBar position="static" color="inherit" className="top-bar">
       <Toolbar>
-        <Link
-          to="/"
-          component={React.forwardRef((props, ref) => (
-            <IconButton
-              edge="start"
-              className="home-button"
-              ref={ref}
-              {...props}
-            >
-              <Home />
-            </IconButton>
-          ))}
-        />
+        <IconButton className="home-button" component={Link} to="/">
+          <Home />
+        </IconButton>
         <Typography variant="h6" className="fill">
           Root RPG
         </Typography>
+        {props.children}
         <IconButton
           edge="start"
           onClick={evt => setAnchorEl(evt.currentTarget)}
+          style={{ marginLeft: "0.5vw" }}
         >
           <MenuIcon />
         </IconButton>
