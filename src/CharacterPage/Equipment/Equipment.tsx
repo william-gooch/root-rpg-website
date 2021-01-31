@@ -12,31 +12,11 @@ const Equipment: React.FC<EquipmentProps> = props => {
         <Grid item xs={12} lg={3} className="title">
           Your Equipment
         </Grid>
-        <Grid
-          item
-          xs={12}
-          container
-          direction="row"
-          className="equipment-container"
-        >
+        <Grid item xs={12} container direction="row" className="equipment-container">
           {defaultEquipment.map(item => (
-            <Grid
-              key={item.name}
-              item
-              xs={12}
-              lg={3}
-              container
-              direction="column"
-              className="equipment-item"
-            >
+            <Grid key={item.name} item xs={12} lg={3} container direction="column" className="equipment-item">
               <div className="item-container">
-                <Grid
-                  item
-                  container
-                  spacing={2}
-                  direction="row"
-                  alignItems="center"
-                >
+                <Grid item container spacing={2} direction="row" alignItems="center">
                   <Grid item className="item-name">
                     <b>{item.name}</b>
                   </Grid>
@@ -53,13 +33,7 @@ const Equipment: React.FC<EquipmentProps> = props => {
                   </Grid>
                 </Grid>
                 {item.range.length > 0 && (
-                  <Grid
-                    item
-                    container
-                    spacing={2}
-                    direction="row"
-                    alignItems="center"
-                  >
+                  <Grid item container spacing={2} direction="row" alignItems="center">
                     <Grid item>
                       <b>Range:</b> {item.range.join(", ")}
                     </Grid>
@@ -73,9 +47,7 @@ const Equipment: React.FC<EquipmentProps> = props => {
                     <b>{tag}</b>:{" "}
                     <span
                       dangerouslySetInnerHTML={{
-                        __html: marked.parseInline(
-                          equipmentTags.find(t => t.name === tag)!.description
-                        ),
+                        __html: marked.parseInline(equipmentTags.find(t => t.name === tag)!.description),
                       }}
                     />
                   </Grid>

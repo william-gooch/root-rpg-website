@@ -29,20 +29,12 @@ const NatureBox: React.FC = props => {
         Your Nature
       </Grid>
       <Grid item className="nature-options">
-        <RadioGroup
-          value={character.nature}
-          onChange={evt => updateNature(evt.target.value)}
-        >
+        <RadioGroup value={character.nature} onChange={evt => updateNature(evt.target.value)}>
           {playbooks[character.playbook].natures.map(nature => (
             <FormControlLabel
               key={nature.name}
               value={nature.name}
-              control={
-                <Radio
-                  icon={<CheckBoxOutlineBlank />}
-                  checkedIcon={<CheckBox />}
-                />
-              }
+              control={<Radio icon={<CheckBoxOutlineBlank />} checkedIcon={<CheckBox />} />}
               label={
                 <>
                   <FormLabel>{nature.name}</FormLabel>

@@ -11,13 +11,7 @@ const Reputation: React.FC = props => {
           <Grid item className="title">
             <span>Your Reputation</span>
           </Grid>
-          <Grid
-            item
-            container
-            direction="column"
-            alignItems="center"
-            className="reputation-table"
-          >
+          <Grid item container direction="column" alignItems="center" className="reputation-table">
             <table>
               <tbody>
                 {factions.map(faction => (

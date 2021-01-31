@@ -7,36 +7,27 @@ const Background: React.FC = () => {
 
   const backgroundWhere = character.backgroundWhere;
   const setBackgroundWhere = React.useCallback(
-    (backgroundWhere: string) =>
-      changeCharacter(d => (d.backgroundWhere = backgroundWhere)),
+    (backgroundWhere: string) => changeCharacter(d => (d.backgroundWhere = backgroundWhere)),
     [changeCharacter]
   );
   const backgroundWhy = character.backgroundWhy;
   const setBackgroundWhy = React.useCallback(
-    (backgroundWhy: string) =>
-      changeCharacter(d => (d.backgroundWhy = backgroundWhy)),
+    (backgroundWhy: string) => changeCharacter(d => (d.backgroundWhy = backgroundWhy)),
     [changeCharacter]
   );
   const backgroundWho = character.backgroundWho;
   const setBackgroundWho = React.useCallback(
-    (backgroundWho: string) =>
-      changeCharacter(d => (d.backgroundWho = backgroundWho)),
+    (backgroundWho: string) => changeCharacter(d => (d.backgroundWho = backgroundWho)),
     [changeCharacter]
   );
   const backgroundFactionServed = character.backgroundFactionServed;
   const setBackgroundFactionServed = React.useCallback(
-    (backgroundFactionServed: string) =>
-      changeCharacter(
-        d => (d.backgroundFactionServed = backgroundFactionServed)
-      ),
+    (backgroundFactionServed: string) => changeCharacter(d => (d.backgroundFactionServed = backgroundFactionServed)),
     [changeCharacter]
   );
   const backgroundFactionEnmity = character.backgroundFactionEnmity;
   const setBackgroundFactionEnmity = React.useCallback(
-    (backgroundFactionEnmity: string) =>
-      changeCharacter(
-        d => (d.backgroundFactionEnmity = backgroundFactionEnmity)
-      ),
+    (backgroundFactionEnmity: string) => changeCharacter(d => (d.backgroundFactionEnmity = backgroundFactionEnmity)),
     [changeCharacter]
   );
 

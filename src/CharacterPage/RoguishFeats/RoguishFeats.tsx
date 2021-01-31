@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-} from "@material-ui/core";
+import { Checkbox, FormControlLabel, FormGroup, FormLabel, Grid } from "@material-ui/core";
 import { RoguishFeat, roguishFeats } from "root-rpg-model";
 import { useCurrentCharacter } from "CharacterProvider";
 

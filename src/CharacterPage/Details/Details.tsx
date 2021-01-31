@@ -11,25 +11,19 @@ const Details: React.FC<DetailsProps> = () => {
   const playbook = playbooks[character.playbook];
 
   const name = character.name;
-  const setName = React.useCallback(
-    (name: string) => changeCharacter(d => (d.name = name)),
-    [changeCharacter]
-  );
+  const setName = React.useCallback((name: string) => changeCharacter(d => (d.name = name)), [changeCharacter]);
   const species = character.species;
-  const setSpecies = React.useCallback(
-    (species: string) => changeCharacter(d => (d.species = species)),
-    [changeCharacter]
-  );
+  const setSpecies = React.useCallback((species: string) => changeCharacter(d => (d.species = species)), [
+    changeCharacter,
+  ]);
   const details = character.details;
-  const setDetails = React.useCallback(
-    (details: string) => changeCharacter(d => (d.details = details)),
-    [changeCharacter]
-  );
+  const setDetails = React.useCallback((details: string) => changeCharacter(d => (d.details = details)), [
+    changeCharacter,
+  ]);
   const demeanor = character.demeanor;
-  const setDemeanor = React.useCallback(
-    (demeanor: string) => changeCharacter(d => (d.demeanor = demeanor)),
-    [changeCharacter]
-  );
+  const setDemeanor = React.useCallback((demeanor: string) => changeCharacter(d => (d.demeanor = demeanor)), [
+    changeCharacter,
+  ]);
 
   const generateName = React.useCallback(() => {
     const idx = Math.floor(Math.random() * names.length);

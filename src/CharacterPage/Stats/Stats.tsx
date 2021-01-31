@@ -10,14 +10,7 @@ const StatsBox: React.FC<StatsProps> = props => {
   return (
     <Grid item container direction="column" className="stats-box">
       {Object.entries(props.stats).map(([key, value]) => (
-        <Grid
-          key={key}
-          item
-          container
-          direction="row"
-          alignItems="center"
-          className="stat-row"
-        >
+        <Grid key={key} item container direction="row" alignItems="center" className="stat-row">
           <Grid item className="stat-value">
             {value}
           </Grid>

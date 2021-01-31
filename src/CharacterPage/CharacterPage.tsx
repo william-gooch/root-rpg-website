@@ -54,53 +54,20 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
           />
         </IconButton>
       </TopBar>
-      <Grid
-        container
-        direction="row"
-        alignItems="stretch"
-        className="character-page-container"
-      >
+      <Grid container direction="row" alignItems="stretch" className="character-page-container">
         <Grid item xs={12} xl={6} className="page-container">
           <Grid container direction="column" className="page-column">
             <Header name={playbook.name} blurb={playbook.blurb} />
-            <Grid
-              item
-              container
-              direction="row"
-              spacing={2}
-              alignItems="stretch"
-              className="main-row"
-            >
-              <Grid
-                item
-                md={4}
-                container
-                alignItems="stretch"
-                direction="column"
-                className="first-column"
-              >
+            <Grid item container direction="row" spacing={2} alignItems="stretch" className="main-row">
+              <Grid item md={4} container alignItems="stretch" direction="column" className="first-column">
                 <Details />
                 <Background />
               </Grid>
-              <Grid
-                item
-                md={4}
-                container
-                alignItems="stretch"
-                direction="column"
-                className="second-column"
-              >
+              <Grid item md={4} container alignItems="stretch" direction="column" className="second-column">
                 <Avatar playbookName={character.playbook} />
                 <Drives />
               </Grid>
-              <Grid
-                item
-                md={4}
-                container
-                alignItems="stretch"
-                direction="column"
-                className="third-column"
-              >
+              <Grid item md={4} container alignItems="stretch" direction="column" className="third-column">
                 <Nature />
                 <Connections />
               </Grid>
@@ -110,35 +77,14 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
         </Grid>
         <Grid item xs={12} xl={6} className="page-container">
           <Grid container direction="column" className="page-column">
-            <Grid
-              item
-              container
-              direction="row"
-              spacing={2}
-              alignItems="stretch"
-              className="main-row"
-            >
-              <Grid
-                item
-                md={4}
-                container
-                alignItems="stretch"
-                direction="column"
-                className="first-column"
-              >
+            <Grid item container direction="row" spacing={2} alignItems="stretch" className="main-row">
+              <Grid item md={4} container alignItems="stretch" direction="column" className="first-column">
                 <Stats stats={playbook.initialStats} />
                 <Harm />
                 <RoguishFeats />
                 <WeaponSkills boldedSkills={playbook.weaponSkills.bolded} />
               </Grid>
-              <Grid
-                item
-                md={8}
-                container
-                alignItems="stretch"
-                direction="column"
-                className="second-column"
-              >
+              <Grid item md={8} container alignItems="stretch" direction="column" className="second-column">
                 <Moves />
               </Grid>
             </Grid>

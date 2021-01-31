@@ -1,10 +1,4 @@
-import {
-  Grid,
-  FormGroup,
-  FormLabel,
-  FormHelperText,
-  TextField,
-} from "@material-ui/core";
+import { Grid, FormGroup, FormLabel, FormHelperText, TextField } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
 import { Connection, connections, playbooks } from "root-rpg-model";
@@ -44,9 +38,7 @@ const Connections: React.FC = props => {
       <Grid item className="connections-options">
         <FormGroup>
           {Object.entries(playbooks[character.playbook].connections)
-            .map(
-              ([id, blurb]) => [id, blurb] as [keyof typeof connections, string]
-            )
+            .map(([id, blurb]) => [id, blurb] as [keyof typeof connections, string])
             .map(([id, blurb]) => (
               <div key={connections[id].name} className="option">
                 <FormLabel className="name">{connections[id].name}</FormLabel>

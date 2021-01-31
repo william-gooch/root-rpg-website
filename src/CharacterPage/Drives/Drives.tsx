@@ -1,11 +1,4 @@
-import {
-  Grid,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  FormLabel,
-  FormHelperText,
-} from "@material-ui/core";
+import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
 import { Drive, drives, playbooks } from "root-rpg-model";
@@ -44,14 +37,7 @@ const Drives: React.FC = () => {
             .map(id => (
               <FormControlLabel
                 key={drives[id].name}
-                control={
-                  <Checkbox
-                    disabled={
-                      !(character.drives[id] ?? false) &&
-                      getNumberOfDrivesChecked() >= 2
-                    }
-                  />
-                }
+                control={<Checkbox disabled={!(character.drives[id] ?? false) && getNumberOfDrivesChecked() >= 2} />}
                 label={
                   <>
                     <FormLabel>{drives[id].name}</FormLabel>

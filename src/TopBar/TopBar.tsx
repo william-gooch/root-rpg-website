@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  AppBar,
-  IconButton,
-  MenuItem,
-  MenuList,
-  Popover,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
+import { AppBar, IconButton, MenuItem, MenuList, Popover, Toolbar, Typography } from "@material-ui/core";
 
 import "./TopBar.scss";
 import { Home, Menu as MenuIcon } from "@material-ui/icons";
@@ -34,11 +26,7 @@ const TopBar: React.FC<TopBarProps> = props => {
           Root RPG
         </Typography>
         {props.children}
-        <IconButton
-          edge="start"
-          onClick={evt => setAnchorEl(evt.currentTarget)}
-          style={{ marginLeft: "0.5vw" }}
-        >
+        <IconButton edge="start" onClick={evt => setAnchorEl(evt.currentTarget)} style={{ marginLeft: "0.5vw" }}>
           <MenuIcon />
         </IconButton>
       </Toolbar>

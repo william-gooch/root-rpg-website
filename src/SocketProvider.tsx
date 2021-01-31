@@ -30,17 +30,11 @@ export const SocketProvider: React.FC = props => {
   );
 
   React.useEffect(() => {
-    const socket = new WebSocket(
-      process.env.REACT_APP_WEBSOCKET_HOST as string
-    );
+    const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_HOST as string);
     socket.addEventListener("message", onMessage);
     setSocket(socket);
   }, [onMessage]);
 
-  return (
-    <SocketContext.Provider value={socket}>
-      {props.children}
-    </SocketContext.Provider>
-  );
+  return <SocketContext.Provider value={socket}>{props.children}</SocketContext.Provider>;
 };
 export const useSocket = () => React.useContext(SocketContext);

@@ -17,12 +17,8 @@ const CharacterItem: React.FC<CharacterItemProps> = props => {
       <div className="character-box">
         <Grid container direction="column">
           <Grid item className="character-name">
-            <b>
-              {props.character.name.length > 0
-                ? props.character.name
-                : "Unnamed"}
-            </b>
-            , {playbooks[props.character.playbook].name}
+            <b>{props.character.name.length > 0 ? props.character.name : "Unnamed"}</b>,{" "}
+            {playbooks[props.character.playbook].name}
           </Grid>
           <Grid item container direction="row" justify="flex-end">
             {confirmDelete && (
@@ -30,10 +26,7 @@ const CharacterItem: React.FC<CharacterItemProps> = props => {
                 <Check />
               </IconButton>
             )}
-            <IconButton
-              color="default"
-              onClick={() => setConfirmDelete(!confirmDelete)}
-            >
+            <IconButton color="default" onClick={() => setConfirmDelete(!confirmDelete)}>
               {confirmDelete ? <Close /> : <Delete />}
             </IconButton>
             <IconButton onClick={props.goToCharacter}>

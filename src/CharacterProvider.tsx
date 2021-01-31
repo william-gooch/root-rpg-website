@@ -9,26 +9,18 @@ import { useSocket } from "./SocketProvider";
 import { Map } from "immutable";
 
 interface CharacterContextType {
-  getCharacters: (
-    ids: string[]
-  ) => { [id: string]: Automerge.Doc<Character> | undefined } | undefined;
+  getCharacters: (ids: string[]) => { [id: string]: Automerge.Doc<Character> | undefined } | undefined;
   changeCharacter: (id: string, fn: Automerge.ChangeFn<Character>) => void;
 }
 const CharacterContext = React.createContext<CharacterContextType>(null as any);
 
-const characterReducer = (
-  state: Map<string, Automerge.Doc<Character>>,
-  action: any
-) => {
+const characterReducer = (state: Map<string, Automerge.Doc<Character>>, action: any) => {
   return state.set(action.id, action.doc);
 };
 
 export const CharacterProvider: React.FC = props => {
   const [automergeClient, setAutomergeClient] = React.useState<any>();
-  const [characters, dispatch] = React.useReducer(
-    characterReducer,
-    Map<string, Automerge.Doc<Character>>()
-  );
+  const [characters, dispatch] = React.useReducer(characterReducer, Map<string, Automerge.Doc<Character>>());
   const socket = useSocket();
 
   React.useEffect(() => {
@@ -79,23 +71,17 @@ export const CharacterProvider: React.FC = props => {
   );
 
   return (
-    <CharacterContext.Provider value={{ getCharacters, changeCharacter }}>
-      {props.children}
-    </CharacterContext.Provider>
+    <CharacterContext.Provider value={{ getCharacters, changeCharacter }}>{props.children}</CharacterContext.Provider>
   );
 };
 
-export const useCharacterContext = (): CharacterContextType =>
-  React.useContext(CharacterContext);
+export const useCharacterContext = (): CharacterContextType => React.useContext(CharacterContext);
 
-export const useCharacter = (
-  id: string
-): [Automerge.Doc<Character>, (fn: Automerge.ChangeFn<Character>) => void] => {
+export const useCharacter = (id: string): [Automerge.Doc<Character>, (fn: Automerge.ChangeFn<Character>) => void] => {
   const characterContext = useCharacterContext();
 
   const character = characterContext.getCharacters([id])?.[id];
-  const changeCharacter = (fn: Automerge.ChangeFn<Character>) =>
-    characterContext.changeCharacter(id, fn);
+  const changeCharacter = (fn: Automerge.ChangeFn<Character>) => characterContext.changeCharacter(id, fn);
 
   return [character!, changeCharacter];
 };

@@ -25,9 +25,7 @@ const HomePage: React.FC<HomePageProps> = props => {
 
   const getNewStorage = React.useCallback(() => {
     console.log("getting new storage");
-    const characterIds = JSON.parse(
-      localStorage.getItem("myCharacters") ?? "[]"
-    );
+    const characterIds = JSON.parse(localStorage.getItem("myCharacters") ?? "[]");
     const characters = characterContext.getCharacters(characterIds);
     setCharacters(characters);
   }, [characterContext]);
@@ -51,9 +49,7 @@ const HomePage: React.FC<HomePageProps> = props => {
 
   const deleteCharacter = React.useCallback(
     (id: string) => {
-      const characterIds: string[] = JSON.parse(
-        localStorage.getItem("myCharacters") ?? "[]"
-      );
+      const characterIds: string[] = JSON.parse(localStorage.getItem("myCharacters") ?? "[]");
       const newCharacterIds = characterIds.filter(x => x !== id);
 
       localStorage.setItem("myCharacters", JSON.stringify(newCharacterIds));
@@ -65,12 +61,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   return (
     <>
       <TopBar />
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        className="home-page-container"
-      >
+      <Grid container direction="column" alignItems="center" className="home-page-container">
         <Grid
           item
           xs={12}
@@ -81,15 +72,7 @@ const HomePage: React.FC<HomePageProps> = props => {
           justify="space-evenly"
           className="page-container"
         >
-          <Grid
-            item
-            xs={12}
-            md={3}
-            container
-            direction="column"
-            alignItems="center"
-            className="home-box"
-          >
+          <Grid item xs={12} md={3} container direction="column" alignItems="center" className="home-box">
             <h2>Welcome to Root!</h2>
             <h3>Enter a Character ID below to start editing!</h3>
             <TextField
@@ -121,18 +104,8 @@ const HomePage: React.FC<HomePageProps> = props => {
                   )
               )}
               <Grid item xs={12} md={3} className="character-container">
-                <div
-                  role="button"
-                  className="new-character-button"
-                  onClick={createNewCharacter}
-                >
-                  <Grid
-                    container
-                    direction="column"
-                    alignItems="center"
-                    justify="center"
-                    className="new-character-box"
-                  >
+                <div role="button" className="new-character-button" onClick={createNewCharacter}>
+                  <Grid container direction="column" alignItems="center" justify="center" className="new-character-box">
                     <Grid item>
                       <Add />
                     </Grid>

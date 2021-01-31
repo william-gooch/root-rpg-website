@@ -1,11 +1,4 @@
-import {
-  Grid,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  FormLabel,
-  FormHelperText,
-} from "@material-ui/core";
+import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText } from "@material-ui/core";
 import marked from "marked";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
@@ -30,8 +23,7 @@ const Moves: React.FC = props => {
   const verifyMoves = React.useCallback(() => {
     const count =
       Object.entries(character.moves).filter(([k, v]) => !!v).length -
-      Object.entries(playbooks[character.playbook].moves.starting.startWith)
-        .length; // minus the ones you start with.
+      Object.entries(playbooks[character.playbook].moves.starting.startWith).length; // minus the ones you start with.
 
     return count < playbooks[character.playbook].moves.starting.choose;
   }, [character]);
@@ -52,9 +44,7 @@ const Moves: React.FC = props => {
                   control={<Checkbox />}
                   label={<FormLabel>{moves[id].name}</FormLabel>}
                   disabled={
-                    playbooks[character.playbook].moves.starting.startWith[
-                      id
-                    ] ||
+                    playbooks[character.playbook].moves.starting.startWith[id] ||
                     (!(character.moves[id] ?? false) && !verifyMoves())
                   }
                   checked={character.moves[id] ?? false}
