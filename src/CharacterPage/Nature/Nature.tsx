@@ -1,13 +1,4 @@
-import {
-  Grid,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  FormLabel,
-  FormHelperText,
-  RadioGroup,
-  Radio,
-} from "@material-ui/core";
+import { Grid, Radio } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import marked from "marked";
 import React from "react";

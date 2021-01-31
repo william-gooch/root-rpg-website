@@ -1,7 +1,7 @@
-import { Grid, FormGroup, FormLabel, FormHelperText, TextField } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
-import { Connection, connections, playbooks } from "root-rpg-model";
+import { connections, playbooks } from "root-rpg-model";
 import marked from "marked";
 import { Add } from "@material-ui/icons";
 

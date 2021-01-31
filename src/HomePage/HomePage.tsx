@@ -1,6 +1,6 @@
 import React from "react";
 import { History } from "history";
-import { Button, Grid, IconButton, TextField } from "@material-ui/core";
+import { Grid, IconButton, TextField } from "@material-ui/core";
 import { Add, ChevronRight } from "@material-ui/icons";
 
 import "./HomePage.scss";

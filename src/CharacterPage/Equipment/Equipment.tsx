@@ -1,18 +1,22 @@
-import { Checkbox, Grid } from "@material-ui/core";
-import marked from "marked";
 import React from "react";
+import { Checkbox, Grid } from "@material-ui/core";
+import { useCurrentCharacter } from "CharacterProvider";
+import marked from "marked";
 import { defaultEquipment, equipmentTags } from "root-rpg-model";
+import { Add } from "@material-ui/icons";
 
 interface EquipmentProps {}
 
 const Equipment: React.FC<EquipmentProps> = props => {
+  const [character, changeCharacter] = useCurrentCharacter();
+
   return (
     <Grid item container direction="column" className="equipment-box">
       <Grid item container direction="row">
-        <Grid item xs={12} lg={3} className="title">
+        <Grid item xs={12} lg={2} className="title">
           Your Equipment
         </Grid>
-        <Grid item xs={12} container direction="row" className="equipment-container">
+        <Grid item xs={12} container direction="row" alignItems="stretch" className="equipment-container">
           {defaultEquipment.map(item => (
             <Grid key={item.name} item xs={12} lg={3} container direction="column" className="equipment-item">
               <div className="item-container">
@@ -55,6 +59,16 @@ const Equipment: React.FC<EquipmentProps> = props => {
               </div>
             </Grid>
           ))}
+          <Grid item xs={12} lg={3} container direction="column" className="equipment-item">
+            <div role="button" className="new-equipment-button">
+              <Grid container direction="column" alignItems="center" justify="center" className="new-box">
+                <Grid item>
+                  <Add />
+                </Grid>
+                <Grid item>Add a new piece of Equipment</Grid>
+              </Grid>
+            </div>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

@@ -1,7 +1,7 @@
-import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText } from "@material-ui/core";
+import { Grid, FormGroup, Checkbox } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
-import { Drive, drives, playbooks } from "root-rpg-model";
+import { drives, playbooks } from "root-rpg-model";
 import marked from "marked";
 
 const Drives: React.FC = () => {
