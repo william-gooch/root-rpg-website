@@ -21,19 +21,3 @@ $border-radius-leading: $border-radius-value 0 $border-radius-value 0;
 $border-radius-bottom: $border-radius-value $border-radius-value 0 0;
 $border-radius-top: 0 0 $border-radius-value $border-radius-value;
 $border-radius-no-top-left: 0 $border-radius-value $border-radius-value $border-radius-value;
-
-:export {
-    colorBackground: $color-background;
-    colorBackgroundDark: $color-background-dark;
-    colorBackgroundLight: $color-background-light;
-
-    colorText: $color-text;
-
-    colorPrimary: $color-primary;
-    colorPrimaryDark: $color-primary-dark;
-    colorPrimaryLight: $color-primary-light;
-
-    colorSecondary: $color-secondary;
-    colorSecondaryDark: $color-secondary-dark;
-    colorSecondaryLight: $color-secondary-light;
-}

@@ -8,10 +8,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import { SocketProvider } from "./SocketProvider";
 
-import styles from "./styles/_variables.scss";
+import styles from "./styles/index.module.scss";
 console.log(styles);
 
-const theme = createMuiTheme({
+export const defaultTheme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
@@ -26,6 +26,24 @@ const theme = createMuiTheme({
       dark: styles.colorSecondaryDark,
       contrastText: styles.colorText,
     },
+    error: {
+      main: styles.colorNegative,
+    },
+    success: {
+      main: styles.colorPositive,
+    },
+  },
+});
+
+export const positiveNegativeTheme = createMuiTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: styles.colorPositive,
+    },
+    secondary: {
+      main: styles.colorNegative,
+    },
   },
 });
 
@@ -33,7 +51,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <SocketProvider>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={defaultTheme}>
           <CharacterProvider>
             <Switch>
               <Route path="/character/:id" component={CharacterPage} />

@@ -12,6 +12,9 @@ export interface Variables {
   colorSecondary: string;
   colorSecondaryDark: string;
   colorSecondaryLight: string;
+
+  colorPositive: string;
+  colorNegative: string;
 }
 
 export const styles: Variables;

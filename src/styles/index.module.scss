@@ -1,0 +1,20 @@
+@import "./variables";
+
+:export {
+    colorBackground: $color-background;
+    colorBackgroundDark: $color-background-dark;
+    colorBackgroundLight: $color-background-light;
+
+    colorText: $color-text;
+
+    colorPrimary: $color-primary;
+    colorPrimaryDark: $color-primary-dark;
+    colorPrimaryLight: $color-primary-light;
+
+    colorSecondary: $color-secondary;
+    colorSecondaryDark: $color-secondary-dark;
+    colorSecondaryLight: $color-secondary-light;
+
+    colorPositive: $color-positive;
+    colorNegative: $color-negative;
+}

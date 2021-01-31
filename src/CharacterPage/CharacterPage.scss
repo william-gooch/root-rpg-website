@@ -155,7 +155,7 @@
                 .reputation-table table tbody {
                     .faction-row {
                         td {
-                            .MuiCheckbox-root {
+                            .checkbox {
                                 padding: 0.05rem;
                             }
                             &.spacer {
@@ -171,17 +171,17 @@
                             text-align: center;
 
                             &.notoriety {
-                                color: $color-primary;
+                                color: $color-negative;
                                 &::before,
                                 &::after {
-                                    border-bottom: 2px solid $color-primary;
+                                    border-bottom: 2px solid $color-negative;
                                 }
                             }
                             &.prestige {
-                                color: $color-secondary;
+                                color: $color-positive;
                                 &::before,
                                 &::after {
-                                    border-bottom: 2px solid $color-secondary;
+                                    border-bottom: 2px solid $color-positive;
                                 }
                             }
 
