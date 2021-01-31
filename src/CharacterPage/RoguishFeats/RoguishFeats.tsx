@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Checkbox,
   FormControlLabel,
@@ -5,10 +6,25 @@ import {
   FormLabel,
   Grid,
 } from "@material-ui/core";
-import React from "react";
-import { roguishFeats } from "root-rpg-model";
+import { RoguishFeat, roguishFeats } from "root-rpg-model";
+import { useCurrentCharacter } from "CharacterProvider";
 
 const RoguishFeatsBox: React.FC = props => {
+  const [character, changeCharacter] = useCurrentCharacter();
+
+  const updateFeat = React.useCallback(
+    (id: RoguishFeat, value: boolean) => {
+      changeCharacter(d => {
+        if (value) {
+          d.roguishFeats[id] = true;
+        } else {
+          delete d.roguishFeats[id];
+        }
+      });
+    },
+    [changeCharacter]
+  );
+
   return (
     <Grid item container direction="column" className="feats-box">
       <Grid item className="title">
@@ -21,6 +37,8 @@ const RoguishFeatsBox: React.FC = props => {
               <FormControlLabel
                 control={<Checkbox size="small" />}
                 label={<FormLabel>{feat}</FormLabel>}
+                checked={character.roguishFeats[feat] ?? false}
+                onChange={(evt: any) => updateFeat(feat, evt.target.checked)}
               />
             </Grid>
           ))}

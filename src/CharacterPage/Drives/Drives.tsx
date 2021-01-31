@@ -14,7 +14,7 @@ const Drives: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const updateDrive = React.useCallback(
-    (id: string, value: boolean) => {
+    (id: keyof typeof drives, value: boolean) => {
       changeCharacter(d => {
         if (value) {
           d.drives[id] = true;

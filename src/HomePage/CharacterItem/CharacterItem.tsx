@@ -13,7 +13,7 @@ const CharacterItem: React.FC<CharacterItemProps> = props => {
   const [confirmDelete, setConfirmDelete] = React.useState(false);
 
   return (
-    <Grid item xs={3} className="character-container">
+    <Grid item xs={12} md={3} className="character-container">
       <div className="character-box">
         <Grid container direction="column">
           <Grid item className="character-name">

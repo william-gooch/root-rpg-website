@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
-import { Connection, playbooks } from "root-rpg-model";
+import { Connection, connections, playbooks } from "root-rpg-model";
 
 const BlurbSplit: React.FC<{
   textField: React.ReactElement<any, any>;
@@ -28,9 +28,9 @@ const Connections: React.FC = props => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const updateConnection = React.useCallback(
-    (connection: Connection, value: string) => {
+    (id: keyof typeof connections, value: string) => {
       changeCharacter(d => {
-        d.connections[connection.name] = value;
+        d.connections[id] = value;
       });
     },
     [changeCharacter]
@@ -43,28 +43,30 @@ const Connections: React.FC = props => {
       </Grid>
       <Grid item className="connections-options">
         <FormGroup>
-          {playbooks[character.playbook].connections.map(connection => (
-            <div key={connection.name} className="option">
-              <FormLabel className="name">{connection.name}</FormLabel>
-              <div className="blurb">
-                <BlurbSplit
-                  blurb={connection.blurb}
-                  textField={
-                    <TextField
-                      className="connection-name-entry"
-                      value={character.connections[connection.name]}
-                      onChange={evt =>
-                        updateConnection(connection, evt.target.value)
-                      }
-                    />
-                  }
-                />
+          {Object.entries(playbooks[character.playbook].connections)
+            .map(
+              ([id, blurb]) => [id, blurb] as [keyof typeof connections, string]
+            )
+            .map(([id, blurb]) => (
+              <div key={connections[id].name} className="option">
+                <FormLabel className="name">{connections[id].name}</FormLabel>
+                <div className="blurb">
+                  <BlurbSplit
+                    blurb={blurb ?? "###"}
+                    textField={
+                      <TextField
+                        className="connection-name-entry"
+                        value={character.connections[id]}
+                        onChange={evt => updateConnection(id, evt.target.value)}
+                      />
+                    }
+                  />
+                </div>
+                <FormHelperText className="description">
+                  <i>{connections[id].description}</i>
+                </FormHelperText>
               </div>
-              <FormHelperText className="description">
-                <i>{connection.description}</i>
-              </FormHelperText>
-            </div>
-          ))}
+            ))}
         </FormGroup>
       </Grid>
     </Grid>

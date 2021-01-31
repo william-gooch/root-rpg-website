@@ -76,13 +76,15 @@ const HomePage: React.FC<HomePageProps> = props => {
           xs={12}
           container
           direction="column"
+          wrap="nowrap"
           alignItems="center"
           justify="space-evenly"
           className="page-container"
         >
           <Grid
             item
-            xs={3}
+            xs={12}
+            md={3}
             container
             direction="column"
             alignItems="center"
@@ -103,7 +105,6 @@ const HomePage: React.FC<HomePageProps> = props => {
                 ),
               }}
             />
-            <Button onClick={createNewCharacter}>Create New Character</Button>
           </Grid>
           <Grid item className="my-box">
             <h2>Your Characters</h2>
@@ -119,7 +120,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                     />
                   )
               )}
-              <Grid item xs={3} className="character-container">
+              <Grid item xs={12} md={3} className="character-container">
                 <div
                   role="button"
                   className="new-character-button"

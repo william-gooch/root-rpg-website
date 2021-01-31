@@ -15,7 +15,7 @@ const Moves: React.FC = props => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const updateMove = React.useCallback(
-    (id: string, value: string) => {
+    (id: keyof typeof moves, value: boolean) => {
       changeCharacter(d => {
         if (value) {
           d.moves[id] = true;
@@ -55,8 +55,7 @@ const Moves: React.FC = props => {
                     playbooks[character.playbook].moves.starting.startWith[
                       id
                     ] ||
-                    (!(character.moves[moves[id].name] ?? false) &&
-                      !verifyMoves())
+                    (!(character.moves[id] ?? false) && !verifyMoves())
                   }
                   checked={character.moves[id] ?? false}
                   onChange={(evt: any) => updateMove(id, evt.target.checked)}

@@ -30,7 +30,9 @@ export const SocketProvider: React.FC = props => {
   );
 
   React.useEffect(() => {
-    const socket = new WebSocket("ws://localhost:3001");
+    const socket = new WebSocket(
+      process.env.REACT_APP_WEBSOCKET_HOST as string
+    );
     socket.addEventListener("message", onMessage);
     setSocket(socket);
   }, [onMessage]);
