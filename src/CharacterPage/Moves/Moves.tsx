@@ -26,12 +26,12 @@ const Moves: React.FC = () => {
       <Grid item className="title">
         Your Moves
       </Grid>
-      <Grid item container direction="column" className="moves-options">
+      <Grid item container direction="column" className="options">
         {Object.entries(playbooks[character.playbook].moves.options)
           .filter(([, v]) => v)
           .map(([id]) => id as keyof typeof moves)
           .map(id => (
-            <Grid key={moves[id].name} item className="move-container">
+            <Grid key={moves[id].name} item className="container">
               <Grid container direction="column" className="box">
                 <Grid item container direction="row" alignItems="center">
                   <Checkbox
@@ -49,23 +49,20 @@ const Moves: React.FC = () => {
           .filter(([id, v]) => v && moves[id as keyof typeof moves].source !== character.playbook)
           .map(([id]) => id as keyof typeof moves)
           .map(id => (
-            <Grid item className="move-container">
+            <Grid item className="container">
               <Grid container direction="column" className="move-box">
                 <Grid item container direction="row" alignItems="center">
                   <IconButton>
                     <Delete />
                   </IconButton>
-                  <span className="move-name">{moves[id].name}</span>
-                  <span className="move-source">(from {playbooks[moves[id].source].name})</span>
+                  <span className="name">{moves[id].name}</span>
+                  <span className="source">(from {playbooks[moves[id].source].name})</span>
                 </Grid>
-                <div
-                  className="move-description"
-                  dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}
-                ></div>
+                <div className="description" dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}></div>
               </Grid>
             </Grid>
           ))}
-        <Grid item className="move-container">
+        <Grid item className="container">
           <div role="button" className="new-move-button">
             <Grid container direction="column" alignItems="center" className="new-move-box">
               <Grid item>

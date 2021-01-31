@@ -36,12 +36,12 @@ const Connections: React.FC = props => {
       <Grid item className="title">
         Your Connections
       </Grid>
-      <Grid item className="connections-options">
+      <Grid item className="options">
         <FormGroup>
           {Object.entries(playbooks[character.playbook].connections)
             .map(([id, blurb]) => [id, blurb] as [keyof typeof connections, string])
             .map(([id, blurb]) => (
-              <Grid key={id} item className="connection-container">
+              <Grid key={id} item className="container">
                 <Grid container direction="column" className="box">
                   <span className="name">{connections[id].name}</span>
                   <div className="blurb">

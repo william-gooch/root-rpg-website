@@ -92,10 +92,8 @@
 
                 .moves-box,
                 .connections-box {
-                    .moves-options,
-                    .connections-options {
-                        .move-container,
-                        .connection-container {
+                    .options {
+                        .container {
                             padding: 0.5rem 0;
                             .box {
                                 padding: 1rem;
@@ -140,15 +138,16 @@
                             }
                         }
 
-                        .connection-container {
-                            .description {
-                                font-style: italic;
-                                p {
-                                    padding-left: 0.5rem;
-                                    border-left: 0.25rem dotted $color-text;
-                                }
-                            }
-                        }
+                    }
+                }
+            }
+            
+            .connections-box {
+                .description {
+                    font-style: italic;
+                    p {
+                        padding-left: 0.5rem;
+                        border-left: 0.25rem dotted $color-text;
                     }
                 }
             }
