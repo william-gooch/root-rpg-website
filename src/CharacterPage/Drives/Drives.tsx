@@ -8,18 +8,19 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
-import { Drive } from "root-rpg-model";
+import { Drive, drives, playbooks } from "root-rpg-model";
 
 const Drives: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const updateDrive = React.useCallback(
-    (drive: Drive, value: boolean) => {
+    (id: string, value: boolean) => {
       changeCharacter(d => {
         if (value) {
-          d.drives[drive.name] = true;
+          d.drives[id] = true;
+          console.log(id);
         } else {
-          delete d.drives[drive.name];
+          delete d.drives[id];
         }
       });
     },
@@ -37,27 +38,30 @@ const Drives: React.FC = () => {
       </Grid>
       <Grid item className="drives-options">
         <FormGroup>
-          {character.playbook.drives.map(drive => (
-            <FormControlLabel
-              key={drive.name}
-              control={
-                <Checkbox
-                  disabled={
-                    !(character.drives[drive.name] ?? false) &&
-                    getNumberOfDrivesChecked() >= 2
-                  }
-                />
-              }
-              label={
-                <>
-                  <FormLabel>{drive.name}</FormLabel>
-                  <FormHelperText>{drive.description}</FormHelperText>
-                </>
-              }
-              checked={character.drives[drive.name] ?? false}
-              onChange={(evt: any) => updateDrive(drive, evt.target.checked)}
-            />
-          ))}
+          {Object.entries(playbooks[character.playbook].drives)
+            .filter(([k, v]) => v)
+            .map(([id, v]) => id as keyof typeof drives)
+            .map(id => (
+              <FormControlLabel
+                key={drives[id].name}
+                control={
+                  <Checkbox
+                    disabled={
+                      !(character.drives[id] ?? false) &&
+                      getNumberOfDrivesChecked() >= 2
+                    }
+                  />
+                }
+                label={
+                  <>
+                    <FormLabel>{drives[id].name}</FormLabel>
+                    <FormHelperText>{drives[id].description}</FormHelperText>
+                  </>
+                }
+                checked={character.drives[id] ?? false}
+                onChange={(evt: any) => updateDrive(id, evt.target.checked)}
+              />
+            ))}
         </FormGroup>
       </Grid>
     </Grid>

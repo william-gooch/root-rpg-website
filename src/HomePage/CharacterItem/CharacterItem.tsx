@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, IconButton } from "@material-ui/core";
-import { Character } from "root-rpg-model";
+import { Character, playbooks } from "root-rpg-model";
 import { Check, ChevronRight, Close, Delete } from "@material-ui/icons";
 
 interface CharacterItemProps {
@@ -22,7 +22,7 @@ const CharacterItem: React.FC<CharacterItemProps> = props => {
                 ? props.character.name
                 : "Unnamed"}
             </b>
-            , {props.character.playbook.name}
+            , {playbooks[props.character.playbook].name}
           </Grid>
           <Grid item container direction="row" justify="flex-end">
             {confirmDelete && (

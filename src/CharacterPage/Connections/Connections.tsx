@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
-import { Connection } from "root-rpg-model";
+import { Connection, playbooks } from "root-rpg-model";
 
 const BlurbSplit: React.FC<{
   textField: React.ReactElement<any, any>;
@@ -43,7 +43,7 @@ const Connections: React.FC = props => {
       </Grid>
       <Grid item className="connections-options">
         <FormGroup>
-          {character.playbook.connections.map(connection => (
+          {playbooks[character.playbook].connections.map(connection => (
             <div key={connection.name} className="option">
               <FormLabel className="name">{connection.name}</FormLabel>
               <div className="blurb">

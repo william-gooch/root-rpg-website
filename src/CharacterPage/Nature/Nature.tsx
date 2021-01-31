@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import React from "react";
+import { playbooks } from "root-rpg-model";
 import { useCurrentCharacter } from "../../CharacterProvider";
 
 const NatureBox: React.FC = props => {
@@ -32,7 +33,7 @@ const NatureBox: React.FC = props => {
           value={character.nature}
           onChange={evt => updateNature(evt.target.value)}
         >
-          {character.playbook.natures.map(nature => (
+          {playbooks[character.playbook].natures.map(nature => (
             <FormControlLabel
               key={nature.name}
               value={nature.name}

@@ -9,18 +9,18 @@ import {
 import marked from "marked";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
-import { Move } from "root-rpg-model";
+import { moves, playbooks } from "root-rpg-model";
 
 const Moves: React.FC = props => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const updateMove = React.useCallback(
-    (move: Move, value: string) => {
+    (id: string, value: string) => {
       changeCharacter(d => {
         if (value) {
-          d.moves[move.name] = true;
+          d.moves[id] = true;
         } else {
-          delete d.moves[move.name];
+          delete d.moves[id];
         }
       });
     },
@@ -30,9 +30,10 @@ const Moves: React.FC = props => {
   const verifyMoves = React.useCallback(() => {
     const count =
       Object.entries(character.moves).filter(([k, v]) => !!v).length -
-      Object.entries(character.playbook.moves.starting.startWith).length; // minus the ones you start with.
+      Object.entries(playbooks[character.playbook].moves.starting.startWith)
+        .length; // minus the ones you start with.
 
-    return count < character.playbook.moves.starting.choose;
+    return count < playbooks[character.playbook].moves.starting.choose;
   }, [character]);
 
   return (
@@ -42,25 +43,33 @@ const Moves: React.FC = props => {
       </Grid>
       <Grid item className="moves-options">
         <FormGroup>
-          {character.playbook.moves.options.map(move => (
-            <div key={move.name}>
-              <FormControlLabel
-                control={<Checkbox />}
-                label={<FormLabel>{move.name}</FormLabel>}
-                disabled={
-                  character.playbook.moves.starting.startWith[move.name] ||
-                  (!(character.moves[move.name] ?? false) && !verifyMoves())
-                }
-                checked={character.moves[move.name] ?? false}
-                onChange={(evt: any) => updateMove(move, evt.target.checked)}
-              />
-              <FormHelperText>
-                <span
-                  dangerouslySetInnerHTML={{ __html: marked(move.description) }}
-                ></span>
-              </FormHelperText>
-            </div>
-          ))}
+          {Object.entries(playbooks[character.playbook].moves.options)
+            .filter(([id, v]) => v)
+            .map(([id, v]) => id as keyof typeof moves)
+            .map(id => (
+              <div key={moves[id].name}>
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label={<FormLabel>{moves[id].name}</FormLabel>}
+                  disabled={
+                    playbooks[character.playbook].moves.starting.startWith[
+                      id
+                    ] ||
+                    (!(character.moves[moves[id].name] ?? false) &&
+                      !verifyMoves())
+                  }
+                  checked={character.moves[id] ?? false}
+                  onChange={(evt: any) => updateMove(id, evt.target.checked)}
+                />
+                <FormHelperText>
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: marked(moves[id].description),
+                    }}
+                  ></span>
+                </FormHelperText>
+              </div>
+            ))}
         </FormGroup>
       </Grid>
     </Grid>

@@ -14,11 +14,14 @@ import Harm from "./Harm/Harm";
 import RoguishFeats from "./RoguishFeats/RoguishFeats";
 import WeaponSkills from "./WeaponSkills/WeaponSkills";
 import Moves from "./Moves/Moves";
+import Avatar from "./Avatar/Avatar";
 
 import Equipment from "./Equipment/Equipment";
 import { useCurrentCharacter } from "../CharacterProvider";
 import TopBar from "../TopBar/TopBar";
 import { Share } from "@material-ui/icons";
+
+import { playbooks } from "root-rpg-model";
 
 interface CharacterPageProps {}
 
@@ -35,7 +38,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
     return <div>Loading...</div>;
   }
 
-  const playbook = character.playbook;
+  const playbook = playbooks[character.playbook];
 
   return (
     <>
@@ -57,7 +60,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
         alignItems="stretch"
         className="character-page-container"
       >
-        <Grid item xs={12} lg={6} className="page-container">
+        <Grid item xs={12} xl={6} className="page-container">
           <Grid container direction="column" className="page-column">
             <Header name={playbook.name} blurb={playbook.blurb} />
             <Grid
@@ -70,7 +73,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
             >
               <Grid
                 item
-                lg={4}
+                md={4}
                 container
                 alignItems="stretch"
                 direction="column"
@@ -81,22 +84,18 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
               </Grid>
               <Grid
                 item
-                lg={4}
+                md={4}
                 container
                 alignItems="stretch"
                 direction="column"
                 className="second-column"
               >
-                <Grid item container direction="column" className="avatar-box">
-                  Hello, {character.name} the {character.species}! Your details
-                  are {character.details}, and you're looking quite{" "}
-                  {character.demeanor} today...
-                </Grid>
+                <Avatar playbookName={character.playbook} />
                 <Drives />
               </Grid>
               <Grid
                 item
-                lg={4}
+                md={4}
                 container
                 alignItems="stretch"
                 direction="column"
@@ -109,7 +108,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
             <Reputation />
           </Grid>
         </Grid>
-        <Grid item xs={12} lg={6} className="page-container">
+        <Grid item xs={12} xl={6} className="page-container">
           <Grid container direction="column" className="page-column">
             <Grid
               item
@@ -121,7 +120,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
             >
               <Grid
                 item
-                lg={4}
+                md={4}
                 container
                 alignItems="stretch"
                 direction="column"
@@ -134,7 +133,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
               </Grid>
               <Grid
                 item
-                lg={8}
+                md={8}
                 container
                 alignItems="stretch"
                 direction="column"

@@ -84,7 +84,10 @@ export const CharacterProvider: React.FC = props => {
     </CharacterContext.Provider>
   );
 };
-export const useCharacterContext = () => React.useContext(CharacterContext);
+
+export const useCharacterContext = (): CharacterContextType =>
+  React.useContext(CharacterContext);
+
 export const useCharacter = (
   id: string
 ): [Automerge.Doc<Character>, (fn: Automerge.ChangeFn<Character>) => void] => {
@@ -96,6 +99,7 @@ export const useCharacter = (
 
   return [character!, changeCharacter];
 };
+
 export const useCurrentCharacter = (): ReturnType<typeof useCharacter> => {
   const match = useRouteMatch<{ id: string }>();
   return useCharacter(match.params.id);

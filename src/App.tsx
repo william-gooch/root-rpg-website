@@ -1,5 +1,4 @@
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
-import { deepOrange, red } from "@material-ui/core/colors";
 import React from "react";
 import "./App.scss";
 import CharacterPage from "./CharacterPage/CharacterPage";
@@ -9,11 +8,24 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import { SocketProvider } from "./SocketProvider";
 
+import styles from "./styles/_variables.scss";
+console.log(styles);
+
 const theme = createMuiTheme({
   palette: {
     type: "dark",
-    primary: deepOrange,
-    secondary: red,
+    primary: {
+      main: styles.colorPrimary,
+      light: styles.colorPrimaryLight,
+      dark: styles.colorPrimaryDark,
+      contrastText: styles.colorText,
+    },
+    secondary: {
+      main: styles.colorSecondary,
+      light: styles.colorSecondaryLight,
+      dark: styles.colorSecondaryDark,
+      contrastText: styles.colorText,
+    },
   },
 });
 
