@@ -32,19 +32,16 @@ const Moves: React.FC = () => {
           .map(([id]) => id as keyof typeof moves)
           .map(id => (
             <Grid key={moves[id].name} item className="move-container">
-              <Grid container direction="column" className="move-box">
+              <Grid container direction="column" className="box">
                 <Grid item container direction="row" alignItems="center">
                   <Checkbox
                     disabled={playbooks[character.playbook].moves.starting.startWith[id]}
                     checked={character.moves[id] ?? false}
                     onChange={(evt: any) => updateMove(id, evt.target.checked)}
                   />
-                  <span className="move-name">{moves[id].name}</span>
+                  <span className="name">{moves[id].name}</span>
                 </Grid>
-                <div
-                  className="move-description"
-                  dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}
-                ></div>
+                <div className="description" dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}></div>
               </Grid>
             </Grid>
           ))}

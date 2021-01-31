@@ -9,6 +9,7 @@ import TopBar from "../TopBar/TopBar";
 import { useCharacterContext } from "../CharacterProvider";
 import CharacterItem from "./CharacterItem/CharacterItem";
 import { Character } from "root-rpg-model";
+import PlaybookPopup from "./PlaybookPopup/PlaybookPopup";
 
 interface HomePageProps {
   history: History;
@@ -16,6 +17,7 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = props => {
   const [id, setId] = React.useState("");
+  const [popupOpen, setPopupOpen] = React.useState(false);
   const socket = useSocket();
 
   const characterContext = useCharacterContext();
@@ -43,9 +45,12 @@ const HomePage: React.FC<HomePageProps> = props => {
     [props.history]
   );
 
-  const createNewCharacter = React.useCallback(() => {
-    socket.send(JSON.stringify({ action: "new-document" }));
-  }, [socket]);
+  const createNewCharacter = React.useCallback(
+    (playbookName: string) => {
+      socket.send(JSON.stringify({ action: "new-document", playbook: playbookName }));
+    },
+    [socket]
+  );
 
   const deleteCharacter = React.useCallback(
     (id: string) => {
@@ -61,6 +66,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   return (
     <>
       <TopBar />
+      <PlaybookPopup open={popupOpen} onClose={() => setPopupOpen(false)} onSubmit={createNewCharacter} />
       <Grid container direction="column" alignItems="center" className="home-page-container">
         <Grid
           item
@@ -104,7 +110,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                   )
               )}
               <Grid item xs={12} md={3} className="new-character-container">
-                <div role="button" className="new-character-button" onClick={createNewCharacter}>
+                <div role="button" className="new-character-button" onClick={() => setPopupOpen(true)}>
                   <Grid container direction="column" alignItems="center" justify="center" className="new-character-box">
                     <Grid item>
                       <Add />

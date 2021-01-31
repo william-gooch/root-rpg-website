@@ -1,18 +1,17 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 
-import arbiter from "assets/vagabonds/arbiter.png";
-
-const vagabondImages: { [key: string]: string } = { arbiter };
+import vagabonds from "assets/vagabonds/vagabonds";
+import { playbooks } from "root-rpg-model";
 
 interface AvatarProps {
-  playbookName: string;
+  playbookName: keyof typeof playbooks;
 }
 
 const Avatar: React.FC<AvatarProps> = props => {
   return (
     <Grid item container direction="column" className="avatar-box">
-      <img src={vagabondImages[props.playbookName]} />
+      <img src={vagabonds[props.playbookName]} />
     </Grid>
   );
 };

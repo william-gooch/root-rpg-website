@@ -1,0 +1,49 @@
+@import "../../styles/variables";
+
+.playbook-popup {
+    .MuiPaper-root {
+        max-width: 100%;
+        background-color: transparent;
+        margin: 3vw;
+        border-radius: 0;
+        overflow: hidden;
+    }
+
+    .playbook-container {
+        background-color: $color-background;
+        border-radius: $border-radius-leading;
+        padding: calc(1vw - 1rem) 1vw 1vw 1vw;
+        overflow-y: auto;
+
+        .playbook-title {
+            font-size: 2rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .playbook-list {
+            .playbook-option {
+                padding: 1rem;
+                .playbook-box {
+                    padding: 1rem;
+                    background-color: $color-background-light;
+                    border-radius: $border-radius-lagging;
+                    cursor: pointer;
+
+                    &:hover,
+                    &.selected {
+                        background-color: $color-background-lighter;
+                    }
+                    
+                    img {
+                        width: 100%;
+                    }
+                    .playbook-name {
+                        font-size: 1.25rem;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -2,6 +2,7 @@ import { Grid, FormGroup, FormLabel, FormHelperText, TextField } from "@material
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
 import { Connection, connections, playbooks } from "root-rpg-model";
+import marked from "marked";
 
 const BlurbSplit: React.FC<{
   textField: React.ReactElement<any, any>;
@@ -40,24 +41,27 @@ const Connections: React.FC = props => {
           {Object.entries(playbooks[character.playbook].connections)
             .map(([id, blurb]) => [id, blurb] as [keyof typeof connections, string])
             .map(([id, blurb]) => (
-              <div key={connections[id].name} className="option">
-                <FormLabel className="name">{connections[id].name}</FormLabel>
-                <div className="blurb">
-                  <BlurbSplit
-                    blurb={blurb ?? "###"}
-                    textField={
-                      <TextField
-                        className="connection-name-entry"
-                        value={character.connections[id]}
-                        onChange={evt => updateConnection(id, evt.target.value)}
-                      />
-                    }
-                  />
-                </div>
-                <FormHelperText className="description">
-                  <i>{connections[id].description}</i>
-                </FormHelperText>
-              </div>
+              <Grid key={id} item className="connection-container">
+                <Grid container direction="column" className="box">
+                  <span className="name">{connections[id].name}</span>
+                  <div className="blurb">
+                    <BlurbSplit
+                      blurb={blurb ?? "###"}
+                      textField={
+                        <TextField
+                          className="connection-name-entry"
+                          value={character.connections[id]}
+                          onChange={evt => updateConnection(id, evt.target.value)}
+                        />
+                      }
+                    />
+                  </div>
+                  <div
+                    className="description"
+                    dangerouslySetInnerHTML={{ __html: marked(connections[id].description) }}
+                  ></div>
+                </Grid>
+              </Grid>
             ))}
         </FormGroup>
       </Grid>
