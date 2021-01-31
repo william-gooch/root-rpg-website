@@ -9,6 +9,7 @@ import {
   Radio,
 } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
+import marked from "marked";
 import React from "react";
 import { playbooks } from "root-rpg-model";
 import { useCurrentCharacter } from "../../CharacterProvider";
@@ -28,22 +29,23 @@ const NatureBox: React.FC = props => {
       <Grid item className="title">
         Your Nature
       </Grid>
-      <Grid item className="nature-options">
-        <RadioGroup value={character.nature} onChange={evt => updateNature(evt.target.value)}>
-          {playbooks[character.playbook].natures.map(nature => (
-            <FormControlLabel
-              key={nature.name}
-              value={nature.name}
-              control={<Radio icon={<CheckBoxOutlineBlank />} checkedIcon={<CheckBox />} />}
-              label={
-                <>
-                  <FormLabel>{nature.name}</FormLabel>
-                  <FormHelperText>{nature.description}</FormHelperText>
-                </>
-              }
-            />
-          ))}
-        </RadioGroup>
+      <Grid item className="options">
+        {playbooks[character.playbook].natures.map(nature => (
+          <Grid key={nature.name} item className="container">
+            <Grid container direction="column" className="box">
+              <Grid item container direction="row" alignItems="center">
+                <Radio
+                  checked={character.nature === nature.name ?? false}
+                  onChange={() => updateNature(nature.name)}
+                  icon={<CheckBoxOutlineBlank />}
+                  checkedIcon={<CheckBox />}
+                />
+                <span className="name">{nature.name}</span>
+              </Grid>
+              <div className="description" dangerouslySetInnerHTML={{ __html: marked(nature.description) }}></div>
+            </Grid>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   );
