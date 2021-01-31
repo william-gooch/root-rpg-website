@@ -50,7 +50,7 @@ const Moves: React.FC = () => {
           .map(([id]) => id as keyof typeof moves)
           .map(id => (
             <Grid item className="container">
-              <Grid container direction="column" className="move-box">
+              <Grid container direction="column" className="box">
                 <Grid item container direction="row" alignItems="center">
                   <IconButton>
                     <Delete />
@@ -64,7 +64,7 @@ const Moves: React.FC = () => {
           ))}
         <Grid item className="container">
           <div role="button" className="new-move-button">
-            <Grid container direction="column" alignItems="center" className="new-move-box">
+            <Grid container direction="column" alignItems="center" className="new-box">
               <Grid item>
                 <Add />
               </Grid>

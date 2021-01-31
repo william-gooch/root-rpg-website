@@ -92,7 +92,8 @@
 
                 .moves-box,
                 .connections-box,
-                .nature-box {
+                .nature-box,
+                .drives-box {
                     .options {
                         .container {
                             padding: 0.5rem 0;
@@ -126,12 +127,14 @@
                                 }
                             }
 
-                            .new-move-box {
+                            .new-box {
                                 border: 0.25rem dashed $color-background-light;
                                 border-radius: $border-radius-lagging;
+                                text-align: center;
                                 padding: 1rem;
                                 font-size: 1.25rem;
                                 cursor: pointer;
+                                user-select: none;
 
                                 &:hover {
                                     border-color: $color-background-lighter;
@@ -146,9 +149,19 @@
             .connections-box {
                 .description {
                     font-style: italic;
+                    font-size: 0.9rem;
                     p {
                         padding-left: 0.5rem;
                         border-left: 0.25rem dotted $color-text;
+                    }
+                }
+            }
+
+            .nature-box,
+            .drives-box {
+                .description {
+                    p {
+                        margin: 0;
                     }
                 }
             }

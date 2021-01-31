@@ -2,6 +2,7 @@ import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText 
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
 import { Drive, drives, playbooks } from "root-rpg-model";
+import marked from "marked";
 
 const Drives: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
@@ -29,24 +30,28 @@ const Drives: React.FC = () => {
       <Grid item className="title">
         Your Drives
       </Grid>
-      <Grid item className="drives-options">
+      <Grid item className="options">
         <FormGroup>
           {Object.entries(playbooks[character.playbook].drives)
             .filter(([k, v]) => v)
             .map(([id, v]) => id as keyof typeof drives)
             .map(id => (
-              <FormControlLabel
-                key={drives[id].name}
-                control={<Checkbox disabled={!(character.drives[id] ?? false) && getNumberOfDrivesChecked() >= 2} />}
-                label={
-                  <>
-                    <FormLabel>{drives[id].name}</FormLabel>
-                    <FormHelperText>{drives[id].description}</FormHelperText>
-                  </>
-                }
-                checked={character.drives[id] ?? false}
-                onChange={(evt: any) => updateDrive(id, evt.target.checked)}
-              />
+              <Grid key={drives[id].name} item className="container">
+                <Grid container direction="column" className="box">
+                  <Grid item container direction="row" alignItems="center">
+                    <Checkbox
+                      disabled={!(character.drives[id] ?? false) && getNumberOfDrivesChecked() >= 2}
+                      checked={character.drives[id] ?? false}
+                      onChange={(evt: any) => updateDrive(id, evt.target.checked)}
+                    />
+                    <span className="name">{drives[id].name}</span>
+                  </Grid>
+                  <div
+                    className="description"
+                    dangerouslySetInnerHTML={{ __html: marked(drives[id].description) }}
+                  ></div>
+                </Grid>
+              </Grid>
             ))}
         </FormGroup>
       </Grid>
