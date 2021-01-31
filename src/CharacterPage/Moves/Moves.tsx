@@ -1,10 +1,11 @@
-import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel, FormHelperText } from "@material-ui/core";
+import { Grid, Checkbox, IconButton } from "@material-ui/core";
 import marked from "marked";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
 import { moves, playbooks } from "root-rpg-model";
+import { Add, Delete } from "@material-ui/icons";
 
-const Moves: React.FC = props => {
+const Moves: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const updateMove = React.useCallback(
@@ -20,46 +21,63 @@ const Moves: React.FC = props => {
     [changeCharacter]
   );
 
-  const verifyMoves = React.useCallback(() => {
-    const count =
-      Object.entries(character.moves).filter(([k, v]) => !!v).length -
-      Object.entries(playbooks[character.playbook].moves.starting.startWith).length; // minus the ones you start with.
-
-    return count < playbooks[character.playbook].moves.starting.choose;
-  }, [character]);
-
   return (
     <Grid item container direction="column" className="moves-box">
       <Grid item className="title">
         Your Moves
       </Grid>
-      <Grid item className="moves-options">
-        <FormGroup>
-          {Object.entries(playbooks[character.playbook].moves.options)
-            .filter(([id, v]) => v)
-            .map(([id, v]) => id as keyof typeof moves)
-            .map(id => (
-              <div key={moves[id].name}>
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={<FormLabel>{moves[id].name}</FormLabel>}
-                  disabled={
-                    playbooks[character.playbook].moves.starting.startWith[id] ||
-                    (!(character.moves[id] ?? false) && !verifyMoves())
-                  }
-                  checked={character.moves[id] ?? false}
-                  onChange={(evt: any) => updateMove(id, evt.target.checked)}
-                />
-                <FormHelperText>
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: marked(moves[id].description),
-                    }}
-                  ></span>
-                </FormHelperText>
-              </div>
-            ))}
-        </FormGroup>
+      <Grid item container direction="column" className="moves-options">
+        {Object.entries(playbooks[character.playbook].moves.options)
+          .filter(([, v]) => v)
+          .map(([id]) => id as keyof typeof moves)
+          .map(id => (
+            <Grid key={moves[id].name} item className="move-container">
+              <Grid container direction="column" className="move-box">
+                <Grid item container direction="row" alignItems="center">
+                  <Checkbox
+                    disabled={playbooks[character.playbook].moves.starting.startWith[id]}
+                    checked={character.moves[id] ?? false}
+                    onChange={(evt: any) => updateMove(id, evt.target.checked)}
+                  />
+                  <span className="move-name">{moves[id].name}</span>
+                </Grid>
+                <div
+                  className="move-description"
+                  dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}
+                ></div>
+              </Grid>
+            </Grid>
+          ))}
+        {Object.entries(character.moves)
+          .filter(([id, v]) => v && moves[id as keyof typeof moves].source !== character.playbook)
+          .map(([id]) => id as keyof typeof moves)
+          .map(id => (
+            <Grid item className="move-container">
+              <Grid container direction="column" className="move-box">
+                <Grid item container direction="row" alignItems="center">
+                  <IconButton>
+                    <Delete />
+                  </IconButton>
+                  <span className="move-name">{moves[id].name}</span>
+                  <span className="move-source">(from {playbooks[moves[id].source].name})</span>
+                </Grid>
+                <div
+                  className="move-description"
+                  dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}
+                ></div>
+              </Grid>
+            </Grid>
+          ))}
+        <Grid item className="move-container">
+          <div role="button" className="new-move-button">
+            <Grid container direction="column" alignItems="center" className="new-move-box">
+              <Grid item>
+                <Add />
+              </Grid>
+              <Grid item>Add a move from another Playbook</Grid>
+            </Grid>
+          </div>
+        </Grid>
       </Grid>
     </Grid>
   );

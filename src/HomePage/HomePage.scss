@@ -36,7 +36,7 @@
                     margin: 0.5rem;
 
                     &:hover {
-                        border: 0.25rem dashed $color-background-light;
+                        border-color: $color-background-light;
                     }
 
                     .new-character-box {

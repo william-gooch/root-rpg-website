@@ -114,6 +114,41 @@
                         }
                     }
                 }
+
+                .moves-box {
+                    .moves-options {
+                        .move-container {
+                            padding: 0.5rem 0;
+                            .move-box {
+                                padding: 1rem;
+                                border: 0.25rem solid $color-background-light;
+                                border-radius: $border-radius-lagging;
+
+                                .move-name {
+                                    font-size: 1.25rem;
+                                    flex-grow: 1;
+                                }
+
+                                .move-source {
+                                    font-style: italic;
+                                    font-size: 0.9rem;
+                                }
+                            }
+
+                            .new-move-box {
+                                border: 0.25rem dashed $color-background-light;
+                                border-radius: $border-radius-lagging;
+                                padding: 1rem;
+                                font-size: 1.25rem;
+                                cursor: pointer;
+
+                                &:hover {
+                                    border-color: $color-background-lighter;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             .reputation-row {
