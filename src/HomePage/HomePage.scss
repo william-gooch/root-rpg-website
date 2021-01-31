@@ -26,20 +26,22 @@
                 }
             }
 
-            .new-character-button {
-                height: calc(100% - 1rem);
-                border: 0.25rem dashed $color-background;
-                border-radius: 0.5rem;
-                padding: 1rem;
-                margin: 0.5rem;
+            .new-character-container {
                 cursor: pointer;
+                .new-character-button {
+                    height: calc(100% - 1rem);
+                    border: 0.25rem dashed $color-background;
+                    border-radius: 0.5rem;
+                    padding: 1rem;
+                    margin: 0.5rem;
 
-                &:hover {
-                    border: 0.25rem dashed $color-background-light;
-                }
+                    &:hover {
+                        border: 0.25rem dashed $color-background-light;
+                    }
 
-                .new-character-box {
-                    height: 100%;
+                    .new-character-box {
+                        height: 100%;
+                    }
                 }
             }
         }

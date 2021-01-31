@@ -103,7 +103,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                     />
                   )
               )}
-              <Grid item xs={12} md={3} className="character-container">
+              <Grid item xs={12} md={3} className="new-character-container">
                 <div role="button" className="new-character-button" onClick={createNewCharacter}>
                   <Grid container direction="column" alignItems="center" justify="center" className="new-character-box">
                     <Grid item>

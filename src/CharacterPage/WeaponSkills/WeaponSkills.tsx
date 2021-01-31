@@ -39,6 +39,8 @@ const WeaponSkillsBox: React.FC<WeaponSkillsProps> = props => {
                     <span className={props.boldedSkills[skill] ? "bold" : ""}>{skill}</span>
                   </FormLabel>
                 }
+                checked={character.weaponSkills[skill] ?? false}
+                onChange={(evt: any) => updateSkill(skill, evt.target.checked)}
               />
             </Grid>
           ))}
