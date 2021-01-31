@@ -11,11 +11,10 @@ export const SocketProvider: React.FC = props => {
     (ev: MessageEvent<any>) => {
       const data = JSON.parse(ev.data);
       if (data.action === "error") {
-        console.log("error message");
+        //lol
       } else if (data.action === "load") {
         let charactersToSave = "";
         const charactersString = localStorage.getItem("myCharacters");
-        console.log(charactersString);
         if (charactersString) {
           const characters = JSON.parse(charactersString) as string[];
           characters.push(data.id);

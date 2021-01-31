@@ -4,6 +4,8 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  MenuList,
+  Popover,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -28,11 +30,16 @@ const TopBar: React.FC<TopBarProps> = props => {
       <Toolbar>
         <Link
           to="/"
-          component={props => (
-            <IconButton edge="start" className="home-button" {...props}>
+          component={React.forwardRef((props, ref) => (
+            <IconButton
+              edge="start"
+              className="home-button"
+              ref={ref}
+              {...props}
+            >
               <Home />
             </IconButton>
-          )}
+          ))}
         />
         <Typography variant="h6" className="fill">
           Root RPG
@@ -44,16 +51,17 @@ const TopBar: React.FC<TopBarProps> = props => {
           <MenuIcon />
         </IconButton>
       </Toolbar>
-      <Menu
+      <Popover
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        id="main-menu"
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
       >
-        <MenuItem onClick={createNewCharacter}>New Character</MenuItem>
-      </Menu>
+        <MenuList id="main-menu">
+          <MenuItem onClick={createNewCharacter}>New Character</MenuItem>
+        </MenuList>
+      </Popover>
     </AppBar>
   );
 };

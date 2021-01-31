@@ -11,7 +11,7 @@ import { Map } from "immutable";
 interface CharacterContextType {
   getCharacters: (
     ids: string[]
-  ) => (Automerge.Doc<Character> | undefined)[] | undefined;
+  ) => { [id: string]: Automerge.Doc<Character> | undefined } | undefined;
   changeCharacter: (id: string, fn: Automerge.ChangeFn<Character>) => void;
 }
 const CharacterContext = React.createContext<CharacterContextType>(null as any);
@@ -38,7 +38,6 @@ export const CharacterProvider: React.FC = props => {
       socket,
       savedData: localStorage.getItem("automerge") ?? undefined,
       save: (data: string) => {
-        console.log("saving to local storage");
         localStorage.setItem("automerge", data);
       },
       onChange: (id: string, doc: Automerge.Doc<Character>) => {
@@ -52,15 +51,18 @@ export const CharacterProvider: React.FC = props => {
   const getCharacters = React.useCallback(
     (ids: string[]) => {
       if (automergeClient) {
-        const toSubscribe = [];
-        const chars = ids.map(id => {
-          const char = characters.get(id);
-          if (!char) {
-            toSubscribe.push(id);
-            return undefined;
-          }
-          return char;
-        });
+        const toSubscribe: string[] = [];
+        const chars = Object.fromEntries(
+          ids.map(id => {
+            const char = characters.get(id);
+            if (!char) {
+              toSubscribe.push(id);
+              return [id, undefined];
+            }
+            return [id, char];
+          })
+        );
+        if (toSubscribe.length > 0) automergeClient.subscribe(toSubscribe);
         return chars;
       } else {
         return undefined;
@@ -88,7 +90,7 @@ export const useCharacter = (
 ): [Automerge.Doc<Character>, (fn: Automerge.ChangeFn<Character>) => void] => {
   const characterContext = useCharacterContext();
 
-  const character = characterContext.getCharacters([id])?.[0];
+  const character = characterContext.getCharacters([id])?.[id];
   const changeCharacter = (fn: Automerge.ChangeFn<Character>) =>
     characterContext.changeCharacter(id, fn);
 
