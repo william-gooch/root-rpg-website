@@ -1,12 +1,32 @@
 @import "../styles/variables";
 
-.social-buttons.MuiGrid-container {
+.floater-container.MuiGrid-container {
   position: fixed;
   bottom: 0;
   right: 0;
   width: auto;
-  padding: 1.25rem 0.75rem 0.75rem 1.25rem;
-  background-color: $color-background-light;
-  box-shadow: 0 0 1rem 0 $color-background-dark;
-  border-top-left-radius: $border-radius-value;
+
+  transition: transform 500ms;
+
+  .copyright,
+  .social-buttons {
+    background-color: $color-background-light;
+    border-top-left-radius: $border-radius-value;
+  }
+  .copyright {
+    font-size: 0.7rem;
+    text-align: right;
+    white-space: nowrap;
+    padding: 0.3rem 0.5rem 0.3rem 1rem;
+    .close-button {
+      padding-right: 0.5rem;
+    }
+  }
+  .social-buttons {
+    padding: 1.25rem 0.75rem 0.75rem 1.25rem;
+  }
+
+  &.hidden {
+    transform: translateX(90%);
+  }
 }

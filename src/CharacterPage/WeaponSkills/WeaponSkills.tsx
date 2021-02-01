@@ -1,7 +1,7 @@
 import { Grid, FormGroup, FormControlLabel, Checkbox, FormLabel } from "@material-ui/core";
 import { useCurrentCharacter } from "CharacterProvider";
 import React from "react";
-import { weaponSkills, WeaponSkill } from "root-rpg-model";
+import { weaponSkills, WeaponSkill, playbooks } from "root-rpg-model";
 
 interface WeaponSkillsProps {
   boldedSkills: { [k in WeaponSkill]?: boolean };
@@ -26,7 +26,8 @@ const WeaponSkillsBox: React.FC<WeaponSkillsProps> = props => {
   return (
     <Grid item container direction="column" className="skills-box">
       <Grid item className="title">
-        <span>Weapon Skills</span>
+        <div>Weapon Skills</div>
+        <div className="choose-text">(Choose one bolded skill to start)</div>
       </Grid>
       <FormGroup>
         <Grid container direction="row">
@@ -36,7 +37,9 @@ const WeaponSkillsBox: React.FC<WeaponSkillsProps> = props => {
                 control={<Checkbox size="small" />}
                 label={
                   <FormLabel>
-                    <span className={props.boldedSkills[skill] ? "bold" : ""}>{skill}</span>
+                    <span className={playbooks[character.playbook].weaponSkills.bolded[skill] ? "bold" : ""}>
+                      {skill}
+                    </span>
                   </FormLabel>
                 }
                 checked={character.weaponSkills[skill] ?? false}

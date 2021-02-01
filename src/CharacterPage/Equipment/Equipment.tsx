@@ -2,7 +2,7 @@ import React from "react";
 import * as Automerge from "automerge";
 import { Grid, Menu, MenuItem } from "@material-ui/core";
 import { useCurrentCharacter } from "CharacterProvider";
-import { defaultEquipment, EquipmentItem, getItemValue } from "root-rpg-model";
+import { defaultEquipment, EquipmentItem, getItemValue, playbooks } from "root-rpg-model";
 import { Add } from "@material-ui/icons";
 import EquipmentItemComponent from "./EquipmentItem";
 
@@ -47,6 +47,7 @@ const Equipment: React.FC<EquipmentProps> = props => {
           <span className="total-value">
             (Total Value: {character.equipment.reduce((prev, curr) => prev + getItemValue(curr), 0)})
           </span>
+          <span className="total-value">(Starting Value: {playbooks[character.playbook].startingEquipmentValue})</span>
         </Grid>
         <Grid item xs={12} container direction="row" alignItems="stretch" className="equipment-container">
           {character.equipment.map((item, index) => (

@@ -22,7 +22,8 @@ const RoguishFeatsBox: React.FC = props => {
   return (
     <Grid item container direction="column" className="feats-box">
       <Grid item className="title">
-        <span>Roguish Feats</span>
+        <div>Roguish Feats</div>
+        <div className="choose-text">(Choose one feat to start)</div>
       </Grid>
       <FormGroup>
         <Grid container direction="row">

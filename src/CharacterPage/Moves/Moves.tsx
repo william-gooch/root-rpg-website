@@ -24,10 +24,23 @@ const Moves: React.FC = () => {
 
   const [menuAnchorEl, setMenuAnchorEl] = React.useState<Element | null>(null);
 
+  const getChooseText = React.useCallback(() => {
+    const starting = playbooks[character.playbook].moves.starting;
+    if (Object.keys(starting.startWith).length <= 0) {
+      return `Choose ${starting.choose} moves to start`;
+    } else {
+      const startingMoves = Object.keys(starting.startWith)
+        .map(move => moves[move as keyof typeof moves].name)
+        .join(", ");
+      return `Start with, ${startingMoves} then choose ${starting.choose}`;
+    }
+  }, [character]);
+
   return (
     <Grid item container direction="column" className="moves-box">
       <Grid item className="title">
-        Your Moves
+        <div>Your Moves</div>
+        <div className="choose-text">({getChooseText()})</div>
       </Grid>
       <Grid item container direction="column" className="options">
         {Object.entries(playbooks[character.playbook].moves.options)
