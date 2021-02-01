@@ -6,7 +6,7 @@
   right: 0;
   width: auto;
 
-  transition: transform 500ms;
+  transition: transform 200ms;
 
   .copyright,
   .social-buttons {
@@ -17,7 +17,7 @@
     font-size: 0.7rem;
     text-align: right;
     white-space: nowrap;
-    padding: 0.3rem 0.5rem 0.3rem 1rem;
+    padding: 0.3rem 0.5rem 0.3rem 0.9rem;
     .close-button {
       padding-right: 0.5rem;
     }
@@ -27,6 +27,6 @@
   }
 
   &.hidden {
-    transform: translateX(90%);
+    transform: translateX(calc(100% - 3.2rem));
   }
 }
