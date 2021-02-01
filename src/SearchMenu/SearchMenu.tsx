@@ -21,7 +21,7 @@ const SearchMenu: React.FC<SearchMenuProps> = props => {
   React.useEffect(() => {
     const filtered = props.items.filter(item => props.filterPredicate(item, filter));
     setFilteredItems(filtered);
-  }, [filter]);
+  }, [filter, props.open]);
 
   return (
     <Popover
@@ -29,7 +29,7 @@ const SearchMenu: React.FC<SearchMenuProps> = props => {
       onClose={props.onClose}
       anchorEl={props.anchorEl}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      transformOrigin={{ horizontal: "left", vertical: "bottom" }}
+      transformOrigin={{ horizontal: "right", vertical: "top" }}
       className="search-menu"
     >
       <TextField

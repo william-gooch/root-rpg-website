@@ -6,6 +6,7 @@
   right: 0;
   width: auto;
   padding: 1.25rem 0.75rem 0.75rem 1.25rem;
-  background-color: $color-background;
+  background-color: $color-background-light;
+  box-shadow: 0 0 1rem 0 $color-background-dark;
   border-top-left-radius: $border-radius-value;
 }

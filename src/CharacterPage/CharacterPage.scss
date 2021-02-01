@@ -99,6 +99,8 @@
         .options {
           .container {
             padding: 0.5rem 0;
+            position: relative;
+
             .box {
               padding: 1rem;
               border: 0.25rem solid $color-background-light;
@@ -128,6 +130,12 @@
                   }
                 }
               }
+            }
+
+            .actions {
+              position: absolute;
+              right: 1rem;
+              top: 1rem;
             }
           }
         }
