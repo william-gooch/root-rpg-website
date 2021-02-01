@@ -1,0 +1,11 @@
+@import "../styles/variables";
+
+.social-buttons.MuiGrid-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: auto;
+  padding: 1.25rem 0.75rem 0.75rem 1.25rem;
+  background-color: $color-background;
+  border-top-left-radius: $border-radius-value;
+}

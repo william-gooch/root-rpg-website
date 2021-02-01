@@ -9,6 +9,7 @@ import HomePage from "./HomePage/HomePage";
 import { SocketProvider } from "./SocketProvider";
 
 import styles from "./styles/index.module.scss";
+import SocialButtons from "SocialButtons/SocialButtons";
 console.log(styles);
 
 export const defaultTheme = createMuiTheme({
@@ -57,6 +58,7 @@ const App: React.FC = () => {
               <Route path="/character/:id" component={CharacterPage} />
               <Route path="/" component={HomePage} />
             </Switch>
+            <SocialButtons />
           </CharacterProvider>
         </ThemeProvider>
       </SocketProvider>

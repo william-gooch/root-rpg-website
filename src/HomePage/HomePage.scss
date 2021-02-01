@@ -1,49 +1,54 @@
 @import "../styles/variables";
 
 .home-page-container {
-    height: 100%;
-    flex-grow: 1;
+  height: 100%;
+  flex-grow: 1;
 
-    .page-container {
-        .home-box {
-            padding: 2rem;
-            border-radius: 0.5rem;
-            background-color: $color-background;
-            flex-basis: 0;
-        }
-
-        .my-box {
-            width: 80%;
-            
-            .character-box {
-                background-color: $color-background;
-                padding: 1rem;
-                margin: 0.5rem;
-                border-radius: 0.5rem;
-
-                .character-name {
-                    font-size: 1.5rem;
-                }
-            }
-
-            .new-character-container {
-                cursor: pointer;
-                .new-character-button {
-                    height: calc(100% - 1rem);
-                    border: 0.25rem dashed $color-background;
-                    border-radius: 0.5rem;
-                    padding: 1rem;
-                    margin: 0.5rem;
-
-                    &:hover {
-                        border-color: $color-background-light;
-                    }
-
-                    .new-character-box {
-                        height: 100%;
-                    }
-                }
-            }
-        }
+  .page-container {
+    .home-box {
+      padding: 2rem;
+      border-radius: 0.5rem;
+      background-color: $color-background;
+      flex-basis: 0;
     }
+
+    .my-box {
+      width: 80%;
+
+      .character-box {
+        background-color: $color-background;
+        padding: 1rem;
+        margin: 0.5rem;
+        border-radius: 0.5rem;
+
+        .character-name {
+          font-size: 1.5rem;
+        }
+
+        img {
+          width: 4rem;
+          margin-right: 1rem;
+        }
+      }
+
+      .new-character-container {
+        cursor: pointer;
+        .new-character-button {
+          height: calc(100% - 1rem);
+          border: 0.25rem dashed $color-background;
+          border-radius: 0.5rem;
+          padding: 1rem;
+          margin: 0.5rem;
+
+          &:hover {
+            border-color: $color-background-light;
+          }
+
+          .new-character-box {
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
 }

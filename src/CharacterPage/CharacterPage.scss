@@ -106,6 +106,7 @@
 
               .name {
                 font-size: 1.25rem;
+                font-weight: 500;
                 flex-grow: 1;
               }
 
@@ -276,6 +277,11 @@
           padding: 0.75rem;
           margin: 0.5rem;
           border-radius: $border-radius-leading;
+          .total-value {
+            font-size: 1.25rem;
+            margin-left: 1rem;
+            font-style: italic;
+          }
         }
         .equipment-container {
           border-radius: $border-radius-top;
@@ -285,6 +291,12 @@
 
           .equipment-item {
             padding: 0.5rem;
+            position: relative;
+            .equipment-actions {
+              position: absolute;
+              right: 1rem;
+              top: 1rem;
+            }
             .item-container {
               border: 0.25rem solid $color-background-light;
               padding: 1rem;
@@ -293,6 +305,18 @@
               .item-name {
                 font-weight: bolder;
                 font-size: 1.5rem;
+                input {
+                  font-weight: bolder;
+                  font-size: 1.5rem;
+                  width: 12rem;
+                }
+              }
+              .item-value {
+                font-size: 1rem;
+                input {
+                  font-size: 1rem;
+                  width: 3rem;
+                }
               }
               .MuiCheckbox-root {
                 padding: 0.05rem;

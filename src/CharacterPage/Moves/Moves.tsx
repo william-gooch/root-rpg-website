@@ -4,6 +4,7 @@ import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
 import { moves, playbooks } from "root-rpg-model";
 import { Add, Delete } from "@material-ui/icons";
+import SearchMenu from "SearchMenu/SearchMenu";
 
 const Moves: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
@@ -20,6 +21,8 @@ const Moves: React.FC = () => {
     },
     [changeCharacter]
   );
+
+  const [menuAnchorEl, setMenuAnchorEl] = React.useState<Element | null>(null);
 
   return (
     <Grid item container direction="column" className="moves-box">
@@ -52,7 +55,7 @@ const Moves: React.FC = () => {
             <Grid item className="container">
               <Grid container direction="column" className="box">
                 <Grid item container direction="row" alignItems="center">
-                  <IconButton>
+                  <IconButton onClick={() => updateMove(id, false)}>
                     <Delete />
                   </IconButton>
                   <span className="name">{moves[id].name}</span>
@@ -63,7 +66,7 @@ const Moves: React.FC = () => {
             </Grid>
           ))}
         <Grid item className="container">
-          <div role="button" className="new-move-button">
+          <div role="button" className="new-move-button" onClick={evt => setMenuAnchorEl(evt.currentTarget)}>
             <Grid container direction="column" alignItems="center" className="new-box">
               <Grid item>
                 <Add />
@@ -72,6 +75,20 @@ const Moves: React.FC = () => {
             </Grid>
           </div>
         </Grid>
+        <SearchMenu
+          anchorEl={menuAnchorEl}
+          open={Boolean(menuAnchorEl)}
+          onClose={() => setMenuAnchorEl(null)}
+          onSelect={item => updateMove(item as keyof typeof moves, true)}
+          items={Object.keys(moves)}
+          getItemText={item => moves[item as keyof typeof moves].name}
+          getItemSubtext={item => playbooks[moves[item as keyof typeof moves].source].name}
+          filterPredicate={(item, filter) =>
+            (filter ? moves[item as keyof typeof moves].name.toLowerCase().includes(filter.toLowerCase()) : true) &&
+            Object.keys(character.moves).indexOf(item) < 0 &&
+            Object.keys(playbooks[character.playbook].moves.options).indexOf(item) < 0
+          }
+        />
       </Grid>
     </Grid>
   );
