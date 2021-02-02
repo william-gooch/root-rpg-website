@@ -10516,6 +10516,10 @@ rollup@^1.31.1:
     "@types/node" "*"
     acorn "^7.1.0"
 
+root-rpg-model@william-gooch/root-rpg-model:
+  version "1.0.0"
+  resolved "git+ssh://git@github.com/william-gooch/root-rpg-model.git#c5820dfe25f4e566081ed08a571d3db25b78642e"
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"

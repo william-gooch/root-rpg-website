@@ -27,6 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
+    "root-rpg-model": "william-gooch/root-rpg-model",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4",
     "y-webrtc": "^10.1.8"
