@@ -10528,7 +10528,7 @@ rollup@^1.31.1:
 
 "root-rpg-model@https://github.com/william-gooch/root-rpg-model.git":
   version "1.0.0"
-  resolved "https://github.com/william-gooch/root-rpg-model.git#c6099205e432e7b52d5ea4dc513a6981d2fd972a"
+  resolved "https://github.com/william-gooch/root-rpg-model.git#9cf13cb01d316d7af6910ab5491b9612a640bbd2"
 
 rsvp@^4.8.4:
   version "4.8.5"
