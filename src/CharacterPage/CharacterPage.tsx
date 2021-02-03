@@ -29,7 +29,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const copyLinkToClipboard = React.useCallback(async () => {
-    await navigator.clipboard.writeText(location.href);
+    await navigator.clipboard.writeText(window.location.href);
     setCopied(true);
   }, []);
   const [copied, setCopied] = React.useState(false);
