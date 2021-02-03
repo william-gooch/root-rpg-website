@@ -9,7 +9,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = props => {
   return (
     <Grid container direction="row" alignItems="center" className="header-row">
-      <Grid item xs={12} xl={3}>
+      <Grid item xs={12} xl={4}>
         <div className="playbook-name">The {props.name}</div>
       </Grid>
       <Grid item xs>

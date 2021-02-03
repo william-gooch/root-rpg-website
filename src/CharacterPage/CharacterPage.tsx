@@ -79,7 +79,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
           <Grid container direction="column" className="page-column">
             <Grid item container direction="row" spacing={2} alignItems="stretch" className="main-row">
               <Grid item md={4} container alignItems="stretch" direction="column" className="first-column">
-                <Stats stats={playbook.initialStats} />
+                <Stats stats={character.stats} changeCharacter={changeCharacter} />
                 <Harm />
                 <RoguishFeats />
                 <WeaponSkills boldedSkills={playbook.weaponSkills.bolded} />

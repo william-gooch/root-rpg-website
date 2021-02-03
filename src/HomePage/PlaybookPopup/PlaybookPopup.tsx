@@ -35,12 +35,14 @@ const PlaybookPopup: React.FC<PlaybookPopupProps> = props => {
               <Grid
                 container
                 direction="column"
-                alignItems="stretch"
+                alignItems="center"
                 className={"playbook-box" + (selected === k ? " selected" : "")}
               >
-                <Grid item>
-                  <img src={vagabonds[v.id]} />
-                </Grid>
+                <div className="playbook-image">
+                  <div className="playbook-image-box">
+                    <img src={vagabonds[v.id]} />
+                  </div>
+                </div>
                 <Grid item className="playbook-name">
                   {v.name}
                 </Grid>

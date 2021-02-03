@@ -14,6 +14,7 @@
     border-radius: $border-radius-leading;
     padding: calc(1vw - 1rem) 1vw 1vw 1vw;
     overflow-y: auto;
+    max-width: 80rem;
 
     .playbook-title {
       font-size: 2rem;
@@ -25,6 +26,7 @@
       .playbook-option {
         padding: 1rem;
         .playbook-box {
+          position: relative;
           transition: background-color 100ms;
 
           padding: 1rem;
@@ -32,13 +34,32 @@
           border-radius: $border-radius-lagging;
           cursor: pointer;
 
+          height: 100%;
+
           &:hover,
           &.selected {
             background-color: $color-background-lighter;
           }
 
-          img {
+          .playbook-image {
+            flex-grow: 1;
             width: 100%;
+            .playbook-image-box {
+              position: relative;
+              width: 100%;
+              height: 0;
+              padding-bottom: 100%;
+              img {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+              }
+            }
           }
           .playbook-name {
             font-size: 1.25rem;
