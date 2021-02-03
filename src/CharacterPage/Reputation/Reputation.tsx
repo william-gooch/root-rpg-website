@@ -1,19 +1,25 @@
-import { Grid, Checkbox, Hidden, ThemeProvider, IconButton, TextField, Button } from "@material-ui/core";
-import { Add, AddCircle, Delete, Edit, RemoveCircle } from "@material-ui/icons";
+import { Grid, Hidden, ThemeProvider, Button } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import { positiveNegativeTheme } from "App";
-import { useCurrentCharacter } from "CharacterProvider";
+import { CharacterChangeFn } from "CharacterProvider";
 import React from "react";
+import * as Automerge from "automerge";
 import { Reputation } from "root-rpg-model";
 
 import "./Reputation.scss";
+import ReputationRow from "./ReputationRow";
 
-const ReputationBox: React.FC = props => {
-  const [character, changeCharacter] = useCurrentCharacter();
-  const [locked, setLocked] = React.useState(true);
+interface ReputationBoxProps {
+  reputation: Automerge.Doc<Reputation[]>;
+  changeCharacter(fn: CharacterChangeFn): void;
+}
+
+const ReputationBox: React.FC<ReputationBoxProps> = props => {
+  console.log("re-rendering");
 
   const changeNotoriety = React.useCallback(
     (faction: number, notoriety: number) => {
-      changeCharacter(doc => {
+      props.changeCharacter(doc => {
         const rep = doc.reputation[faction];
         if (rep.notoriety === notoriety) {
           rep.notoriety = 0;
@@ -23,12 +29,12 @@ const ReputationBox: React.FC = props => {
         checkModifier(rep);
       });
     },
-    [changeCharacter]
+    [props.changeCharacter]
   );
 
   const changePrestige = React.useCallback(
     (faction: number, prestige: number) => {
-      changeCharacter(doc => {
+      props.changeCharacter(doc => {
         const rep = doc.reputation[faction];
         if (rep.prestige === prestige) {
           rep.prestige = 0;
@@ -38,7 +44,7 @@ const ReputationBox: React.FC = props => {
         checkModifier(rep);
       });
     },
-    [changeCharacter]
+    [props.changeCharacter]
   );
 
   // Checks to see if the modifier changes when you mark notoriety or prestige.
@@ -83,15 +89,15 @@ const ReputationBox: React.FC = props => {
 
   const deleteFaction = React.useCallback(
     (faction: number) => {
-      changeCharacter(doc => {
+      props.changeCharacter(doc => {
         delete doc.reputation[faction];
       });
     },
-    [changeCharacter]
+    [props.changeCharacter]
   );
 
   const addFaction = React.useCallback(() => {
-    changeCharacter(doc => {
+    props.changeCharacter(doc => {
       doc.reputation.push({
         faction: "New Faction",
         modifier: 0,
@@ -99,19 +105,19 @@ const ReputationBox: React.FC = props => {
         notoriety: 0,
       });
     });
-  }, [changeCharacter]);
+  }, [props.changeCharacter]);
 
   const updateFactionName = React.useCallback(
     (faction: number, name: string) => {
-      changeCharacter(doc => {
+      props.changeCharacter(doc => {
         doc.reputation[faction].faction = name;
       });
     },
-    [changeCharacter]
+    [props.changeCharacter]
   );
 
   return (
-    <Hidden lgDown>
+    <Hidden mdDown>
       <ThemeProvider theme={positiveNegativeTheme}>
         <Grid item container direction="column" className="reputation-row">
           <Grid item className="title">
@@ -120,78 +126,16 @@ const ReputationBox: React.FC = props => {
           <Grid item container direction="column" alignItems="center" className="reputation-table">
             <table>
               <tbody>
-                {character.reputation.map((reputation, index) => (
-                  <tr key={index} className="faction-row">
-                    <td>
-                      <IconButton size="small" onClick={() => setLocked(!locked)}>
-                        <Edit />
-                      </IconButton>
-                    </td>
-                    <td>
-                      <IconButton size="small" onClick={() => deleteFaction(index)}>
-                        <Delete />
-                      </IconButton>
-                    </td>
-                    <th className="name">
-                      {locked ? (
-                        reputation.faction
-                      ) : (
-                        <TextField
-                          value={reputation.faction}
-                          onChange={evt => updateFactionName(index, evt.target.value)}
-                        />
-                      )}
-                    </th>
-                    <td>
-                      <IconButton
-                        size="small"
-                        color="secondary"
-                        onClick={() => changeNotoriety(index, reputation.notoriety + 1)}
-                      >
-                        <RemoveCircle />
-                      </IconButton>
-                    </td>
-                    {[-3, -2, -1].map(i => (
-                      <React.Fragment key={i}>
-                        <td className={`spacer ${reputation.modifier === i ? "selected" : ""}`}>{i}</td>
-                        {[3, 2, 1].map(j => (
-                          <td key={j}>
-                            <Checkbox
-                              color="secondary"
-                              className="checkbox"
-                              checked={reputation.notoriety >= -(i + 1) * 3 + j}
-                              onClick={() => changeNotoriety(index, -(i + 1) * 3 + j)}
-                            />
-                          </td>
-                        ))}
-                      </React.Fragment>
-                    ))}
-                    <td className={`spacer ${reputation.modifier === 0 ? "selected" : ""}`}>0</td>
-                    {[1, 2, 3].map(i => (
-                      <React.Fragment key={i}>
-                        {[1, 2, 3, 4, 5].map(j => (
-                          <td key={j}>
-                            <Checkbox
-                              color="primary"
-                              className="checkbox"
-                              checked={reputation.prestige >= (i - 1) * 5 + j}
-                              onClick={() => changePrestige(index, (i - 1) * 5 + j)}
-                            />
-                          </td>
-                        ))}
-                        <td className={`spacer ${reputation.modifier === i ? "selected" : ""}`}>+{i}</td>
-                      </React.Fragment>
-                    ))}
-                    <td>
-                      <IconButton
-                        size="small"
-                        color="primary"
-                        onClick={() => changePrestige(index, reputation.prestige + 1)}
-                      >
-                        <AddCircle />
-                      </IconButton>
-                    </td>
-                  </tr>
+                {props.reputation.map((reputation, index) => (
+                  <ReputationRow
+                    key={index}
+                    index={index}
+                    reputation={reputation}
+                    deleteFaction={deleteFaction}
+                    updateFactionName={updateFactionName}
+                    changePrestige={changePrestige}
+                    changeNotoriety={changeNotoriety}
+                  />
                 ))}
               </tbody>
               <tfoot>
@@ -218,4 +162,6 @@ const ReputationBox: React.FC = props => {
   );
 };
 
-export default React.memo(ReputationBox);
+export default React.memo(ReputationBox, (oldProps, newProps) => {
+  return oldProps.reputation === newProps.reputation;
+});

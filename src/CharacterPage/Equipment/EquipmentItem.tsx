@@ -42,8 +42,8 @@ const EquipmentItemComponent: React.FC<EquipmentItemProps> = ({ item, changeItem
           </Grid>
           <Grid item>
             {!locked && (
-              <IconButton>
-                <RemoveCircle onClick={() => changeItem(item => (item.wear.max = Math.max(item.wear.max - 1, 0)))} />
+              <IconButton onClick={() => changeItem(item => (item.wear.max = Math.max(item.wear.max - 1, 0)))}>
+                <RemoveCircle />
               </IconButton>
             )}
             {Array.from(new Array(item.wear.max)).map((_, i) => (

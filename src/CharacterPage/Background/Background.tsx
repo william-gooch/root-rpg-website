@@ -1,4 +1,4 @@
-import { Grid, TextField } from "@material-ui/core";
+import { Grid, MenuItem, Select, TextField } from "@material-ui/core";
 import React from "react";
 import { useCurrentCharacter } from "../../CharacterProvider";
 
@@ -34,54 +34,60 @@ const Background: React.FC = () => {
   return (
     <Grid item container direction="column" className="background-box">
       <Grid item className="text-field">
+        <div className="question">Where do you call home?</div>
         <TextField
           fullWidth
           multiline
           variant="outlined"
-          label="Where do you call home?"
           value={backgroundWhere}
           onChange={evt => setBackgroundWhere(evt.target.value)}
         />
       </Grid>
       <Grid item className="text-field">
+        <div className="question">Why are you a vagabond?</div>
         <TextField
           fullWidth
           multiline
           variant="outlined"
-          label="Why are you a vagabond?"
           value={backgroundWhy}
           onChange={evt => setBackgroundWhy(evt.target.value)}
         />
       </Grid>
       <Grid item className="text-field">
+        <div className="question">Whom have you left behind?</div>
         <TextField
           fullWidth
           multiline
           variant="outlined"
-          label="Whom have you left behind?"
           value={backgroundWho}
           onChange={evt => setBackgroundWho(evt.target.value)}
         />
       </Grid>
       <Grid item className="text-field">
-        <TextField
+        <div className="question">Which faction have you served the most?</div>
+        <Select
           fullWidth
-          multiline
           variant="outlined"
-          label="Which faction have you served the most?"
           value={backgroundFactionServed}
-          onChange={evt => setBackgroundFactionServed(evt.target.value)}
-        />
+          onChange={evt => setBackgroundFactionServed(evt.target.value as string)}
+        >
+          {character.reputation.map(rep => (
+            <MenuItem value={rep.faction}>{rep.faction}</MenuItem>
+          ))}
+        </Select>
       </Grid>
       <Grid item className="text-field">
-        <TextField
+        <div className="question">With which faction have you earned a special enmity?</div>
+        <Select
           fullWidth
-          multiline
           variant="outlined"
-          label="With which faction have you earned a special enmity?"
           value={backgroundFactionEnmity}
-          onChange={evt => setBackgroundFactionEnmity(evt.target.value)}
-        />
+          onChange={evt => setBackgroundFactionEnmity(evt.target.value as string)}
+        >
+          {character.reputation.map(rep => (
+            <MenuItem value={rep.faction}>{rep.faction}</MenuItem>
+          ))}
+        </Select>
       </Grid>
     </Grid>
   );

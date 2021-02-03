@@ -72,7 +72,7 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
                 <Connections />
               </Grid>
             </Grid>
-            <Reputation />
+            <Reputation reputation={character.reputation} changeCharacter={changeCharacter} />
           </Grid>
         </Grid>
         <Grid item xs={12} xl={6} className="page-container">

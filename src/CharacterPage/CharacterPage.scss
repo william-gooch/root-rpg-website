@@ -20,7 +20,16 @@
         .harm-box {
           background-color: $color-background-light;
           padding: 1.5rem;
+        }
+
+        .background-box {
           border-radius: $border-radius-lagging;
+          .question {
+            font-weight: 500;
+            font-style: italic;
+            font-size: 0.8rem;
+            padding-bottom: 0.2rem;
+          }
         }
 
         .avatar-box {
@@ -81,15 +90,34 @@
         }
 
         .harm-box {
+          position: relative;
+          border-radius: 0 0 0 2rem;
+
           .harm-row {
             .MuiCheckbox-root {
               padding: 0.1rem;
             }
             .harm-name {
-              font-size: 1.5rem;
+              font-size: 1.25rem;
               margin-left: 1rem;
               text-transform: uppercase;
-              letter-spacing: 0.1rem;
+              letter-spacing: 0.05rem;
+            }
+          }
+
+          .actions {
+            position: absolute;
+            background-color: $color-background-light;
+            width: 3rem;
+            height: 3rem;
+            right: 0rem;
+            top: -2em;
+            border-radius: 2rem 2rem 0 0;
+            button {
+              position: absolute;
+              width: 3rem;
+              height: 3rem;
+              margin: auto;
             }
           }
         }
