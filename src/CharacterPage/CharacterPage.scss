@@ -227,6 +227,24 @@
             margin-left: 1rem;
             font-style: italic;
           }
+          white-space: nowrap;
+        }
+        .load {
+          padding: 0.5rem;
+          font-size: 1.25rem;
+          font-style: italic;
+          font-weight: 500;
+          .total-load {
+            &:not(:first-child) {
+              margin-left: 1rem;
+            }
+            &.burdened {
+              color: #ffaa44;
+            }
+            &.max {
+              color: #cc4444;
+            }
+          }
         }
         .equipment-container {
           border-radius: $border-radius-top;

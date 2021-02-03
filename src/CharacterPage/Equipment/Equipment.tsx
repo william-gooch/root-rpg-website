@@ -39,15 +39,44 @@ const Equipment: React.FC<EquipmentProps> = props => {
     [changeCharacter]
   );
 
+  const currentLoad = character.equipment.reduce((prev, curr) => prev + curr.load, 0);
+
   return (
     <Grid item container direction="column" className="equipment-box">
-      <Grid item container direction="row">
-        <Grid item xs={12} lg={3} className="title">
+      <Grid item container direction="row" alignItems="stretch">
+        <Grid item xs={12} lg={3} container direction="row" alignItems="center" className="title">
           Your Equipment
-          <span className="total-value">
+          <Grid item className="total-value">
             (Total Value: {character.equipment.reduce((prev, curr) => prev + getItemValue(curr), 0)})
-          </span>
-          <span className="total-value">(Starting Value: {playbooks[character.playbook].startingEquipmentValue})</span>
+          </Grid>
+          <Grid item className="total-value">
+            (Starting Value: {playbooks[character.playbook].startingEquipmentValue})
+          </Grid>
+        </Grid>
+        <Grid item xs={12} lg={3} container direction="row" alignItems="center" className="load">
+          (
+          <Grid
+            item
+            className={
+              "total-load" +
+              (currentLoad >= 2 * (character.stats.Might + 4)
+                ? " max"
+                : currentLoad >= character.stats.Might + 4
+                ? " burdened"
+                : "")
+            }
+          >
+            Current Load: {currentLoad}
+          </Grid>
+          ,
+          <Grid item className="total-load">
+            Burdened: {character.stats.Might + 4}
+          </Grid>
+          ,
+          <Grid item className="total-load">
+            Max: {2 * (character.stats.Might + 4)}
+          </Grid>
+          )
         </Grid>
         <Grid item xs={12} container direction="row" alignItems="stretch" className="equipment-container">
           {character.equipment.map((item, index) => (
