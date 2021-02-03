@@ -1,9 +1,115 @@
-import { Grid, Checkbox, Hidden, ThemeProvider } from "@material-ui/core";
+import { Grid, Checkbox, Hidden, ThemeProvider, IconButton, TextField, Button } from "@material-ui/core";
+import { Add, AddCircle, Delete, Edit, RemoveCircle } from "@material-ui/icons";
 import { positiveNegativeTheme } from "App";
+import { useCurrentCharacter } from "CharacterProvider";
 import React from "react";
-import { factions } from "root-rpg-model";
+import { Reputation } from "root-rpg-model";
 
-const Reputation: React.FC = props => {
+import "./Reputation.scss";
+
+const ReputationBox: React.FC = props => {
+  const [character, changeCharacter] = useCurrentCharacter();
+  const [locked, setLocked] = React.useState(true);
+
+  const changeNotoriety = React.useCallback(
+    (faction: number, notoriety: number) => {
+      changeCharacter(doc => {
+        const rep = doc.reputation[faction];
+        if (rep.notoriety === notoriety) {
+          rep.notoriety = 0;
+        } else {
+          rep.notoriety = notoriety;
+        }
+        checkModifier(rep);
+      });
+    },
+    [changeCharacter]
+  );
+
+  const changePrestige = React.useCallback(
+    (faction: number, prestige: number) => {
+      changeCharacter(doc => {
+        const rep = doc.reputation[faction];
+        if (rep.prestige === prestige) {
+          rep.prestige = 0;
+        } else {
+          rep.prestige = prestige;
+        }
+        checkModifier(rep);
+      });
+    },
+    [changeCharacter]
+  );
+
+  // Checks to see if the modifier changes when you mark notoriety or prestige.
+  const checkModifier = (rep: Reputation) => {
+    let [prestigeThreshold, notorietyThreshold] = getModifierThresholds(rep.modifier);
+
+    while (rep.prestige >= prestigeThreshold || rep.notoriety >= notorietyThreshold) {
+      if (prestigeThreshold > 0 && rep.prestige >= prestigeThreshold) {
+        rep.prestige -= prestigeThreshold;
+        rep.modifier += 1;
+      } else if (notorietyThreshold > 0 && rep.notoriety >= notorietyThreshold) {
+        rep.notoriety -= notorietyThreshold;
+        rep.modifier -= 1;
+      }
+      [prestigeThreshold, notorietyThreshold] = getModifierThresholds(rep.modifier);
+    }
+  };
+
+  // Get the positive and negative thresholds for when you mark reputation.
+  const getModifierThresholds = (modifier: number) => {
+    let prestigeThreshold = 0;
+    let notorietyThreshold = 0;
+    // Set prestige threshold!
+    if (modifier < 1) {
+      prestigeThreshold = 5;
+    } else if (modifier === 1) {
+      prestigeThreshold = 10;
+    } else if (modifier === 2) {
+      prestigeThreshold = 15;
+    }
+
+    // Set notoriety threshold!
+    if (modifier > -1) {
+      notorietyThreshold = 3;
+    } else if (modifier === -1) {
+      notorietyThreshold = 6;
+    } else if (modifier === -2) {
+      notorietyThreshold = 9;
+    }
+    return [prestigeThreshold, notorietyThreshold];
+  };
+
+  const deleteFaction = React.useCallback(
+    (faction: number) => {
+      changeCharacter(doc => {
+        delete doc.reputation[faction];
+      });
+    },
+    [changeCharacter]
+  );
+
+  const addFaction = React.useCallback(() => {
+    changeCharacter(doc => {
+      doc.reputation.push({
+        faction: "New Faction",
+        modifier: 0,
+        prestige: 0,
+        notoriety: 0,
+      });
+    });
+  }, [changeCharacter]);
+
+  const updateFactionName = React.useCallback(
+    (faction: number, name: string) => {
+      changeCharacter(doc => {
+        doc.reputation[faction].faction = name;
+      });
+    },
+    [changeCharacter]
+  );
+
   return (
     <Hidden lgDown>
       <ThemeProvider theme={positiveNegativeTheme}>
@@ -14,43 +120,96 @@ const Reputation: React.FC = props => {
           <Grid item container direction="column" alignItems="center" className="reputation-table">
             <table>
               <tbody>
-                {factions.map(faction => (
-                  <tr key={faction.name} className="faction-row">
-                    <th>{faction.name}</th>
+                {character.reputation.map((reputation, index) => (
+                  <tr key={index} className="faction-row">
+                    <td>
+                      <IconButton size="small" onClick={() => setLocked(!locked)}>
+                        <Edit />
+                      </IconButton>
+                    </td>
+                    <td>
+                      <IconButton size="small" onClick={() => deleteFaction(index)}>
+                        <Delete />
+                      </IconButton>
+                    </td>
+                    <th className="name">
+                      {locked ? (
+                        reputation.faction
+                      ) : (
+                        <TextField
+                          value={reputation.faction}
+                          onChange={evt => updateFactionName(index, evt.target.value)}
+                        />
+                      )}
+                    </th>
+                    <td>
+                      <IconButton
+                        size="small"
+                        color="secondary"
+                        onClick={() => changeNotoriety(index, reputation.notoriety + 1)}
+                      >
+                        <RemoveCircle />
+                      </IconButton>
+                    </td>
                     {[-3, -2, -1].map(i => (
                       <React.Fragment key={i}>
-                        <td className="spacer">{i}</td>
-                        {[1, 2, 3].map(_ => (
-                          <td key={_}>
-                            <Checkbox color="secondary" className="checkbox" />
+                        <td className={`spacer ${reputation.modifier === i ? "selected" : ""}`}>{i}</td>
+                        {[3, 2, 1].map(j => (
+                          <td key={j}>
+                            <Checkbox
+                              color="secondary"
+                              className="checkbox"
+                              checked={reputation.notoriety >= -(i + 1) * 3 + j}
+                              onClick={() => changeNotoriety(index, -(i + 1) * 3 + j)}
+                            />
                           </td>
                         ))}
                       </React.Fragment>
                     ))}
-                    <td className="spacer">0</td>
+                    <td className={`spacer ${reputation.modifier === 0 ? "selected" : ""}`}>0</td>
                     {[1, 2, 3].map(i => (
                       <React.Fragment key={i}>
-                        {[1, 2, 3, 4, 5].map(_ => (
-                          <td key={_}>
-                            <Checkbox color="primary" className="checkbox" />
+                        {[1, 2, 3, 4, 5].map(j => (
+                          <td key={j}>
+                            <Checkbox
+                              color="primary"
+                              className="checkbox"
+                              checked={reputation.prestige >= (i - 1) * 5 + j}
+                              onClick={() => changePrestige(index, (i - 1) * 5 + j)}
+                            />
                           </td>
                         ))}
-                        <td className="spacer">+{i}</td>
+                        <td className={`spacer ${reputation.modifier === i ? "selected" : ""}`}>+{i}</td>
                       </React.Fragment>
                     ))}
+                    <td>
+                      <IconButton
+                        size="small"
+                        color="primary"
+                        onClick={() => changePrestige(index, reputation.prestige + 1)}
+                      >
+                        <AddCircle />
+                      </IconButton>
+                    </td>
                   </tr>
                 ))}
+              </tbody>
+              <tfoot>
                 <tr className="status-row">
-                  <td></td>
-                  <th colSpan={12} className="notoriety">
+                  <td colSpan={3}>
+                    <Button size="small" onClick={() => addFaction()} startIcon={<Add />}>
+                      <i>Add Faction</i>
+                    </Button>
+                  </td>
+                  <th colSpan={13} className="notoriety">
                     <span>Notoriety</span>
                   </th>
                   <td></td>
-                  <th colSpan={18} className="prestige">
+                  <th colSpan={19} className="prestige">
                     <span>Prestige</span>
                   </th>
                 </tr>
-              </tbody>
+              </tfoot>
             </table>
           </Grid>
         </Grid>
@@ -59,4 +218,4 @@ const Reputation: React.FC = props => {
   );
 };
 
-export default React.memo(Reputation);
+export default React.memo(ReputationBox);
