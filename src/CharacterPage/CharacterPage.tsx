@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, IconButton, Snackbar } from "@material-ui/core";
 
 import "./CharacterPage.scss";
+import UndoRedo from "./UndoRedo/UndoRedo";
 import Header from "./Header/Header";
 import Details from "./Details/Details";
 import Background from "./Background/Background";
@@ -36,6 +37,7 @@ const CharacterPage: React.FC = () => {
   const topBar = React.useMemo(
     () => (
       <TopBar>
+        <UndoRedo />
         <IconButton onClick={copyLinkToClipboard}>
           <Share />
           <Snackbar

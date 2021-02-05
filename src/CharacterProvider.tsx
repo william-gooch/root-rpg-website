@@ -13,6 +13,8 @@ export type CharacterDoc = Automerge.Doc<Character>;
 interface CharacterContextType {
   getCharacters: (ids: string[]) => { [id: string]: CharacterDoc | undefined } | undefined;
   changeCharacter: (id: string, fn: CharacterChangeFn) => void;
+  undo: (id: string) => void;
+  redo: (id: string) => void;
 }
 const CharacterContext = React.createContext<CharacterContextType>(null as any);
 
@@ -35,6 +37,7 @@ export const CharacterProvider: React.FC = props => {
         localStorage.setItem("automerge", data);
       },
       onChange: (id: string, doc: CharacterDoc) => {
+        console.log(doc);
         dispatch({ id, doc });
       },
     });
@@ -72,23 +75,30 @@ export const CharacterProvider: React.FC = props => {
     [automergeClient]
   );
 
+  const undo = React.useCallback((id: string) => automergeClient.undo(id), [automergeClient]);
+  const redo = React.useCallback((id: string) => automergeClient.redo(id), [automergeClient]);
+
   return (
-    <CharacterContext.Provider value={{ getCharacters, changeCharacter }}>{props.children}</CharacterContext.Provider>
+    <CharacterContext.Provider value={{ getCharacters, changeCharacter, undo, redo }}>
+      {props.children}
+    </CharacterContext.Provider>
   );
 };
 
 export const useCharacterContext = (): CharacterContextType => React.useContext(CharacterContext);
 
-export const useCharacter = (id: string): [CharacterDoc, (fn: CharacterChangeFn) => void] => {
-  const { getCharacters, changeCharacter } = useCharacterContext();
+export const useCharacter = (id: string): [CharacterDoc, (fn: CharacterChangeFn) => void, () => void, () => void] => {
+  const { getCharacters, changeCharacter, undo, redo } = useCharacterContext();
 
   const character = getCharacters([id])?.[id];
   const changeThisCharacter = React.useCallback((fn: CharacterChangeFn) => changeCharacter(id, fn), [
     changeCharacter,
     id,
   ]);
+  const undoThis = React.useCallback(() => undo(id), [undo, id]);
+  const redoThis = React.useCallback(() => redo(id), [redo, id]);
 
-  return [character!, changeThisCharacter];
+  return [character!, changeThisCharacter, undoThis, redoThis];
 };
 
 export const useCurrentCharacter = (): ReturnType<typeof useCharacter> => {

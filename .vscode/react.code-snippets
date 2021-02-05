@@ -19,7 +19,7 @@
 		"scope": "typescriptreact",
 		"prefix": "fpcomp",
 		"body": [
-			"import React from \"react\"",
+			"import React from \"react\";",
 			"",
 			"interface ${1:Name}Props {",
 			"  $2",
@@ -31,15 +31,22 @@
 			"  );",
 			"};",
 			"",
+			"export default React.memo(${1:Name});"
+		]
+	},
+	"Functional Component": {
+		"scope": "typescriptreact",
+		"prefix": "fcomp",
+		"body": [
+			"import React from \"react\";",
+			"",
+			"const ${1:Name}: React.FC = () => {",
+			"  return (",
+			"    $0",
+			"  );",
+			"};",
+			"",
 			"export default ${1:Name};"
 		]
 	},
-	"temp": {
-		"scope": "typescript,typescriptreact",
-		"prefix": "temp",
-		"body": [
-			"get ${1:name}() { return this.ymap.get(\"${1:name}\"); }",
-			"set ${1:name}(value) { this.ymap.set(\"${1:name}\", value); }",
-		]
-	}
 }

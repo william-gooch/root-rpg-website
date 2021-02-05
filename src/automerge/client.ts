@@ -75,7 +75,7 @@ export default class AutomergeClient<T> {
 
   private onMessage(msg: MessageEvent<any>) {
     const frame = JSON.parse(msg.data);
-    console.log("message", frame);
+    // console.log("message", frame);
 
     if (frame.action === "automerge") {
       this.autocon?.receiveMsg(frame.data);
@@ -115,7 +115,6 @@ export default class AutomergeClient<T> {
 
     const autocon = (this.autocon = new Automerge.Connection(docSet, send));
     autocon.open();
-    console.log("asdf", this.docs);
     this.subscribe(Object.keys(this.docs).concat(this.subscribeList));
   }
 
@@ -134,6 +133,28 @@ export default class AutomergeClient<T> {
       return false;
     }
     this.docs[id] = Automerge.change(this.docs[id], changer);
+    if (this.docSet) {
+      this.docSet.setDoc(id, this.docs[id]);
+    }
+    return true;
+  }
+
+  undo(id: string): boolean {
+    if (!(id in this.docs)) {
+      return false;
+    }
+    this.docs[id] = Automerge.undo(this.docs[id]);
+    if (this.docSet) {
+      this.docSet.setDoc(id, this.docs[id]);
+    }
+    return true;
+  }
+
+  redo(id: string): boolean {
+    if (!(id in this.docs)) {
+      return false;
+    }
+    this.docs[id] = Automerge.redo(this.docs[id]);
     if (this.docSet) {
       this.docSet.setDoc(id, this.docs[id]);
     }

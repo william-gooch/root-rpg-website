@@ -26,7 +26,6 @@ const HomePage: React.FC<HomePageProps> = props => {
   }>();
 
   const getNewStorage = React.useCallback(() => {
-    console.log("getting new storage");
     const characterIds = JSON.parse(localStorage.getItem("myCharacters") ?? "[]");
     const characters = characterContext.getCharacters(characterIds);
     setCharacters(characters);
