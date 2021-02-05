@@ -30,45 +30,48 @@ const HarmBox: React.FC = props => {
     [changeCharacter]
   );
 
-  return (
-    <Grid item container direction="column" className="harm-box">
-      <div className="actions">
-        <IconButton onClick={() => setLocked(!locked)}>{locked ? <Lock /> : <LockOpen />}</IconButton>
-      </div>
-      {Object.entries(character.harm).map(([harm, { max, current }]) => (
-        <Grid key={harm} item container direction="row" wrap="nowrap" alignItems="center" className="harm-row">
-          <Grid item container direction="row" wrap="nowrap" alignItems="center">
-            {!locked && (
-              <IconButton
-                size="small"
-                disabled={max <= 4}
-                onClick={() => updateMaxHarm(harm as keyof Harm, Math.max(4, max - 1))}
-              >
-                <RemoveCircle />
-              </IconButton>
-            )}
-            {Array.from(new Array(max))
-              .map((_, i) => i)
-              .map(i => (
-                <Checkbox key={i} checked={current > i} onClick={() => updateHarm(harm as keyof Harm, i + 1)} />
-              ))}
-            {!locked && (
-              <IconButton
-                size="small"
-                disabled={max >= 6}
-                onClick={() => updateMaxHarm(harm as keyof Harm, Math.min(6, max + 1))}
-              >
-                <AddCircle />
-              </IconButton>
-            )}
+  return React.useMemo(
+    () => (
+      <Grid item container direction="column" className="harm-box">
+        <div className="actions">
+          <IconButton onClick={() => setLocked(l => !l)}>{locked ? <Lock /> : <LockOpen />}</IconButton>
+        </div>
+        {Object.entries(character.harm).map(([harm, { max, current }]) => (
+          <Grid key={harm} item container direction="row" wrap="nowrap" alignItems="center" className="harm-row">
+            <Grid item container direction="row" wrap="nowrap" alignItems="center">
+              {!locked && (
+                <IconButton
+                  size="small"
+                  disabled={max <= 4}
+                  onClick={() => updateMaxHarm(harm as keyof Harm, Math.max(4, max - 1))}
+                >
+                  <RemoveCircle />
+                </IconButton>
+              )}
+              {Array.from(new Array(max))
+                .map((_, i) => i)
+                .map(i => (
+                  <Checkbox key={i} checked={current > i} onClick={() => updateHarm(harm as keyof Harm, i + 1)} />
+                ))}
+              {!locked && (
+                <IconButton
+                  size="small"
+                  disabled={max >= 6}
+                  onClick={() => updateMaxHarm(harm as keyof Harm, Math.min(6, max + 1))}
+                >
+                  <AddCircle />
+                </IconButton>
+              )}
+            </Grid>
+            <Grid item className="harm-name">
+              {harm}
+            </Grid>
           </Grid>
-          <Grid item className="harm-name">
-            {harm}
-          </Grid>
-        </Grid>
-      ))}
-    </Grid>
+        ))}
+      </Grid>
+    ),
+    [character.harm, locked, updateHarm, updateMaxHarm]
   );
 };
 
-export default React.memo(HarmBox);
+export default HarmBox;

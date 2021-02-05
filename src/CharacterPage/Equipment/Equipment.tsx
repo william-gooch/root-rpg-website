@@ -39,85 +39,99 @@ const Equipment: React.FC<EquipmentProps> = props => {
     [changeCharacter]
   );
 
-  const currentLoad = character.equipment.reduce((prev, curr) => prev + curr.load, 0);
+  const currentLoad = React.useMemo(() => character.equipment.reduce((prev, curr) => prev + curr.load, 0), [
+    character.equipment,
+  ]);
 
-  return (
-    <Grid item container direction="column" className="equipment-box">
-      <Grid item container direction="row" alignItems="stretch">
-        <Grid item xs={12} lg={3} container direction="row" alignItems="center" className="title">
-          Your Equipment
-          <Grid item className="total-value">
-            (Total Value: {character.equipment.reduce((prev, curr) => prev + getItemValue(curr), 0)},
+  return React.useMemo(
+    () => (
+      <Grid item container direction="column" className="equipment-box">
+        <Grid item container direction="row" alignItems="stretch">
+          <Grid item xs={12} lg={3} container direction="row" alignItems="center" className="title">
+            Your Equipment
+            <Grid item className="total-value">
+              (Total Value: {character.equipment.reduce((prev, curr) => prev + getItemValue(curr), 0)},
+            </Grid>
+            <Grid item className="total-value">
+              Starting Value: {playbooks[character.playbook].startingEquipmentValue})
+            </Grid>
           </Grid>
-          <Grid item className="total-value">
-            Starting Value: {playbooks[character.playbook].startingEquipmentValue})
-          </Grid>
-        </Grid>
-        <Grid item xs={12} lg container direction="row" alignItems="center" className="load">
-          (
-          <Grid
-            item
-            className={
-              "total-load" +
-              (currentLoad >= 2 * (character.stats.Might + 4)
-                ? " max"
-                : currentLoad >= character.stats.Might + 4
-                ? " burdened"
-                : "")
-            }
-          >
-            Current Load: {currentLoad}
-          </Grid>
-          ,
-          <Grid item className="total-load">
-            Burdened: {character.stats.Might + 4}
-          </Grid>
-          ,
-          <Grid item className="total-load">
-            Max: {2 * (character.stats.Might + 4)}
-          </Grid>
-          )
-        </Grid>
-        <Grid item xs={12} container direction="row" alignItems="stretch" className="equipment-container">
-          {character.equipment.map((item, index) => (
-            <EquipmentItemComponent
-              key={index}
-              item={item}
-              changeItem={fn => changeItem(index, fn)}
-              deleteItem={() => deleteItem(index)}
-            />
-          ))}
-          <Grid item xs={12} lg={3} container direction="column" className="equipment-item">
-            <div role="button" className="new-equipment-button" onClick={evt => setNewMenuAnchor(evt.currentTarget)}>
-              <Grid container direction="column" alignItems="center" justify="center" className="new-box">
-                <Grid item>
-                  <Add />
-                </Grid>
-                <Grid item>Add a new piece of Equipment</Grid>
-              </Grid>
-            </div>
-            <Menu
-              open={Boolean(newMenuAnchor)}
-              anchorEl={newMenuAnchor}
-              onClose={() => setNewMenuAnchor(null)}
-              anchorOrigin={{ horizontal: "center", vertical: "center" }}
+          <Grid item xs={12} lg container direction="row" alignItems="center" className="load">
+            (
+            <Grid
+              item
+              className={
+                "total-load" +
+                (currentLoad >= 2 * (character.stats.Might + 4)
+                  ? " max"
+                  : currentLoad >= character.stats.Might + 4
+                  ? " burdened"
+                  : "")
+              }
             >
-              {defaultEquipment.map(item => (
-                <MenuItem
-                  onClick={() => {
-                    addItem(item);
-                    setNewMenuAnchor(null);
-                  }}
-                >
-                  {item.name}
-                </MenuItem>
-              ))}
-            </Menu>
+              Current Load: {currentLoad}
+            </Grid>
+            ,
+            <Grid item className="total-load">
+              Burdened: {character.stats.Might + 4}
+            </Grid>
+            ,
+            <Grid item className="total-load">
+              Max: {2 * (character.stats.Might + 4)}
+            </Grid>
+            )
+          </Grid>
+          <Grid item xs={12} container direction="row" alignItems="stretch" className="equipment-container">
+            {character.equipment.map((item, index) => (
+              <EquipmentItemComponent
+                key={index}
+                item={item}
+                changeItem={fn => changeItem(index, fn)}
+                deleteItem={() => deleteItem(index)}
+              />
+            ))}
+            <Grid item xs={12} lg={3} container direction="column" className="equipment-item">
+              <div role="button" className="new-equipment-button" onClick={evt => setNewMenuAnchor(evt.currentTarget)}>
+                <Grid container direction="column" alignItems="center" justify="center" className="new-box">
+                  <Grid item>
+                    <Add />
+                  </Grid>
+                  <Grid item>Add a new piece of Equipment</Grid>
+                </Grid>
+              </div>
+              <Menu
+                open={Boolean(newMenuAnchor)}
+                anchorEl={newMenuAnchor}
+                onClose={() => setNewMenuAnchor(null)}
+                anchorOrigin={{ horizontal: "center", vertical: "center" }}
+              >
+                {defaultEquipment.map(item => (
+                  <MenuItem
+                    onClick={() => {
+                      addItem(item);
+                      setNewMenuAnchor(null);
+                    }}
+                  >
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    ),
+    [
+      character.equipment,
+      character.playbook,
+      character.stats,
+      currentLoad,
+      addItem,
+      changeItem,
+      deleteItem,
+      newMenuAnchor,
+    ]
   );
 };
 
-export default React.memo(Equipment);
+export default Equipment;

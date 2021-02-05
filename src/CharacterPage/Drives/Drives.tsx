@@ -23,40 +23,43 @@ const Drives: React.FC = () => {
 
   const getNumberOfDrivesChecked = React.useCallback(() => {
     return Object.entries(character.drives).filter(([k, v]) => !!v).length;
-  }, [character]);
+  }, [character.drives]);
 
-  return (
-    <Grid item container direction="column" className="drives-box">
-      <Grid item className="title">
-        Your Drives
-      </Grid>
-      <Grid item className="options">
-        <FormGroup>
-          {Object.entries(playbooks[character.playbook].drives)
-            .filter(([k, v]) => v)
-            .map(([id, v]) => id as keyof typeof drives)
-            .map(id => (
-              <Grid key={drives[id].name} item className="container">
-                <Grid container direction="column" className="box">
-                  <Grid item container direction="row" alignItems="center">
-                    <Checkbox
-                      disabled={!(character.drives[id] ?? false) && getNumberOfDrivesChecked() >= 2}
-                      checked={character.drives[id] ?? false}
-                      onChange={(evt: any) => updateDrive(id, evt.target.checked)}
-                    />
-                    <span className="name">{drives[id].name}</span>
+  return React.useMemo(
+    () => (
+      <Grid item container direction="column" className="drives-box">
+        <Grid item className="title">
+          Your Drives
+        </Grid>
+        <Grid item className="options">
+          <FormGroup>
+            {Object.entries(playbooks[character.playbook].drives)
+              .filter(([k, v]) => v)
+              .map(([id, v]) => id as keyof typeof drives)
+              .map(id => (
+                <Grid key={drives[id].name} item className="container">
+                  <Grid container direction="column" className="box">
+                    <Grid item container direction="row" alignItems="center">
+                      <Checkbox
+                        disabled={!(character.drives[id] ?? false) && getNumberOfDrivesChecked() >= 2}
+                        checked={character.drives[id] ?? false}
+                        onChange={(evt: any) => updateDrive(id, evt.target.checked)}
+                      />
+                      <span className="name">{drives[id].name}</span>
+                    </Grid>
+                    <div
+                      className="description"
+                      dangerouslySetInnerHTML={{ __html: marked(drives[id].description) }}
+                    ></div>
                   </Grid>
-                  <div
-                    className="description"
-                    dangerouslySetInnerHTML={{ __html: marked(drives[id].description) }}
-                  ></div>
                 </Grid>
-              </Grid>
-            ))}
-        </FormGroup>
+              ))}
+          </FormGroup>
+        </Grid>
       </Grid>
-    </Grid>
+    ),
+    [character.drives, character.playbook, getNumberOfDrivesChecked, updateDrive]
   );
 };
 
-export default React.memo(Drives);
+export default Drives;

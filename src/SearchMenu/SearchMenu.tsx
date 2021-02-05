@@ -14,14 +14,14 @@ interface SearchMenuProps {
   filterPredicate(key: string, filter: string): boolean;
 }
 
-const SearchMenu: React.FC<SearchMenuProps> = props => {
+const SearchMenu: React.FC<SearchMenuProps> = ({ filterPredicate, ...props }) => {
   const [filter, setFilter] = React.useState("");
   const [filteredItems, setFilteredItems] = React.useState(props.items);
 
   React.useEffect(() => {
-    const filtered = props.items.filter(item => props.filterPredicate(item, filter));
+    const filtered = props.items.filter(item => filterPredicate(item, filter));
     setFilteredItems(filtered);
-  }, [filter, props.open]);
+  }, [filter, props.items, filterPredicate]);
 
   return (
     <Popover

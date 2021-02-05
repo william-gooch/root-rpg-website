@@ -31,65 +31,80 @@ const Background: React.FC = () => {
     [changeCharacter]
   );
 
-  return (
-    <Grid item container direction="column" className="background-box">
-      <Grid item className="text-field">
-        <div className="question">Where do you call home?</div>
-        <TextField
-          fullWidth
-          multiline
-          variant="outlined"
-          value={backgroundWhere}
-          onChange={evt => setBackgroundWhere(evt.target.value)}
-        />
+  return React.useMemo(
+    () => (
+      <Grid item container direction="column" className="background-box">
+        <Grid item className="text-field">
+          <div className="question">Where do you call home?</div>
+          <TextField
+            fullWidth
+            multiline
+            variant="outlined"
+            value={backgroundWhere}
+            onChange={evt => setBackgroundWhere(evt.target.value)}
+          />
+        </Grid>
+        <Grid item className="text-field">
+          <div className="question">Why are you a vagabond?</div>
+          <TextField
+            fullWidth
+            multiline
+            variant="outlined"
+            value={backgroundWhy}
+            onChange={evt => setBackgroundWhy(evt.target.value)}
+          />
+        </Grid>
+        <Grid item className="text-field">
+          <div className="question">Whom have you left behind?</div>
+          <TextField
+            fullWidth
+            multiline
+            variant="outlined"
+            value={backgroundWho}
+            onChange={evt => setBackgroundWho(evt.target.value)}
+          />
+        </Grid>
+        <Grid item className="text-field">
+          <div className="question">Which faction have you served the most?</div>
+          <Select
+            fullWidth
+            variant="outlined"
+            value={backgroundFactionServed}
+            onChange={evt => setBackgroundFactionServed(evt.target.value as string)}
+          >
+            {character.reputation.map(rep => (
+              <MenuItem value={rep.faction}>{rep.faction}</MenuItem>
+            ))}
+          </Select>
+        </Grid>
+        <Grid item className="text-field">
+          <div className="question">With which faction have you earned a special enmity?</div>
+          <Select
+            fullWidth
+            variant="outlined"
+            value={backgroundFactionEnmity}
+            onChange={evt => setBackgroundFactionEnmity(evt.target.value as string)}
+          >
+            {character.reputation.map(rep => (
+              <MenuItem value={rep.faction}>{rep.faction}</MenuItem>
+            ))}
+          </Select>
+        </Grid>
       </Grid>
-      <Grid item className="text-field">
-        <div className="question">Why are you a vagabond?</div>
-        <TextField
-          fullWidth
-          multiline
-          variant="outlined"
-          value={backgroundWhy}
-          onChange={evt => setBackgroundWhy(evt.target.value)}
-        />
-      </Grid>
-      <Grid item className="text-field">
-        <div className="question">Whom have you left behind?</div>
-        <TextField
-          fullWidth
-          multiline
-          variant="outlined"
-          value={backgroundWho}
-          onChange={evt => setBackgroundWho(evt.target.value)}
-        />
-      </Grid>
-      <Grid item className="text-field">
-        <div className="question">Which faction have you served the most?</div>
-        <Select
-          fullWidth
-          variant="outlined"
-          value={backgroundFactionServed}
-          onChange={evt => setBackgroundFactionServed(evt.target.value as string)}
-        >
-          {character.reputation.map(rep => (
-            <MenuItem value={rep.faction}>{rep.faction}</MenuItem>
-          ))}
-        </Select>
-      </Grid>
-      <Grid item className="text-field">
-        <div className="question">With which faction have you earned a special enmity?</div>
-        <Select
-          fullWidth
-          variant="outlined"
-          value={backgroundFactionEnmity}
-          onChange={evt => setBackgroundFactionEnmity(evt.target.value as string)}
-        >
-          {character.reputation.map(rep => (
-            <MenuItem value={rep.faction}>{rep.faction}</MenuItem>
-          ))}
-        </Select>
-      </Grid>
-    </Grid>
+    ),
+    [
+      character.reputation,
+      backgroundWhere,
+      backgroundWhy,
+      backgroundWho,
+      backgroundFactionServed,
+      backgroundFactionEnmity,
+      setBackgroundWhere,
+      setBackgroundWho,
+      setBackgroundWhy,
+      setBackgroundFactionServed,
+      setBackgroundFactionEnmity,
+    ]
   );
 };
 

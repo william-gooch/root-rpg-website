@@ -15,30 +15,33 @@ const NatureBox: React.FC = props => {
     [changeCharacter]
   );
 
-  return (
-    <Grid item container direction="column" className="nature-box">
-      <Grid item className="title">
-        Your Nature
-      </Grid>
-      <Grid item className="options">
-        {playbooks[character.playbook].natures.map(nature => (
-          <Grid key={nature.name} item className="container">
-            <Grid container direction="column" className="box">
-              <Grid item container direction="row" alignItems="center">
-                <Radio
-                  checked={character.nature === nature.name ?? false}
-                  onChange={() => updateNature(nature.name)}
-                  icon={<CheckBoxOutlineBlank />}
-                  checkedIcon={<CheckBox />}
-                />
-                <span className="name">{nature.name}</span>
+  return React.useMemo(
+    () => (
+      <Grid item container direction="column" className="nature-box">
+        <Grid item className="title">
+          Your Nature
+        </Grid>
+        <Grid item className="options">
+          {playbooks[character.playbook].natures.map(nature => (
+            <Grid key={nature.name} item className="container">
+              <Grid container direction="column" className="box">
+                <Grid item container direction="row" alignItems="center">
+                  <Radio
+                    checked={character.nature === nature.name ?? false}
+                    onChange={() => updateNature(nature.name)}
+                    icon={<CheckBoxOutlineBlank />}
+                    checkedIcon={<CheckBox />}
+                  />
+                  <span className="name">{nature.name}</span>
+                </Grid>
+                <div className="description" dangerouslySetInnerHTML={{ __html: marked(nature.description) }}></div>
               </Grid>
-              <div className="description" dangerouslySetInnerHTML={{ __html: marked(nature.description) }}></div>
             </Grid>
-          </Grid>
-        ))}
+          ))}
+        </Grid>
       </Grid>
-    </Grid>
+    ),
+    [character.nature, character.playbook, updateNature]
   );
 };
 

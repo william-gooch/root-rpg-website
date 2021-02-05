@@ -12,36 +12,41 @@ const TopBar: React.FC<TopBarProps> = props => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>();
   const socket = useSocket();
 
+  console.log("top bar rendering");
+
   const createNewCharacter = React.useCallback(() => {
     socket.send(JSON.stringify({ action: "new-document" }));
   }, [socket]);
 
-  return (
-    <AppBar position="static" color="inherit" className="top-bar">
-      <Toolbar>
-        <IconButton className="home-button" component={Link} to="/">
-          <Home />
-        </IconButton>
-        <Typography variant="h6" className="fill">
-          Root RPG
-        </Typography>
-        {props.children}
-        <IconButton edge="start" onClick={evt => setAnchorEl(evt.currentTarget)} style={{ marginLeft: "0.5vw" }}>
-          <MenuIcon />
-        </IconButton>
-      </Toolbar>
-      <Popover
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-        onClose={() => setAnchorEl(null)}
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-      >
-        <MenuList id="main-menu">
-          <MenuItem onClick={createNewCharacter}>New Character</MenuItem>
-        </MenuList>
-      </Popover>
-    </AppBar>
+  return React.useMemo(
+    () => (
+      <AppBar position="static" color="inherit" className="top-bar">
+        <Toolbar>
+          <IconButton className="home-button" component={Link} to="/">
+            <Home />
+          </IconButton>
+          <Typography variant="h6" className="fill">
+            Root RPG
+          </Typography>
+          {props.children}
+          <IconButton edge="start" onClick={evt => setAnchorEl(evt.currentTarget)} style={{ marginLeft: "0.5vw" }}>
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+        <Popover
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          onClose={() => setAnchorEl(null)}
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+        >
+          <MenuList id="main-menu">
+            <MenuItem onClick={createNewCharacter}>New Character</MenuItem>
+          </MenuList>
+        </Popover>
+      </AppBar>
+    ),
+    [anchorEl, createNewCharacter, props.children]
   );
 };
 

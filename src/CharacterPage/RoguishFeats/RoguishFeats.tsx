@@ -19,28 +19,31 @@ const RoguishFeatsBox: React.FC = props => {
     [changeCharacter]
   );
 
-  return (
-    <Grid item container direction="column" className="feats-box">
-      <Grid item className="title">
-        <div>Roguish Feats</div>
-        <div className="choose-text">(Choose one feat to start)</div>
-      </Grid>
-      <FormGroup>
-        <Grid container direction="row">
-          {roguishFeats.map(feat => (
-            <Grid key={feat} item xs={12} lg={6}>
-              <FormControlLabel
-                control={<Checkbox size="small" />}
-                label={<FormLabel>{feat}</FormLabel>}
-                checked={character.roguishFeats[feat] ?? false}
-                disabled={playbooks[character.playbook].initialRoguishFeats.startWith[feat]}
-                onChange={(evt: any) => updateFeat(feat, evt.target.checked)}
-              />
-            </Grid>
-          ))}
+  return React.useMemo(
+    () => (
+      <Grid item container direction="column" className="feats-box">
+        <Grid item className="title">
+          <div>Roguish Feats</div>
+          <div className="choose-text">(Choose one feat to start)</div>
         </Grid>
-      </FormGroup>
-    </Grid>
+        <FormGroup>
+          <Grid container direction="row">
+            {roguishFeats.map(feat => (
+              <Grid key={feat} item xs={12} lg={6}>
+                <FormControlLabel
+                  control={<Checkbox size="small" />}
+                  label={<FormLabel>{feat}</FormLabel>}
+                  checked={character.roguishFeats[feat] ?? false}
+                  disabled={playbooks[character.playbook].initialRoguishFeats.startWith[feat]}
+                  onChange={(evt: any) => updateFeat(feat, evt.target.checked)}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </FormGroup>
+      </Grid>
+    ),
+    [character.playbook, character.roguishFeats, updateFeat]
   );
 };
 

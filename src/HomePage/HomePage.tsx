@@ -60,7 +60,7 @@ const HomePage: React.FC<HomePageProps> = props => {
       localStorage.setItem("myCharacters", JSON.stringify(newCharacterIds));
       getNewStorage();
     },
-    [socket, getNewStorage]
+    [getNewStorage]
   );
 
   return (

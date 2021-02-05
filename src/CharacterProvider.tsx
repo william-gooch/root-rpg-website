@@ -80,14 +80,15 @@ export const CharacterProvider: React.FC = props => {
 export const useCharacterContext = (): CharacterContextType => React.useContext(CharacterContext);
 
 export const useCharacter = (id: string): [CharacterDoc, (fn: CharacterChangeFn) => void] => {
-  const characterContext = useCharacterContext();
+  const { getCharacters, changeCharacter } = useCharacterContext();
 
-  const character = characterContext.getCharacters([id])?.[id];
-  const changeCharacter = React.useCallback((fn: CharacterChangeFn) => characterContext.changeCharacter(id, fn), [
-    characterContext.changeCharacter,
+  const character = getCharacters([id])?.[id];
+  const changeThisCharacter = React.useCallback((fn: CharacterChangeFn) => changeCharacter(id, fn), [
+    changeCharacter,
+    id,
   ]);
 
-  return [character!, changeCharacter];
+  return [character!, changeThisCharacter];
 };
 
 export const useCurrentCharacter = (): ReturnType<typeof useCharacter> => {

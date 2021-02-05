@@ -23,25 +23,18 @@ import { Share } from "@material-ui/icons";
 
 import { playbooks } from "root-rpg-model";
 
-interface CharacterPageProps {}
-
-const CharacterPage: React.FC<CharacterPageProps> = props => {
+const CharacterPage: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
 
   const copyLinkToClipboard = React.useCallback(async () => {
     await navigator.clipboard.writeText(window.location.href);
     setCopied(true);
   }, []);
+
   const [copied, setCopied] = React.useState(false);
 
-  if (!character) {
-    return <div>Loading...</div>;
-  }
-
-  const playbook = playbooks[character.playbook];
-
-  return (
-    <>
+  const topBar = React.useMemo(
+    () => (
       <TopBar>
         <IconButton onClick={copyLinkToClipboard}>
           <Share />
@@ -54,6 +47,19 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
           />
         </IconButton>
       </TopBar>
+    ),
+    [copied, copyLinkToClipboard]
+  );
+
+  if (!character) {
+    return <div>Loading...</div>;
+  }
+
+  const playbook = playbooks[character.playbook];
+
+  return (
+    <>
+      {topBar}
       <Grid container direction="row" alignItems="stretch" className="character-page-container">
         <Grid item xs={12} xl={6} className="page-container">
           <Grid container direction="column" className="page-column">
@@ -72,17 +78,17 @@ const CharacterPage: React.FC<CharacterPageProps> = props => {
                 <Connections />
               </Grid>
             </Grid>
-            <Reputation reputation={character.reputation} changeCharacter={changeCharacter} />
+            <Reputation />
           </Grid>
         </Grid>
         <Grid item xs={12} xl={6} className="page-container">
           <Grid container direction="column" className="page-column">
             <Grid item container direction="row" spacing={2} alignItems="stretch" className="main-row">
               <Grid item md={4} container alignItems="stretch" direction="column" className="first-column">
-                <Stats stats={character.stats} changeCharacter={changeCharacter} />
+                <Stats />
                 <Harm />
                 <RoguishFeats />
-                <WeaponSkills boldedSkills={playbook.weaponSkills.bolded} />
+                <WeaponSkills />
               </Grid>
               <Grid item md={8} container alignItems="stretch" direction="column" className="second-column">
                 <Moves />

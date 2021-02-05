@@ -40,75 +40,90 @@ const Details: React.FC<DetailsProps> = () => {
     setDemeanor(playbook.demeanors[idx]);
   }, [setDemeanor, playbook.demeanors]);
 
-  return (
-    <Grid item container direction="column" className="details-box">
-      <Grid item className="text-field">
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Name"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={generateName}>
-                  <Replay />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          value={name}
-          onChange={evt => setName(evt.target.value)}
-        />
+  return React.useMemo(
+    () => (
+      <Grid item container direction="column" className="details-box">
+        <Grid item className="text-field">
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="Name"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={generateName}>
+                    <Replay />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            value={name}
+            onChange={evt => setName(evt.target.value)}
+          />
+        </Grid>
+        <Grid item className="text-field">
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="Species"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={generateSpecies}>
+                    <Replay />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            value={species}
+            onChange={evt => setSpecies(evt.target.value)}
+          />
+        </Grid>
+        <Grid item className="text-field">
+          <TextField
+            fullWidth
+            multiline
+            rows={3}
+            rowsMax={5}
+            variant="outlined"
+            label="Details"
+            value={details}
+            onChange={evt => setDetails(evt.target.value)}
+          />
+        </Grid>
+        <Grid item className="text-field">
+          <TextField
+            fullWidth
+            variant="outlined"
+            label="Demeanor"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={generateDemeanor}>
+                    <Replay />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            value={demeanor}
+            onChange={evt => setDemeanor(evt.target.value)}
+          />
+        </Grid>
       </Grid>
-      <Grid item className="text-field">
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Species"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={generateSpecies}>
-                  <Replay />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          value={species}
-          onChange={evt => setSpecies(evt.target.value)}
-        />
-      </Grid>
-      <Grid item className="text-field">
-        <TextField
-          fullWidth
-          multiline
-          rows={3}
-          rowsMax={5}
-          variant="outlined"
-          label="Details"
-          value={details}
-          onChange={evt => setDetails(evt.target.value)}
-        />
-      </Grid>
-      <Grid item className="text-field">
-        <TextField
-          fullWidth
-          variant="outlined"
-          label="Demeanor"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={generateDemeanor}>
-                  <Replay />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          value={demeanor}
-          onChange={evt => setDemeanor(evt.target.value)}
-        />
-      </Grid>
-    </Grid>
+    ),
+    [
+      name,
+      species,
+      details,
+      demeanor,
+      generateName,
+      generateSpecies,
+      generateDemeanor,
+      setName,
+      setSpecies,
+      setDetails,
+      setDemeanor,
+    ]
   );
 };
 
