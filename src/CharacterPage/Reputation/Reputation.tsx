@@ -162,6 +162,4 @@ const ReputationBox: React.FC<ReputationBoxProps> = props => {
   );
 };
 
-export default React.memo(ReputationBox, (oldProps, newProps) => {
-  return oldProps.reputation === newProps.reputation;
-});
+export default React.memo(ReputationBox);

@@ -47,13 +47,13 @@ const Equipment: React.FC<EquipmentProps> = props => {
         <Grid item xs={12} lg={3} container direction="row" alignItems="center" className="title">
           Your Equipment
           <Grid item className="total-value">
-            (Total Value: {character.equipment.reduce((prev, curr) => prev + getItemValue(curr), 0)})
+            (Total Value: {character.equipment.reduce((prev, curr) => prev + getItemValue(curr), 0)},
           </Grid>
           <Grid item className="total-value">
-            (Starting Value: {playbooks[character.playbook].startingEquipmentValue})
+            Starting Value: {playbooks[character.playbook].startingEquipmentValue})
           </Grid>
         </Grid>
-        <Grid item xs={12} lg={3} container direction="row" alignItems="center" className="load">
+        <Grid item xs={12} lg container direction="row" alignItems="center" className="load">
           (
           <Grid
             item

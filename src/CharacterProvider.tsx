@@ -83,7 +83,9 @@ export const useCharacter = (id: string): [CharacterDoc, (fn: CharacterChangeFn)
   const characterContext = useCharacterContext();
 
   const character = characterContext.getCharacters([id])?.[id];
-  const changeCharacter = (fn: CharacterChangeFn) => characterContext.changeCharacter(id, fn);
+  const changeCharacter = React.useCallback((fn: CharacterChangeFn) => characterContext.changeCharacter(id, fn), [
+    characterContext.changeCharacter,
+  ]);
 
   return [character!, changeCharacter];
 };
