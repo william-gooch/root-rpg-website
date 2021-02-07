@@ -5,6 +5,7 @@ import { useCurrentCharacter } from "../../CharacterProvider";
 import { moves, playbooks } from "root-rpg-model";
 import { Add, Delete } from "@material-ui/icons";
 import SearchMenu from "SearchMenu/SearchMenu";
+import ShipDisplay from "./ShipDisplay";
 
 const Moves: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
@@ -13,7 +14,9 @@ const Moves: React.FC = () => {
     (id: keyof typeof moves, value: boolean) => {
       changeCharacter(d => {
         if (value) {
-          d.moves[id] = true;
+          if ((moves[id] as any).extraDefault) {
+            d.moves[id] = (moves[id] as any).extraDefault;
+          }
         } else {
           delete d.moves[id];
         }
@@ -53,7 +56,7 @@ const Moves: React.FC = () => {
                   <Grid item container direction="row" alignItems="center">
                     <Checkbox
                       disabled={playbooks[character.playbook].moves.starting.startWith[id]}
-                      checked={character.moves[id] ?? false}
+                      checked={Boolean(character.moves[id])}
                       onChange={(evt: any) => updateMove(id, evt.target.checked)}
                     />
                     <span className="name">{moves[id].name}</span>
@@ -62,6 +65,12 @@ const Moves: React.FC = () => {
                     className="description"
                     dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}
                   ></div>
+                  {id === "small-ship" && (
+                    <ShipDisplay
+                      shipData={character.moves[id] as any}
+                      changeShip={fn => changeCharacter(doc => fn(doc.moves[id]))}
+                    />
+                  )}
                 </Grid>
               </Grid>
             ))}
@@ -82,6 +91,12 @@ const Moves: React.FC = () => {
                     className="description"
                     dangerouslySetInnerHTML={{ __html: marked(moves[id].description) }}
                   ></div>
+                  {id === "small-ship" && (
+                    <ShipDisplay
+                      shipData={character.moves[id] as any}
+                      changeShip={fn => changeCharacter(doc => fn(doc.moves[id]))}
+                    />
+                  )}
                 </Grid>
               </Grid>
             ))}
@@ -112,7 +127,7 @@ const Moves: React.FC = () => {
         </Grid>
       </Grid>
     ),
-    [character.moves, character.playbook, getChooseText, menuAnchorEl, updateMove]
+    [character.moves, character.playbook, getChooseText, menuAnchorEl, updateMove, changeCharacter]
   );
 };
 

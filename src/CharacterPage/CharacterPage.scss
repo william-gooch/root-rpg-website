@@ -197,6 +197,29 @@
           }
         }
 
+        .ship-display-box {
+          background-color: $color-background-light;
+          padding: 1.5rem;
+          border-radius: $border-radius-lagging;
+          .ship-name-wear-row {
+            flex-basis: 70%;
+            .wear-text {
+              font-size: 1.5rem;
+            }
+          }
+          .traits-block {
+            margin-top: 0.5rem;
+            .traits-text {
+              font-weight: bold;
+              font-size: 1rem;
+            }
+            font-size: 0.9rem;
+          }
+          .MuiCheckbox-root {
+            padding: 0.05rem;
+          }
+        }
+
         .new-equipment-button {
           height: 100%;
           .new-box {

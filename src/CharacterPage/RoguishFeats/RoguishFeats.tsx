@@ -26,7 +26,7 @@ const RoguishFeatsBox: React.FC = props => {
           <div>Roguish Feats</div>
           <div className="choose-text">
             {playbooks[character.playbook].initialRoguishFeats.choose > 0
-              ? "(Choose {playbooks[character.playbook].initialRoguishFeats.choose} feat(s) to start)"
+              ? `(Choose ${playbooks[character.playbook].initialRoguishFeats.choose} feat(s) to start)`
               : "(Start with marked feats)"}
           </div>
         </Grid>
