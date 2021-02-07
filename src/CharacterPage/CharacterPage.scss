@@ -220,6 +220,26 @@
           }
         }
 
+        .diplomat-track-box {
+          background-color: $color-background-light;
+          padding: 1.5rem;
+          border-radius: $border-radius-lagging;
+          .diplomat-track-text {
+            font-size: 1.5rem;
+            user-select: none;
+            cursor: pointer;
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            line-height: 2.5rem;
+            border: 0.25rem solid $color-background-lighter;
+            border-radius: 1.5rem;
+            &.active {
+              background-color: $color-background-lighter;
+            }
+          }
+        }
+
         .new-equipment-button {
           height: 100%;
           .new-box {

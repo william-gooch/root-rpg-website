@@ -6,6 +6,7 @@ import { moves, playbooks } from "root-rpg-model";
 import { Add, Delete } from "@material-ui/icons";
 import SearchMenu from "SearchMenu/SearchMenu";
 import ShipDisplay from "./ShipDisplay";
+import DiplomatTrack from "./DiplomatTrack";
 
 const Moves: React.FC = () => {
   const [character, changeCharacter] = useCurrentCharacter();
@@ -71,6 +72,12 @@ const Moves: React.FC = () => {
                       changeShip={fn => changeCharacter(doc => fn(doc.moves[id]))}
                     />
                   )}
+                  {id === "diplomat" && (
+                    <DiplomatTrack
+                      diplomatData={character.moves[id] as any}
+                      changeDiplomat={fn => changeCharacter(doc => fn(doc.moves[id]))}
+                    />
+                  )}
                 </Grid>
               </Grid>
             ))}
@@ -95,6 +102,12 @@ const Moves: React.FC = () => {
                     <ShipDisplay
                       shipData={character.moves[id] as any}
                       changeShip={fn => changeCharacter(doc => fn(doc.moves[id]))}
+                    />
+                  )}
+                  {id === "diplomat" && (
+                    <DiplomatTrack
+                      diplomatData={character.moves[id] as any}
+                      changeDiplomat={fn => changeCharacter(doc => fn(doc.moves[id]))}
                     />
                   )}
                 </Grid>
