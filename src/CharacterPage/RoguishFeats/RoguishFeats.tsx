@@ -24,7 +24,11 @@ const RoguishFeatsBox: React.FC = props => {
       <Grid item container direction="column" className="feats-box">
         <Grid item className="title">
           <div>Roguish Feats</div>
-          <div className="choose-text">(Choose one feat to start)</div>
+          <div className="choose-text">
+            {playbooks[character.playbook].initialRoguishFeats.choose > 0
+              ? "(Choose {playbooks[character.playbook].initialRoguishFeats.choose} feat(s) to start)"
+              : "(Start with marked feats)"}
+          </div>
         </Grid>
         <FormGroup>
           <Grid container direction="row">
