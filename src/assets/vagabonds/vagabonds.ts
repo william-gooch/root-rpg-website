@@ -7,6 +7,10 @@ import vagrant from "assets/vagabonds/vagrant.png";
 import adventurer from "assets/vagabonds/adventurer.png";
 import harrier from "assets/vagabonds/harrier.png";
 import ronin from "assets/vagabonds/ronin.png";
+
+import chronicler from "assets/vagabonds/chronicler.png";
+import exile from "assets/vagabonds/exile.png";
+import seeker from "assets/vagabonds/seeker.png";
 import { playbooks } from "root-rpg-model";
 
 const vagabonds: { [key in keyof typeof playbooks]: string } = {
@@ -19,6 +23,9 @@ const vagabonds: { [key in keyof typeof playbooks]: string } = {
   adventurer,
   harrier,
   ronin,
+  chronicler,
+  exile,
+  seeker,
 };
 
 export default vagabonds;

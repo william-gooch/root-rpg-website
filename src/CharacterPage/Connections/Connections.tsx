@@ -24,14 +24,46 @@ const BlurbSplit: React.FC<{
 const Connections: React.FC = props => {
   const [character, changeCharacter] = useCurrentCharacter();
 
-  const updateConnection = React.useCallback(
-    (id: keyof typeof connections, value: string | null) => {
+  const updateConnectionName = React.useCallback(
+    (id: keyof typeof connections, value: string) => {
       changeCharacter(d => {
-        if (value !== null) {
-          d.connections[id] = value;
-        } else {
-          delete d.connections[id];
+        if (d.connections[id]) {
+          d.connections[id]!.name = value;
         }
+      });
+    },
+    [changeCharacter]
+  );
+
+  const updateConnectionDescription = React.useCallback(
+    (id: keyof typeof connections, value: string) => {
+      changeCharacter(d => {
+        if (d.connections[id]) {
+          d.connections[id]!.description = value;
+        }
+      });
+    },
+    [changeCharacter]
+  );
+
+  const addConnection = React.useCallback(
+    (id: keyof typeof connections) => {
+      changeCharacter(d => {
+        if (!d.connections[id]) {
+          d.connections[id] = {
+            name: "",
+            description: "",
+          };
+        }
+      });
+    },
+    [changeCharacter]
+  );
+
+  const deleteConnection = React.useCallback(
+    (id: keyof typeof connections) => {
+      changeCharacter(d => {
+        delete d.connections[id];
       });
     },
     [changeCharacter]
@@ -59,7 +91,7 @@ const Connections: React.FC = props => {
                         <TextField
                           className="connection-name-entry"
                           value={character.connections[id]}
-                          onChange={evt => updateConnection(id, evt.target.value)}
+                          onChange={evt => updateConnectionName(id, evt.target.value)}
                         />
                       }
                     />
@@ -73,11 +105,14 @@ const Connections: React.FC = props => {
             ))}
           {Object.entries(character.connections)
             .filter(([id, v]) => !playbooks[character.playbook].connections[id as keyof typeof connections])
-            .map(([id, name]) => [id, name] as [keyof typeof connections, string])
+            .map(
+              ([id, name]) =>
+                [id, name] as [keyof typeof connections, typeof character.connections[keyof typeof connections]]
+            )
             .map(([id, name]) => (
               <Grid key={id} item className="container">
                 <div className="actions">
-                  <IconButton onClick={() => updateConnection(id, null)}>
+                  <IconButton onClick={() => deleteConnection(id)}>
                     <Delete />
                   </IconButton>
                 </div>
@@ -88,7 +123,7 @@ const Connections: React.FC = props => {
                     <TextField
                       className="connection-name-entry"
                       value={character.connections[id]}
-                      onChange={evt => updateConnection(id, evt.target.value)}
+                      onChange={evt => updateConnectionName(id, evt.target.value)}
                     />
                     <span>.</span>
                   </div>
@@ -113,7 +148,7 @@ const Connections: React.FC = props => {
             anchorEl={menuAnchorEl}
             open={Boolean(menuAnchorEl)}
             onClose={() => setMenuAnchorEl(null)}
-            onSelect={item => updateConnection(item as keyof typeof connections, "")}
+            onSelect={item => addConnection(item as keyof typeof connections)}
             items={Object.keys(connections)}
             getItemText={item => connections[item as keyof typeof connections].name}
             filterPredicate={(item, filter) =>
@@ -125,7 +160,7 @@ const Connections: React.FC = props => {
         </Grid>
       </Grid>
     ),
-    [character.connections, character.playbook, menuAnchorEl, updateConnection]
+    [character.connections, character.playbook, menuAnchorEl]
   );
 };
 
