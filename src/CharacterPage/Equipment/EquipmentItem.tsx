@@ -42,12 +42,23 @@ const EquipmentItemComponent: React.FC<EquipmentItemProps> = ({ item, changeItem
           </Grid>
           <Grid item>
             {!locked && (
-              <IconButton onClick={() => changeItem(item => (item.wear.max = Math.max(item.wear.max - 1, 0)))}>
+              <IconButton
+                onClick={() =>
+                  changeItem(item => {
+                    item.wear.max = Math.max(item.wear.max - 1, 0);
+                    item.wear.current = Math.min(item.wear.current, item.wear.max);
+                  })
+                }
+              >
                 <RemoveCircle />
               </IconButton>
             )}
             {Array.from(new Array(item.wear.max)).map((_, i) => (
-              <Checkbox key={i} />
+              <Checkbox
+                key={i}
+                checked={item.wear.current > i}
+                onClick={() => changeItem(doc => (doc.wear.current = doc.wear.current === i + 1 ? 0 : i + 1))}
+              />
             ))}
             {!locked && (
               <IconButton onClick={() => changeItem(item => (item.wear.max += 1))}>
