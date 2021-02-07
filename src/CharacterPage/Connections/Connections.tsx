@@ -23,6 +23,7 @@ const BlurbSplit: React.FC<{
 
 const Connections: React.FC = props => {
   const [character, changeCharacter] = useCurrentCharacter();
+  const characterConnections = character.connections;
 
   const updateConnectionName = React.useCallback(
     (id: keyof typeof connections, value: string) => {
@@ -90,10 +91,21 @@ const Connections: React.FC = props => {
                       textField={
                         <TextField
                           className="connection-name-entry"
-                          value={character.connections[id]}
+                          value={characterConnections[id]?.name}
                           onChange={evt => updateConnectionName(id, evt.target.value)}
                         />
                       }
+                    />
+                  </div>
+                  <div className="user-description">
+                    <TextField
+                      fullWidth
+                      multiline
+                      placeholder="Details..."
+                      className="connection-description-entry"
+                      variant="outlined"
+                      value={characterConnections[id]?.description}
+                      onChange={evt => updateConnectionDescription(id, evt.target.value)}
                     />
                   </div>
                   <div
@@ -103,11 +115,11 @@ const Connections: React.FC = props => {
                 </Grid>
               </Grid>
             ))}
-          {Object.entries(character.connections)
+          {Object.entries(characterConnections)
             .filter(([id, v]) => !playbooks[character.playbook].connections[id as keyof typeof connections])
             .map(
               ([id, name]) =>
-                [id, name] as [keyof typeof connections, typeof character.connections[keyof typeof connections]]
+                [id, name] as [keyof typeof connections, typeof characterConnections[keyof typeof connections]]
             )
             .map(([id, name]) => (
               <Grid key={id} item className="container">
@@ -122,10 +134,18 @@ const Connections: React.FC = props => {
                     <span>My {connections[id].name} is </span>
                     <TextField
                       className="connection-name-entry"
-                      value={character.connections[id]}
+                      value={characterConnections[id]?.name}
                       onChange={evt => updateConnectionName(id, evt.target.value)}
                     />
                     <span>.</span>
+                  </div>
+                  <div className="user-description">
+                    <TextField
+                      className="connection-description-entry"
+                      variant="outlined"
+                      value={characterConnections[id]?.description}
+                      onChange={evt => updateConnectionDescription(id, evt.target.value)}
+                    />
                   </div>
                   <div
                     className="description"
@@ -154,13 +174,21 @@ const Connections: React.FC = props => {
             filterPredicate={(item, filter) =>
               (filter
                 ? connections[item as keyof typeof connections].name.toLowerCase().includes(filter.toLowerCase())
-                : true) && Object.keys(character.connections).indexOf(item) < 0
+                : true) && Object.keys(characterConnections).indexOf(item) < 0
             }
           />
         </Grid>
       </Grid>
     ),
-    [character.connections, character.playbook, menuAnchorEl]
+    [
+      characterConnections,
+      character.playbook,
+      menuAnchorEl,
+      updateConnectionName,
+      updateConnectionDescription,
+      addConnection,
+      deleteConnection,
+    ]
   );
 };
 
