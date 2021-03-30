@@ -17,6 +17,8 @@ const Moves: React.FC = () => {
         if (value) {
           if ((moves[id] as any).extraDefault) {
             d.moves[id] = (moves[id] as any).extraDefault;
+          } else {
+            d.moves[id] = value;
           }
         } else {
           delete d.moves[id];
