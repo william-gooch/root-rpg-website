@@ -4,12 +4,13 @@ import { Grid, IconButton, TextField } from "@material-ui/core";
 import { Add, ChevronRight } from "@material-ui/icons";
 
 import "./HomePage.scss";
-import { useSocket } from "../SocketProvider";
 import TopBar from "../TopBar/TopBar";
 import { useCharacterContext } from "../CharacterProvider";
 import CharacterItem from "./CharacterItem/CharacterItem";
 import { Character } from "root-rpg-model";
 import PlaybookPopup from "./PlaybookPopup/PlaybookPopup";
+
+import character from "api/character";
 
 interface HomePageProps {
   history: History;
@@ -18,7 +19,6 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = props => {
   const [id, setId] = React.useState("");
   const [popupOpen, setPopupOpen] = React.useState(false);
-  const socket = useSocket();
 
   const characterContext = useCharacterContext();
   const [characters, setCharacters] = React.useState<{
@@ -45,18 +45,33 @@ const HomePage: React.FC<HomePageProps> = props => {
   );
 
   const createNewCharacter = React.useCallback(
-    (playbookName: string) => {
-      socket.send(JSON.stringify({ action: "new-document", playbook: playbookName }));
+    async (playbookName: string) => {
+      const characterId = await character.new(playbookName as any);
+      let charactersToSave = "";
+      const charactersString = localStorage.getItem("myCharacters");
+      if (charactersString) {
+        const characters = JSON.parse(charactersString) as string[];
+        characters.push(characterId);
+        charactersToSave = JSON.stringify(characters);
+      } else {
+        charactersToSave = JSON.stringify([characterId]);
+      }
+      localStorage.setItem("myCharacters", charactersToSave);
+
+      props.history.push(`/character/${characterId}`);
     },
-    [socket]
+    [props.history]
   );
 
   const deleteCharacter = React.useCallback(
-    (id: string) => {
+    async (id: string) => {
       const characterIds: string[] = JSON.parse(localStorage.getItem("myCharacters") ?? "[]");
       const newCharacterIds = characterIds.filter(x => x !== id);
 
       localStorage.setItem("myCharacters", JSON.stringify(newCharacterIds));
+
+      await character.delete(id);
+
       getNewStorage();
     },
     [getNewStorage]

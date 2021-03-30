@@ -48,18 +48,20 @@ export default class AutomergeClient<T> {
     save,
     savedData,
     onChange,
+    subscribeList,
   }: {
     socket?: WebSocket;
     save?: any;
     savedData?: string;
     onChange?: any;
+    subscribeList: string[];
   }) {
     if (!socket) throw new Error("You have to specify websocket as socket param");
     this.socket = socket;
     this.save = save;
     this.docs = doLoad(savedData);
     this.onChange = onChange;
-    this.subscribeList = [];
+    this.subscribeList = subscribeList;
 
     socket.addEventListener("message", this.onMessage.bind(this));
     socket.addEventListener("open", this.onOpen.bind(this));
@@ -81,6 +83,12 @@ export default class AutomergeClient<T> {
       this.autocon?.receiveMsg(frame.data);
     } else if (frame.action === "error") {
       console.error("Recieved server-side error " + frame.message);
+      if (frame.message === "Document not found") {
+        const characterIds: string[] = JSON.parse(localStorage.getItem("myCharacters") ?? "[]");
+        const newCharacterIds = characterIds.filter(x => x !== frame.id);
+
+        localStorage.setItem("myCharacters", JSON.stringify(newCharacterIds));
+      }
     } else if (frame.action === "subscribed") {
       console.error("Subscribed to " + JSON.stringify(frame.id));
     } else {
@@ -115,7 +123,8 @@ export default class AutomergeClient<T> {
 
     const autocon = (this.autocon = new Automerge.Connection(docSet, send));
     autocon.open();
-    this.subscribe(Object.keys(this.docs).concat(this.subscribeList));
+    // this.subscribe(Object.keys(this.docs).concat(this.subscribeList));
+    this.subscribe(this.subscribeList);
   }
 
   private onClose() {

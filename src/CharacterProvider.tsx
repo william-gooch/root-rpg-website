@@ -32,6 +32,7 @@ export const CharacterProvider: React.FC = props => {
 
     const automergeClient = new AutomergeClient({
       socket,
+      subscribeList: JSON.parse(localStorage.getItem("myCharacters") ?? "[]"),
       savedData: localStorage.getItem("automerge") ?? undefined,
       save: (data: string) => {
         localStorage.setItem("automerge", data);
