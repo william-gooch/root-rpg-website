@@ -1,6 +1,10 @@
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import React from "react";
 import "./App.scss";
+
+import { Provider as ReduxProvider } from "react-redux";
+import store from "redux/store";
+
 import CharacterPage from "./CharacterPage/CharacterPage";
 import { CharacterProvider } from "./CharacterProvider";
 
@@ -8,8 +12,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import { SocketProvider } from "./SocketProvider";
 
-import styles from "./styles/index.module.scss";
 import SocialButtons from "SocialButtons/SocialButtons";
+
+import styles from "./styles/index.module.scss";
+
 console.log(styles);
 
 export const defaultTheme = createMuiTheme({
@@ -51,17 +57,19 @@ export const positiveNegativeTheme = createMuiTheme({
 const App: React.FC = () => {
   return (
     <Router>
-      <SocketProvider>
-        <ThemeProvider theme={defaultTheme}>
-          <CharacterProvider>
-            <Switch>
-              <Route path="/character/:id" component={CharacterPage} />
-              <Route path="/" component={HomePage} />
-            </Switch>
-            <SocialButtons />
-          </CharacterProvider>
-        </ThemeProvider>
-      </SocketProvider>
+      <ReduxProvider store={store}>
+        <SocketProvider>
+          <ThemeProvider theme={defaultTheme}>
+            <CharacterProvider>
+              <Switch>
+                <Route path="/character/:id" component={CharacterPage} />
+                <Route path="/" component={HomePage} />
+              </Switch>
+              <SocialButtons />
+            </CharacterProvider>
+          </ThemeProvider>
+        </SocketProvider>
+      </ReduxProvider>
     </Router>
   );
 };

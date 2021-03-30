@@ -31,9 +31,11 @@
         }
       }
 
-      .new-character-container {
+      .new-character-container,
+      .new-campaign-container {
         cursor: pointer;
-        .new-character-button {
+        .new-character-button,
+        .new-campaign-button {
           height: calc(100% - 1rem);
           border: 0.25rem dashed $color-background;
           border-radius: 0.5rem;
@@ -44,7 +46,8 @@
             border-color: $color-background-light;
           }
 
-          .new-character-box {
+          .new-character-box,
+          .new-campaign-box {
             height: 100%;
           }
         }

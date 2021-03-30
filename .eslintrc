@@ -19,6 +19,7 @@
         "@typescript-eslint/no-unused-vars": 0,
         "@typescript-eslint/no-empty-interface": 0,
         "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/no-empty-function": 1,
         "unused-imports/no-unused-imports-ts": 1,
         "prettier/prettier": 2
     }

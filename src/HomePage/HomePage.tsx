@@ -1,7 +1,7 @@
 import React from "react";
 import { History } from "history";
-import { Grid, IconButton, TextField } from "@material-ui/core";
-import { Add, ChevronRight } from "@material-ui/icons";
+import { Grid, IconButton, TextField, Typography } from "@material-ui/core";
+import { Add, ChevronRight, AccountCircle, ExitToApp } from "@material-ui/icons";
 
 import "./HomePage.scss";
 import TopBar from "../TopBar/TopBar";
@@ -11,6 +11,10 @@ import { Character } from "root-rpg-model";
 import PlaybookPopup from "./PlaybookPopup/PlaybookPopup";
 
 import character from "api/character";
+import CampaignList from "./CampaignList/CampaignList";
+import { useDispatch, useSelector } from "react-redux";
+import LoginPopup from "LoginPopup/LoginPopup";
+import { logout } from "redux/actions/user";
 
 interface HomePageProps {
   history: History;
@@ -19,17 +23,22 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = props => {
   const [id, setId] = React.useState("");
   const [popupOpen, setPopupOpen] = React.useState(false);
+  const [loginOpen, setLoginOpen] = React.useState(false);
 
   const characterContext = useCharacterContext();
   const [characters, setCharacters] = React.useState<{
     [key: string]: Character | undefined;
   }>();
 
+  const dispatch = useDispatch();
+
   const getNewStorage = React.useCallback(() => {
     const characterIds = JSON.parse(localStorage.getItem("myCharacters") ?? "[]");
     const characters = characterContext.getCharacters(characterIds);
     setCharacters(characters);
   }, [characterContext]);
+
+  const user = useSelector((state: any) => state.user.user);
 
   React.useEffect(() => {
     getNewStorage();
@@ -79,8 +88,22 @@ const HomePage: React.FC<HomePageProps> = props => {
 
   return (
     <>
-      <TopBar />
+      <TopBar>
+        {user ? (
+          <>
+            <Typography variant="h6">Hello, {user.username}!</Typography>
+            <IconButton edge="start" onClick={() => dispatch(logout())} style={{ marginLeft: "0.3vw" }}>
+              <ExitToApp />
+            </IconButton>
+          </>
+        ) : (
+          <IconButton edge="start" onClick={() => setLoginOpen(true)}>
+            <AccountCircle />
+          </IconButton>
+        )}
+      </TopBar>
       <PlaybookPopup open={popupOpen} onClose={() => setPopupOpen(false)} onSubmit={createNewCharacter} />
+      <LoginPopup open={!user && loginOpen} onClose={() => setLoginOpen(false)} />
       <Grid container direction="column" alignItems="center" className="home-page-container">
         <Grid
           item
@@ -109,6 +132,7 @@ const HomePage: React.FC<HomePageProps> = props => {
               }}
             />
           </Grid>
+          {user && <CampaignList />}
           <Grid item className="my-box">
             <h2>Your Characters</h2>
             <Grid container direction="row" alignItems="stretch">
