@@ -42,7 +42,7 @@ const MyCharacterList: React.FC<MyCharacterListProps> = props => {
       const newCharacterIds = characterIds.filter(x => x !== id);
       localStorage.setItem("myCharacters", JSON.stringify(newCharacterIds));
 
-      character.delete(id);
+      await character.delete(id);
       getCharacters();
     },
     [getCharacters]

@@ -1,23 +1,13 @@
 import React from "react";
-import { AppBar, IconButton, MenuItem, MenuList, Popover, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
 
 import "./TopBar.scss";
-import { Home, Menu as MenuIcon } from "@material-ui/icons";
+import { Home } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useSocket } from "../SocketProvider";
 
 interface TopBarProps {}
 
 const TopBar: React.FC<TopBarProps> = props => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>();
-  const socket = useSocket();
-
-  console.log("top bar rendering");
-
-  const createNewCharacter = React.useCallback(() => {
-    socket.send(JSON.stringify({ action: "new-document" }));
-  }, [socket]);
-
   return React.useMemo(
     () => (
       <AppBar position="static" color="inherit" className="top-bar">
@@ -29,24 +19,10 @@ const TopBar: React.FC<TopBarProps> = props => {
             Root RPG
           </Typography>
           {props.children}
-          <IconButton edge="start" onClick={evt => setAnchorEl(evt.currentTarget)} style={{ marginLeft: "0.5vw" }}>
-            <MenuIcon />
-          </IconButton>
         </Toolbar>
-        <Popover
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          onClose={() => setAnchorEl(null)}
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-        >
-          <MenuList id="main-menu">
-            <MenuItem onClick={createNewCharacter}>New Character</MenuItem>
-          </MenuList>
-        </Popover>
       </AppBar>
     ),
-    [anchorEl, createNewCharacter, props.children]
+    [props.children]
   );
 };
 
