@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.campaign-popup {
+  .MuiPaper-root {
+    max-width: 100%;
+    background-color: transparent;
+    margin: 3vw;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .campaign-container {
+    background-color: $color-background;
+    border-radius: $border-radius-leading;
+    padding: calc(1vw - 1rem) 1vw 1vw 1vw;
+    overflow-y: auto;
+    max-width: 80rem;
+
+    .campaign-box {
+      .campaign-title {
+        font-size: 2rem;
+        margin: 1rem 0;
+        text-align: center;
+      }
+    }
+  }
+}

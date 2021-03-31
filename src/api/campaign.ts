@@ -11,8 +11,8 @@ const getCampaign = async (campaignId: string): Promise<Campaign> => {
   return response.data as Campaign;
 };
 
-const newCampaign = async (): Promise<Campaign> => {
-  const response = await api.post("/campaign/new");
+const newCampaign = async (name: string): Promise<Campaign> => {
+  const response = await api.post("/campaign/new", { name });
   return response.data as Campaign;
 };
 

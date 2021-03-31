@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoginPopup from "LoginPopup/LoginPopup";
 import { logout } from "redux/actions/user";
 import MyCharacterList from "./MyCharacterList/MyCharacterList";
+import CampaignPopup from "./CampaignPopup/CampaignPopup";
 
 interface HomePageProps {
   history: History;
@@ -22,6 +23,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   const [id, setId] = React.useState("");
   const [popupOpen, setPopupOpen] = React.useState(false);
   const [loginOpen, setLoginOpen] = React.useState(false);
+  const [campaignOpen, setCampaignOpen] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -62,6 +64,7 @@ const HomePage: React.FC<HomePageProps> = props => {
       </TopBar>
       <PlaybookPopup open={popupOpen} onClose={() => setPopupOpen(false)} onSubmit={createNewCharacter} />
       <LoginPopup open={!user && loginOpen} onClose={() => setLoginOpen(false)} />
+      <CampaignPopup open={campaignOpen} onClose={() => setCampaignOpen(false)} />
       <Grid container direction="column" alignItems="center" className="home-page-container">
         <Grid
           item
@@ -90,7 +93,7 @@ const HomePage: React.FC<HomePageProps> = props => {
               }}
             />
           </Grid>
-          {user && <CampaignList />}
+          {user && <CampaignList newCampaign={() => setCampaignOpen(true)} />}
           {user && <MyCharacterList newCharacter={() => setPopupOpen(true)} />}
         </Grid>
       </Grid>
