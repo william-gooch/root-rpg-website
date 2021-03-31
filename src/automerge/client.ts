@@ -48,20 +48,18 @@ export default class AutomergeClient<T> {
     save,
     savedData,
     onChange,
-    subscribeList,
   }: {
     socket?: WebSocket;
     save?: any;
     savedData?: string;
     onChange?: any;
-    subscribeList: string[];
   }) {
     if (!socket) throw new Error("You have to specify websocket as socket param");
     this.socket = socket;
     this.save = save;
     this.docs = doLoad(savedData);
     this.onChange = onChange;
-    this.subscribeList = subscribeList;
+    this.subscribeList = [];
 
     socket.addEventListener("message", this.onMessage.bind(this));
     socket.addEventListener("open", this.onOpen.bind(this));

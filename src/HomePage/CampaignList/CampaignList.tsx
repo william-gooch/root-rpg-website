@@ -23,7 +23,7 @@ const CampaignList: React.FC<CampaignListProps> = props => {
   }, []);
 
   return (
-    <Grid item className="my-box">
+    <Grid item className="campaign-box">
       <h2>Your Campaigns</h2>
       <Grid container direction="row" alignItems="stretch">
         {Object.entries(campaigns ?? {}).map(([id, character]) => character && <CampaignItem />)}

@@ -1,6 +1,11 @@
 import { Character, playbooks } from "root-rpg-model";
 import { api } from "./api";
 
+const myCharacters = async (): Promise<{ [id: string]: Character }> => {
+  const response = await api.get(`/character/my`);
+  return response.data as { [id: string]: Character };
+};
+
 const getCharacter = async (characterId: string): Promise<Character> => {
   const response = await api.get(`/character/${characterId}`);
   return response.data as Character;
@@ -17,6 +22,7 @@ const deleteCharacter = async (characterId: string): Promise<boolean> => {
 };
 
 export default {
+  my: myCharacters,
   get: getCharacter,
   new: newCharacter,
   delete: deleteCharacter,

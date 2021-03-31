@@ -10,7 +10,7 @@ interface CharacterItemProps {
   deleteCharacter(): void;
 }
 
-const CharacterItem: React.FC<CharacterItemProps> = props => {
+const MyCharacterItem: React.FC<CharacterItemProps> = props => {
   const [confirmDelete, setConfirmDelete] = React.useState(false);
 
   return (
@@ -45,4 +45,4 @@ const CharacterItem: React.FC<CharacterItemProps> = props => {
   );
 };
 
-export default React.memo(CharacterItem);
+export default React.memo(MyCharacterItem);
