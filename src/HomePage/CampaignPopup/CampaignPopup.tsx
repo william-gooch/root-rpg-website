@@ -1,7 +1,7 @@
 import { Button, Dialog, Grid, TextField } from "@material-ui/core";
 import campaign from "api/campaign";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "redux/hooks";
 import { getCampaigns } from "redux/actions/campaign";
 import "./CampaignPopup.scss";
 
@@ -18,7 +18,7 @@ const CampaignPopup: React.FC<CampaignPopupProps> = ({ open, onClose }) => {
     await campaign.new(campaignName);
     dispatch(getCampaigns());
     onClose();
-  }, [campaignName, dispatch]);
+  }, [campaignName, dispatch, onClose]);
 
   return (
     <Dialog open={open} onClose={onClose} className="campaign-popup">

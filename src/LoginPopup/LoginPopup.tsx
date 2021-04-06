@@ -1,6 +1,6 @@
 import { Button, Dialog, Grid, TextField } from "@material-ui/core";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "redux/hooks";
 import "./LoginPopup.scss";
 
 import { login, signup } from "redux/actions/user";

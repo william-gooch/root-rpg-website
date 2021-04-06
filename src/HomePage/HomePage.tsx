@@ -9,11 +9,11 @@ import PlaybookPopup from "./PlaybookPopup/PlaybookPopup";
 
 import character from "api/character";
 import CampaignList from "./CampaignList/CampaignList";
-import { useDispatch, useSelector } from "react-redux";
 import LoginPopup from "LoginPopup/LoginPopup";
 import { logout } from "redux/actions/user";
 import MyCharacterList from "./MyCharacterList/MyCharacterList";
 import CampaignPopup from "./CampaignPopup/CampaignPopup";
+import { useDispatch, useSelector } from "redux/hooks";
 
 interface HomePageProps {
   history: History;
@@ -26,8 +26,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   const [campaignOpen, setCampaignOpen] = React.useState(false);
 
   const dispatch = useDispatch();
-
-  const user = useSelector((state: any) => state.user.user);
+  const user = useSelector(state => state.user.user);
 
   const navigateToCharacterPage = React.useCallback(
     (id: string) => {

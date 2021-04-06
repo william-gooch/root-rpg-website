@@ -6,6 +6,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import store from "redux/store";
 
 import CharacterPage from "./CharacterPage/CharacterPage";
+import CampaignPage from "CampaignPage/CampaignPage";
 import { CharacterProvider } from "./CharacterProvider";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -63,6 +64,7 @@ const App: React.FC = () => {
             <CharacterProvider>
               <Switch>
                 <Route path="/character/:id" component={CharacterPage} />
+                <Route path="/campaign/:id" component={CampaignPage} />
                 <Route path="/" component={HomePage} />
               </Switch>
               <SocialButtons />

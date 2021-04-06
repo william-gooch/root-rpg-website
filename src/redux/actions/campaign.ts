@@ -1,14 +1,19 @@
 import campaign from "api/campaign";
 import { Campaign } from "model/campaign";
 import { Dispatch } from "redux";
+import { AppThunk } from "redux/store";
 
-export const getCampaigns = () => async (dispatch: Dispatch): Promise<void> => {
+export const getCampaigns = (): AppThunk => async (dispatch: Dispatch): Promise<void> => {
   const campaigns = await campaign.my();
   dispatch(campaignsLoaded(campaigns));
 };
 
 const CAMPAIGNS_LOADED = "CAMPAIGNS_LOADED";
-const campaignsLoaded = (campaigns: Campaign[]) => ({
+export interface CampaignsLoadedAction {
+  type: typeof CAMPAIGNS_LOADED;
+  campaigns: Campaign[];
+}
+const campaignsLoaded = (campaigns: Campaign[]): CampaignsLoadedAction => ({
   type: CAMPAIGNS_LOADED,
   campaigns,
 });
